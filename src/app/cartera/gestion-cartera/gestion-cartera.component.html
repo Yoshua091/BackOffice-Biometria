@@ -1,0 +1,219 @@
+<div class="p-3">
+  <a class="btn btn-link text-decoration-none px-0" [routerLink]="'/cartera'" [queryParams]="route.snapshot.queryParams">
+    <img class="boton-back" src="../../../assets/images/arrow-left.svg">
+    <span class="label-sucur">Lista de cobranzas</span>
+  </a>
+
+  <div class="d-flex justify-content-between align-items-center py-3">
+    <span class="h4">Gestión de cobranza</span>
+
+    <!-- NOTIFICACIONES / CARTAS -->
+    <div class="stepper">
+      <ul class="nav-pills d-flex justify-content-center align-items-rigth stepper-head">
+        <li class="list-group-item border-0 text-center step">
+          <div class="indicador">
+            <div class="d-flex justify-content-center align-items-center">
+              <span [class.incompleto]="!esPrimeraNotificacion && !esSegundaNotificacion && !esTerceraNotificacion"
+                    [class.completado]="esPrimeraNotificacion || esSegundaNotificacion || esTerceraNotificacion"></span>
+            </div>
+          </div>
+          <div class="detalle d-flex flex-column justify-content-center align-items-center">
+            <span>PRIMERA NOTIFICACI&Oacute;N</span>
+          </div>
+        </li>
+        <li class="list-group-item border-0 text-center step">
+          <div class="indicador">
+            <div class="d-flex justify-content-center align-items-center">
+              <span [class.incompleto]="!esSegundaNotificacion && !esTerceraNotificacion"
+                    [class.completado]="esSegundaNotificacion || esTerceraNotificacion"></span>
+            </div>
+          </div>
+          <div class="detalle d-flex flex-column justify-content-center align-items-center">
+            <span>SEGUNDA NOTIFICACI&Oacute;N</span>
+          </div>
+        </li>
+        <li class="list-group-item border-0 text-center step">
+          <div class="indicador">
+            <div class="d-flex justify-content-center align-items-center">
+              <span [class.incompleto]="!esTerceraNotificacion"
+                    [class.completado]="esTerceraNotificacion"></span>
+            </div>
+          </div>
+          <div class="detalle d-flex flex-column justify-content-center align-items-center">
+            <span>TERCERA NOTIFICACI&Oacute;N</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <ul class="nav-pills nav-fill filter-options pt-3" ngbNav #nav="ngbNav">
+    <li [ngbNavItem]="'GESTION'">
+      <a ngbNavLink>GESTI&Oacute;N DEL COBRO</a>
+      <ng-template ngbNavContent>
+        <div class="p-3">
+
+          <!-- FECHAS - PAGOS -->
+          <div class="d-flex flex-column py-3 border-bottom">
+
+            <div class="d-flex justify-content-between align-items-center py-3">
+              <span class="font-weight-bold">Este es el pago m&iacute;nimo a las siguientes fechas</span>
+              <ng-container *ngIf="!cobranza.acuerdoVigente && puedeCrearAcuerdo">
+                <button class="btn btn-primary" (click)="crearAcuerdo(2, 1)">Crear un acuerdo</button>
+              </ng-container>
+              <ng-container *ngIf="!!cobranza.acuerdoVigente">
+                <button class="btn btn-primary" (click)="descargarAcuerdo()">Descargar acuerdo</button>
+              </ng-container>
+            </div>
+
+            <ng-container *ngIf="pagosMinimos.length > 0; else sinPagosMinimos">
+              <div class="font-weight-bold py-1" *ngFor="let pago of pagosMinimos">
+                <span>{{ pago.fecha }}</span><span
+                class="text-primary pl-2">{{ pago.valor || 0 | currency: '' : 'symbol' : '1.0-0' }}</span>
+              </div>
+            </ng-container>
+            <ng-template #sinPagosMinimos>
+              <span>No hay fechas para realizar acuerdos.</span>
+            </ng-template>
+          </div>
+
+          <!-- DETALLE SOLICITUD - ACUERDO VIGENTE -->
+          <ng-container *ngIf="!!cobranza.acuerdoVigente">
+
+            <div class="py-3">
+
+              <div class="d-flex justify-content-between align-items-center py-3 border-bottom">
+                <div class="d-flex flex-column">
+                  <span
+                    class="font-weight-bold">{{ clientePorIdentificacion(cobranza.acuerdoVigente?.identificacionCliente) }}</span>
+                  <span
+                    class="font-weight-light text-success small">Acuerdo activo: {{ cobranza.acuerdoVigente?.fechaAcuerdo | date: 'dd/MM/yyyy' }}</span>
+                </div>
+              </div>
+
+              <div class="border-bottom">
+                <div class="d-flex justify-content-between align-items-center py-3">
+                  <span class="font-weight-bold">Detalles del acuerdo</span>
+                </div>
+
+                <div class="row py-1">
+                  <div class="col-6 d-flex">
+                    <span class="font-weight-bold pr-1"># Solicitud:</span>
+                    <span>{{ cobranza.cobranza.idSolicitud }}</span>
+                  </div>
+                  <div class="col-6 d-flex">
+                    <span class="font-weight-bold pr-1">D&iacute;as en mora:</span>
+                    <span>{{ cobranza.carteraVencida.diasEnMora }}</span>
+                  </div>
+                </div>
+
+                <div class="row py-1">
+                  <div class="col-6 d-flex">
+                    <span class="font-weight-bold pr-1">Fecha de creación del acuerdo:</span>
+                    <span>{{ cobranza.acuerdoVigente?.createdAt | date : 'dd/MM/yyyy' }}</span>
+                  </div>
+                  <div class="col-6 d-flex">
+                    <span class="font-weight-bold pr-1">Saldo:</span>
+                    <span>{{ cobranza.carteraVencida?.saldo | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </div>
+                </div>
+
+                <div class="row py-1">
+                  <div class="col-6 d-flex">
+                    <span class="font-weight-bold pr-1">Fecha limite de pago:</span>
+                    <span>{{ cobranza.acuerdoVigente?.fechaAcuerdo | date : 'dd/MM/yyyy' }}</span>
+                  </div>
+                  <div class="col-6 d-flex">
+                    <span class="font-weight-bold pr-1">Total deuda hoy:</span>
+                    <span>{{ pagoFechaHoy | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </div>
+                </div>
+
+                <div class="d-flex flex-column py-3">
+                  <span class="font-weight-bold pr-1">Comentarios del acuerdo:</span>
+                  <div class="titulo-seccion"
+                       *ngFor="let comentarioAcuerdo of cobranza.acuerdoVigente?.comentarios">
+                    <span>{{ comentarioAcuerdo.comentario }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- SECCION DE COMENTARIOS -->
+          <div class="w-100 comentarios py-3">
+            <div class="d-flex justify-content-between align-items-center py-4">
+              <span class="font-weight-bold">Registro de comentarios de la cartera</span>
+              <button class="btn btn-outline-primary"
+                      (click)="registrarComentario(1, 1)">
+                Registrar comentario
+              </button>
+            </div>
+            <div class="d-flex flex-column comentarios-contenido">
+              <div class="container comentarios-caja-mensajes pt-3" #CajaComentariosCobranzas>
+                <div class="d-flex flex-column comentarios-mensaje"
+                     *ngFor="let item of listaComentarios">
+                  <span class="comentarios-mensaje-texto">{{ item.comentario }}</span>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex comentarios-mensaje-detalle">
+                      <span>Registrado por:</span>
+                      <span>{{ item.usuario.nombre}} {{ item.usuario.apellido }}</span>
+                    </div>
+                    <div class="d-flex comentarios-mensaje-detalle">
+                      <span>Fecha:</span>
+                      <span>{{ item.fecha | date: 'dd/MM/yyyy - h:mm a' }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </li>
+
+    <li [ngbNavItem]="'HISTORIAL_ACUERDOS'">
+      <a ngbNavLink>HISTORIAL DE ACUERDOS</a>
+      <ng-template ngbNavContent>
+
+        <div class="py-3">
+
+          <ng-container *ngIf="cobranza.carteraVencida.acuerdos.length === 0">
+            <div class="text-center py-3">
+              <span class="h4 titulo-seccion">Este cr&eacute;dito no ha tenido acuerdos recientes</span>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="cobranza.carteraVencida.acuerdos.length > 0">
+            <div class="d-flex py-3">
+              <span class="font-weight-bold">Este cr&eacute;dito ha tenido los siguientes acuerdos de pago:</span>
+            </div>
+
+            <table class="table py-3">
+              <tbody>
+              <tr *ngFor="let acuerdo of cobranza.carteraVencida.acuerdos">
+                <td>
+                  <span>{{acuerdo.fechaAcuerdo | date: 'dd/MM/yyyy'}}</span>
+                </td>
+                <td>
+                  <span class="font-weight-bold">Acordado con:</span>
+                  <span
+                    class="titulo-seccion ml-3">{{ clientePorIdentificacion(acuerdo.identificacionCliente) || '' }}</span>
+                </td>
+                <td>
+                  <a class="titulo-seccion ml-3 text-success" *ngIf="estadoAcuerdo(acuerdo) === 2">Acuerdo vigente</a>
+                  <a class="titulo-seccion ml-3 text-primary" *ngIf="estadoAcuerdo(acuerdo) === 3">Acuerdo vencido</a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </ng-container>
+        </div>
+
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav"></div>
+
+</div>

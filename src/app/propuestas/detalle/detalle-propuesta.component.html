@@ -1,0 +1,2969 @@
+<div class="p-3">
+  <div>
+    <a class="btn btn-link text-decoration-none px-0" [routerLink]="['/', session.defaulURL()]"
+      [queryParams]="route.snapshot.queryParams">
+      <img class="boton-back pb-1" src="../../../assets/images/arrow-left.svg">
+      <span class="label-sucur">Volver al inicio</span>
+    </a>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center py-3" style="border-bottom: 1px solid #47474735;">
+    <div class="w-50 d-flex flex-column">
+      <span class="h5 titulo-seccion">Solicitud #{{ solicitud.idSolicitud }}</span>
+      <span style="font-size: 14px;" *ngIf="solicitud.estado <100">
+        <span class="font-weight-bold" style="color: #545454;">Fecha de recepci&oacute;n:</span>
+        {{ solicitud.createdAt | date: 'dd/MM/yyyy' }} -
+        <span class="font-weight-bold" style="color: #545454;">Fecha de simulaci&oacute;n:</span>
+        {{ solicitud.updatedAt | date: 'dd/MM/yyyy' }}
+      </span>
+      <span style="font-size: 14px;" *ngIf="solicitud.estado >= 100">
+        <span class="font-weight-bold" style="color: #545454;">Fecha de recepci&oacute;n:</span>
+        {{ solicitud.createdAt | date: 'dd/MM/yyyy' }} -
+        <span class="font-weight-bold" style="color: #545454;">Fecha de simulaci&oacute;n:</span>
+        {{ solicitud.simulacion?.simulacion.fechaDesembolso | date: 'dd/MM/yyyy' }}
+      </span>
+    </div>
+    <div class="w-50 d-flex justify-content-end align-items-center">
+      <div class="d-flex px-2">
+        <div class="rounded-circle mr-3" style="width: 46px; height: 46px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="47" height="47" viewBox="0 0 47 47">
+            <g id="Grupo_2407" data-name="Grupo 2407" transform="translate(-0.317 -0.001)">
+              <circle id="Elipse_5" data-name="Elipse 5" cx="23.5" cy="23.5" r="23.5" transform="translate(0.317 0.001)"
+                fill="#c00" />
+              <path id="Trazado_29" data-name="Trazado 29"
+                d="M21.291,7.791h3.164a3,3,0,0,1,2.86,2.423l1.834,8.107a.712.712,0,0,1-.695.87H26.316v7.836a2.082,2.082,0,0,1-2.023,2.139H5.539a2.082,2.082,0,0,1-2.023-2.139V19.191H1.379a.712.712,0,0,1-.695-.87l1.833-8.107A3,3,0,0,1,5.378,7.791H8.542a4.973,4.973,0,0,1-.038-.6,6.413,6.413,0,1,1,12.825,0A4.963,4.963,0,0,1,21.291,7.791Zm-.342,1.425q-.084.242-.184.491A16.238,16.238,0,0,1,19.1,12.7c-.473.692-.978,1.353-1.484,1.962-.3.367-.543.637-.683.787a2.736,2.736,0,0,1-4.045,0c-.14-.15-.378-.42-.683-.787-.505-.609-1.011-1.27-1.483-1.962A16.229,16.229,0,0,1,9.069,9.707q-.1-.248-.184-.491H5.378a1.578,1.578,0,0,0-1.47,1.313L2.271,17.766H27.562l-1.637-7.237a1.578,1.578,0,0,0-1.47-1.313Zm-3.182,9.975v8.55h6.527a.665.665,0,0,0,.6-.714V19.191Zm-1.425,0H4.942v7.836a.665.665,0,0,0,.6.714h10.8Zm-1.425-17.1a5.011,5.011,0,0,0-4.987,5.1,5.435,5.435,0,0,0,.46,1.985A14.873,14.873,0,0,0,11.9,11.895c.446.653.925,1.279,1.4,1.856.286.345.507.595.63.727a1.311,1.311,0,0,0,1.957,0c.123-.132.343-.382.63-.727.479-.577.958-1.2,1.4-1.856a14.869,14.869,0,0,0,1.515-2.723,5.436,5.436,0,0,0,.46-1.985A5.011,5.011,0,0,0,14.916,2.091Zm0,5.7a1.425,1.425,0,1,1,1.425-1.425A1.425,1.425,0,0,1,14.916,7.791Z"
+                transform="translate(9.066 9.472)" fill="#fff" />
+            </g>
+          </svg>
+        </div>
+        <div class="d-flex flex-column" style="font-size: 16px; min-width: 138px">
+          <span>Sucursal</span>
+          <span class="font-weight-bold" style="color: #545454;">{{ solicitud.sucursal.nombre }}</span>
+        </div>
+      </div>
+      <div class="d-flex px-2">
+        <div class="rounded-circle mr-3" style="width: 46px; height: 46px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="47" height="47" viewBox="0 0 47 47">
+            <g id="Grupo_2408" data-name="Grupo 2408" transform="translate(0.244 -0.001)">
+              <circle id="Elipse_5" data-name="Elipse 5" cx="23.5" cy="23.5" r="23.5"
+                transform="translate(-0.244 0.001)" fill="#c00" />
+              <path id="Trazado_30" data-name="Trazado 30"
+                d="M5.752,14.919a.712.712,0,0,0-.685.515l-3.282,11.4a.712.712,0,0,0,.685.91H16.72a.712.712,0,0,0,.685-.91l-3.282-11.4a.712.712,0,0,0-.685-.515Zm0-1.425h7.686a2.137,2.137,0,0,1,2.054,1.546l3.282,11.4a2.138,2.138,0,0,1-2.054,2.729H2.47A2.137,2.137,0,0,1,.416,26.44L3.7,15.04A2.137,2.137,0,0,1,5.752,13.494ZM9.6,10.639a4.987,4.987,0,1,1,4.987-4.987A4.987,4.987,0,0,1,9.6,10.639Zm0-1.425A3.562,3.562,0,1,0,6.033,5.652,3.562,3.562,0,0,0,9.6,9.214Z"
+                transform="translate(14.026 9.474)" fill="#fff" />
+            </g>
+          </svg>
+        </div>
+        <div class="d-flex flex-column" style="font-size: 16px; min-width: 140px">
+          <span>Asesor</span>
+          <span class="font-weight-bold" style="color: #545454;">{{ solicitud.usuarioRegistra?.nombre }} {{
+            solicitud.usuarioRegistra?.apellido }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEPPER -->
+  <div class="stepper" *ngIf="[45, 50, 55, 60].includes(solicitud.estado)">
+    <ul class="nav-pills d-flex justify-content-center align-items-center stepper-head">
+      <li class="list-group-item border-0 text-center step">
+        <a>
+          <div class="indicador">
+            <div class="d-flex justify-content-center align-items-center">
+              <span
+                [class.incompleto]="!([50, 55, 60].includes(solicitud.estado) || ![45, 50, 55, 60].includes(solicitud.estado))"
+                [class.completado]="[50, 55, 60].includes(solicitud.estado) || ![45, 50, 55, 60].includes(solicitud.estado)">
+              </span>
+            </div>
+          </div>
+          <div class="detalle d-flex flex-column justify-content-center align-items-center">
+            <span>paso 1</span>
+            <span class="titulo">Validaci&oacute;n</span>
+            <span class="estado" [class.en-progreso]="solicitud.estado === 45"
+              [class.completado]="[50, 55, 60].includes(solicitud.estado) || ![45, 50, 55, 60].includes(solicitud.estado)"
+              [class.pendiente]="![50, 55, 60].includes(solicitud.estado)">{{ solicitud.estado | estadoStep :
+              'validacion' }}</span>
+          </div>
+        </a>
+      </li>
+      <li class="list-group-item border-0 text-center step">
+        <a>
+          <div class="indicador">
+            <div class="d-flex justify-content-center align-items-center">
+              <span
+                [class.incompleto]="!([55, 60].includes(solicitud.estado) || ![45, 50, 55, 60].includes(solicitud.estado))"
+                [class.completado]="[55, 60].includes(solicitud.estado) || ![45, 50, 55, 60].includes(solicitud.estado)">
+              </span>
+            </div>
+          </div>
+          <div class="detalle d-flex flex-column justify-content-center align-items-center">
+            <span>paso 2</span>
+            <span class="titulo">Aprobaci&oacute;n</span>
+            <span class="estado" [class.en-progreso]="solicitud.estado === 50"
+              [class.completado]="[55, 60].includes(solicitud.estado) || ![45, 50, 55, 60].includes(solicitud.estado)"
+              [class.pendiente]="![45, 55, 60].includes(solicitud.estado)">{{ solicitud.estado | estadoStep :
+              'aprobacion' }}</span>
+          </div>
+        </a>
+      </li>
+      <li class="list-group-item border-0 text-center step">
+        <a>
+          <div class="indicador">
+            <div class="d-flex justify-content-center align-items-center">
+              <span
+                [class.incompleto]="!([60].includes(solicitud.estado) || ![45, 50, 55, 60].includes(solicitud.estado))"
+                [class.completado]="[60].includes(solicitud.estado) || ![45, 50, 55, 60].includes(solicitud.estado)">
+              </span>
+            </div>
+          </div>
+          <div class="detalle d-flex flex-column justify-content-center align-items-center">
+            <span>paso 3</span>
+            <span class="titulo">Comit&eacute; de decisión</span>
+            <span class="estado" [class.en-progreso]="solicitud.estado === 55"
+              [class.completado]="[60].includes(solicitud.estado) || ![45, 50, 55, 60].includes(solicitud.estado)"
+              [class.pendiente]="![45, 50].includes(solicitud.estado)">{{ solicitud.estado | estadoStep : 'comite'
+              }}</span>
+          </div>
+        </a>
+      </li>
+      <li class="list-group-item border-0 text-center step">
+        <a>
+          <div class="indicador">
+            <div class="d-flex justify-content-center align-items-center">
+              <span [class.incompleto]="!(![45, 50, 55, 60].includes(solicitud.estado))"
+                [class.completado]="![45, 50, 55, 60].includes(solicitud.estado)">
+              </span>
+            </div>
+          </div>
+          <div class="detalle d-flex flex-column justify-content-center align-items-center">
+            <span>paso 4</span>
+            <span class="titulo">OTP</span>
+            <span class="estado" [class.en-progreso]="solicitud.estado === 60"
+              [class.completado]="![45, 50, 55, 60].includes(solicitud.estado)"
+              [class.pendiente]="![45, 50, 55].includes(solicitud.estado)">{{ solicitud.estado | estadoStep : 'otp'
+              }}</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- DETALLE SOLICITUD -->
+  <div *ngIf="permisoStep()">
+    <div id="validacion-condiciones-prestamo" class="py-2">
+      <!-- TITULO -->
+      <div class="d-flex justify-content-start align-items-center py-2">
+        <span class="h5 titulo-seccion">Condiciones del pr&eacute;stamo</span>
+      </div>
+
+      <!-- ITEMS -->
+      <div class="d-flex flex-nowrap overflow-auto justify-content-between align-items-center py-2">
+        <div class="condicion-prestamo-item flex-fill d-flex align-items-center">
+          <i class="objetivo-credito-icon"></i>
+          <div class="d-flex flex-column justify-content-start detalle">
+            <span>Objetivo del cr&eacute;dito</span>
+            <span>{{ (solicitud.miembros | extraerDataSolicitud:
+              'lider')?.solicitudEconomica?.valoresDetalles?.destinoPrestamo?.destino }}</span>
+          </div>
+        </div>
+        <div class="condicion-prestamo-item flex-fill d-flex align-items-center">
+          <i class="valor-solicitado-icon"></i>
+          <div class="d-flex flex-column justify-content-start detalle">
+            <span>Valor solicitado</span>
+            <span>{{ resultadoSimulador?.montoSolicitado | currency: '$' : 'symbol' : '1.0-0' }}</span>
+          </div>
+        </div>
+        <div class="condicion-prestamo-item flex-fill d-flex align-items-center" *ngIf="!!solicitud.renovacion">
+          <i class="valor-solicitado-icon"></i>
+          <div class="d-flex flex-column justify-content-start detalle">
+            <span>Saldo cr&eacute;dito renovado</span>
+            <span>{{ solicitud.renovacion?.saldo | currency: '$' : 'symbol' : '1.0-0' }}</span>
+          </div>
+        </div>
+        <div class="condicion-prestamo-item flex-fill d-flex align-items-center">
+          <i class="valor-cuota-icon"></i>
+          <div class="d-flex flex-column justify-content-start detalle">
+            <span>Valor de la cuota</span>
+            <span>{{ resultadoSimulador?.cuota | currency: '$' : 'symbol' : '1.0-0' }}</span>
+          </div>
+        </div>
+        <div class="condicion-prestamo-item flex-fill d-flex align-items-center">
+          <i class="plazo-icon"></i>
+          <div class="d-flex flex-column justify-content-start detalle">
+            <span>Plazo</span>
+            <span>{{ (solicitud.miembros | extraerDataSolicitud:
+              'lider')?.solicitudEconomica?.valoresDetalles?.plazoMeses?.meses }}</span>
+          </div>
+        </div>
+        <div class="condicion-prestamo-item flex-fill d-flex align-items-center">
+          <i class="primera-cuota-icon"></i>
+          <div class="d-flex flex-column justify-content-start detalle">
+            <span>Primera cuota</span>
+            <span>{{ resultadoSimulador?.fechaPago | date: 'dd/MM/yyyy' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cargos fijos -->
+    <div id="validacion-condiciones-prestamo" class="py-2">
+      <div class="condicion-prestamo-item flex-fill d-flex align-items-center" (click)="cargosFijos()">
+        <i class="objetivo-credito-icon"></i>
+        <div class="d-flex flex-column justify-content-start detalle">
+          <span>Información del crédito</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETALLE CLIENTE -->
+    <div id="propuesta-grupo" class="py-2">
+      <!-- TITULO -->
+      <div class="d-flex justify-content-start align-items-center py-2">
+        <span class="h6 titulo-seccion">Propuesta en grupo</span>
+      </div>
+
+      <div class="detalle-cliente mt-3" *ngFor="let cliente of solicitud.miembros">
+        <div class="d-flex flex-row-reverse">
+          <a class="btn drop-indicator"
+            [class.ocultar]="detalleClienteDesplegado[cliente.datosIdentificacionCliente?.numeroIdentificacion]"
+            (click)="detalleClienteDesplegado[cliente.datosIdentificacionCliente?.numeroIdentificacion] = !detalleClienteDesplegado[cliente.datosIdentificacionCliente?.numeroIdentificacion]">
+            <i class="icon-arrow-down"></i>
+          </a>
+
+          <!-- ENCABEZADO DETALLE CLIENTE -->
+          <div class="row flex-grow-1 mx-0 detalle-cliente-group"
+            *ngIf="!detalleClienteDesplegado[cliente.datosIdentificacionCliente?.numeroIdentificacion]"
+            (click)="detalleClienteDesplegado[cliente.datosIdentificacionCliente?.numeroIdentificacion] = !detalleClienteDesplegado[cliente.datosIdentificacionCliente?.numeroIdentificacion]">
+            <div class="col-4 d-flex flex-column align-items-start justify-content-center detalle-cliente-dato">
+              <span class="dato-label">
+                {{ cliente.tipoMiembro?.tipo }}
+              </span>
+              <span class="titulo-seccion">
+                {{ cliente.datosPersonalesCliente?.nombre1 || '' }}
+                {{ cliente.datosPersonalesCliente?.nombre2 || '' }}
+                {{ cliente.datosPersonalesCliente?.apellido1 || '' }}
+                {{ cliente.datosPersonalesCliente?.apellido2 || '' }}
+              </span>
+            </div>
+            <div class="col-8">
+              <div class="row">
+                <div class="col-4">
+                  <div class="d-flex flex-column detalle-cliente-dato">
+                    <span class="dato-label">Tipo identificaci&oacute;n</span>
+                    <span class="dato-valor">{{ cliente.datosIdentificacionCliente?.tipoIdentificacion?.tipo }}</span>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column detalle-cliente-dato">
+                    <span class="dato-label">Identificaci&oacute;n</span>
+                    <span class="dato-valor">{{ cliente.datosIdentificacionCliente?.numeroIdentificacion }}</span>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                    (click)="edicionCamposSolicitud(cliente, 'fechaExpedicionDocumento', $event)">
+                    <span class="dato-label">Fecha de expedici&oacute;n</span>
+                    <span class="dato-valor">
+                      {{ cliente.datosIdentificacionCliente?.fechaExpedicion | date: 'dd/MM/yyyy' }}
+                    </span>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column detalle-cliente-dato">
+                    <span class="dato-label">Lugar de expedici&oacute;n</span>
+                    <span class="dato-valor">
+                      {{ cliente.datosIdentificacionCliente?.tipoIdentificacion?.id === 4 ?
+                      cliente.datosIdentificacionCliente?.paisNacimiento?.pais :
+                      cliente.datosIdentificacionCliente?.ciudadExpedicion?.municipio}}</span>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column detalle-cliente-dato">
+                    <span class="dato-label">Celular</span>
+                    <span class="dato-valor">{{ cliente.datosContactoCliente?.telefono }}</span>
+                  </div>
+                </div>
+                <div class="col-4" *ngIf="![4, 5].includes(cliente.tipoMiembro.id)">
+                  <div class="d-flex flex-column detalle-cliente-dato">
+                    <span class="dato-label">Monto</span>
+                    <span class="dato-valor">{{ cliente.solicitudEconomica?.valoresDetalles?.monto | currency: '$' :
+                      'symbol' : '1.0-0' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CONTENIDO DETALLE CLIENTE -->
+          <div class="row flex-grow-1 mx-0"
+            [ngbCollapse]="!detalleClienteDesplegado[cliente.datosIdentificacionCliente?.numeroIdentificacion]">
+            <div class="col-12">
+
+              <!-- DETALLE DEL ASESOR -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="cliente.tipoMiembro.id !== 4">
+                <div class="col-4">
+                  <span class="titulo-seccion">
+                    Detalles del asesor
+                  </span>
+                </div>
+                <div class="col-8">
+                  <div class="d-flex flex-column detalle-cliente-dato">
+                    <span class="dato-valor">{{ cliente.solicitudEconomica?.valoresDetalles?.DetalleDestinoCredito ||
+                      'No hay comentarios' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- DATOS PERSONALES -->
+              <div class="row mx-0 pb-4 justify-content-between detalle-cliente-group border-bottom">
+                <div class="col-4 d-flex flex-column align-items-start justify-content-center detalle-cliente-dato">
+                  <span class="dato-label">
+                    {{ cliente.tipoMiembro?.tipo }}
+                  </span>
+                  <a class="titulo-seccion" style="cursor: pointer;" (click)="revisarCreditosProspera(cliente)">
+                    {{ cliente.datosPersonalesCliente?.nombre1 || '' }}
+                    {{ cliente.datosPersonalesCliente?.nombre2 || '' }}
+                    {{ cliente.datosPersonalesCliente?.apellido1 || '' }}
+                    {{ cliente.datosPersonalesCliente?.apellido2 || '' }}
+                  </a>
+                  <span class="dato-label">
+                    {{ cliente.estudioPreselecta?.resultado }}
+
+                  </span>
+                </div>
+                <div class="col-8">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Fecha de nacimiento</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosPersonalesCliente?.fechaNacimiento | date: 'dd/MM/yyyy'}}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label"
+                          [class.text-danger]="(cliente.datosPersonalesCliente?.fechaNacimiento | age) < 18 || edadMaxima"
+                          [class.font-weight-bold]="(cliente.datosPersonalesCliente?.fechaNacimiento | age) < 18 || edadMaxima">
+                          Edad
+                        </span>
+                        <span class="dato-valor"
+                          [class.text-danger]="(cliente.datosPersonalesCliente?.fechaNacimiento | age) < 18 || edadMaxima "
+                          [class.font-weight-bold]="(cliente.datosPersonalesCliente?.fechaNacimiento | age) < 18 || edadMaxima">
+                          {{ cliente.datosPersonalesCliente?.fechaNacimiento | age }}
+                        </span>
+                      </div>
+                    </div>
+                    <!-- Nuevo Campo lugarNacimiento -->
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Lugar de nacimiento</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosIdentificacionCliente?.tipoIdentificacion?.id === 4 ?
+                          cliente.datosIdentificacionCliente?.paisNacimiento?.pais :
+                          cliente.datosIdentificacionCliente?.ciudadNacimiento?.departamento }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'genero', $event, cliente.datosPersonalesCliente?.genero)">
+                        <span class="dato-label">G&eacute;nero</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosPersonalesCliente?.genero?.genero }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Estado civil</span>
+                        <span class="dato-valor">{{ cliente.datosPersonalesCliente?.estadoCivil?.estadoCivil }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'numeroHijosMenores', $event)">
+                        <span class="dato-label">Hijos menores de edad</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosPersonalesCliente?.numeroHijosMenores }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Personas a cargo</span>
+                        <span class="dato-valor">
+                          {{
+                          !cliente.datosPersonalesCliente?.personasACargo ?
+                          (cliente.datosPersonalesCliente?.personasACargo | boolean : 'SÍ' : 'NO') :
+                          cliente.datosPersonalesCliente?.numeroPersonasACargo
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Tipo de vivienda</span>
+                        <span class="dato-valor">{{ cliente.datosPersonalesCliente?.tipoDeVivienda?.tipoVivienda
+                          }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'tiempoEnVivienda', $event)">
+                        <span class="dato-label">Tiempo en la vivienda</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosPersonalesCliente?.tiempoEnVivienda }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4" *ngIf="cliente.tipoMiembro.id !== 4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Tipo de local</span>
+                        <span class="dato-valor">{{ cliente.datosPersonalesCliente?.tipoDeLocal?.local }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'nivelEducativo', $event, cliente.datosPersonalesCliente?.nivelEducativo)">
+                        <span class="dato-label">Nivel educativo</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosPersonalesCliente?.nivelEducativo.nivel }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Maneja Recursos P&uacute;blico</span>
+                        <span class="dato-valor">{{ cliente.datosPersonalesCliente?.manejaRecursosPublicos | boolean:
+                          'SÍ' : 'NO' }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">PEP</span>
+                        <span class="dato-valor">{{ cliente.datosPersonalesCliente?.personaPoliticaExpuesta | boolean:
+                          'SÍ' : 'NO' }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4" *ngIf="cliente.datosPersonalesCliente?.personaPoliticaExpuesta">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Cargo PEP</span>
+                        <span class="dato-valor">{{ cliente.datosPersonalesCliente?.cargoPEP }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4" *ngIf="cliente.datosPersonalesCliente?.personaPoliticaExpuesta">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Fecha inicio PEP</span>
+                        <span class="dato-valor">{{ cliente.datosPersonalesCliente?.fechaInicioPEP | date: 'dd/MM/yyyy'
+                          }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4" *ngIf="cliente.datosPersonalesCliente?.personaPoliticaExpuesta">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Fecha fin PEP</span>
+                        <span class="dato-valor">{{ cliente.datosPersonalesCliente?.fechaFinPEP | date: 'dd/MM/yyyy'
+                          }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Operaciones Moneda Extranjera</span>
+                        <span class="dato-valor">
+                          {{
+                          cliente.datosPersonalesCliente?.operacionesEnMonedaExt ?
+                          cliente.datosPersonalesCliente?.tipoOperacionImportacion.tipo :
+                          'NO'
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-4" *ngIf="cliente.datosPersonalesCliente?.programaReincorporacion">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">N&uacute;mero resoluci&oacute;n</span>
+                        <span class="dato-valor">
+                          {{
+                          cliente.datosPersonalesCliente?.operacionesEnMonedaExt ?
+                          cliente.datosPersonalesCliente?.numeroResolucion :
+                          'NO'
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'estrato', $event, cliente.datosContactoCliente?.estrato)">
+                        <span class="dato-label">Estrato</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosContactoCliente?.estrato?.estrato }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4" *ngIf="cliente.datosPersonalesCliente?.programaReincorporacion">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Fecha resoluci&oacute;n</span>
+                        <span class="dato-valor">
+                          {{
+                          cliente.datosPersonalesCliente?.operacionesEnMonedaExt ?
+                          (cliente.datosPersonalesCliente?.fechaResolucion | date: 'dd/MM/yyyy') :
+                          'NO'
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-4" *ngIf="[4, 5].includes(cliente.tipoMiembro.id)">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Parentesco con titular</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosCodeudor?.parentescoConTitular?.parentesco }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Pertenece a un grupo étnico</span>
+                        <span class="dato-valor">{{ cliente.datosPersonalesCliente?.pertenecegrupoEtnico | boolean:
+                          'SÍ' : 'NO' }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4" *ngIf="cliente.datosPersonalesCliente?.pertenecegrupoEtnico === true">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Grupo étnico</span>
+                        <span class="dato-valor">{{ cliente.datosPersonalesCliente?.grupoEtnico?.grupo }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- DATOS CONYUGUE -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="[2, 7].includes(cliente.datosPersonalesCliente.estadoCivil.id)">
+                <div class="col-4">
+                  <span class="titulo-seccion">
+                    Datos del c&oacute;nyuge
+                  </span>
+                </div>
+                <div class="col-8">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'nombresConyuge', $event)">
+                        <span class="dato-label">Nombre del c&oacute;nyuge</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosConyugue?.nombres }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'apellidosConyuge', $event)">
+                        <span class="dato-label">Apellido del c&oacute;nyuge</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosConyugue?.apellidos }}
+                        </span>
+                      </div>
+                    </div>
+                    <!-- Nuevo Campo genero Cónyuge -->
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">G&eacute;nero</span>
+                        <span class="dato-valor">{{ cliente.datosConyugue?.genero?.genero }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'conyugeTelefono', $event)">
+                        <span class="dato-label">Tel&eacute;fono</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosConyugue?.telefono }}</span>
+                      </div>
+                    </div>
+                    <!-- Nuevo Campo tipoIdentificacion Cónyuge -->
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Tipo de documento</span>
+                        <span class="dato-valor">{{ cliente.datosConyugue?.tipoIdentificacion?.tipo }}</span>
+                      </div>
+                    </div>
+                    <!-- Nuevo Campo numeroIdentificacion Cónyuge -->
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato"
+                        [class.hover]="puedeEditarCampos && cliente.tipoMiembro.id !== 4"
+                        (click)="edicionCamposSolicitud(cliente, 'numeroIdentificacionConyuge', $event)">
+                        <span class="dato-label">Identificaci&oacute;n</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosConyugue?.numeroIdentificacion }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Ciudad</span>
+                        <span class="dato-valor">{{ cliente.datosConyugue?.ciudad.municipio }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Ocupaci&oacute;n</span>
+                        <span class="dato-valor">{{ cliente.datosConyugue?.ocupacion?.ocupacion }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Empresa donde trabaja</span>
+                        <span class="dato-valor">{{ cliente.datosConyugue?.empresaDondeTrabaja }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Direcci&oacute;n de empresa</span>
+                        <span class="dato-valor">{{ cliente.datosConyugue?.direccionEmpresa }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Ingresos mensuales</span>
+                        <span class="dato-valor">{{ cliente.datosConyugue?.ingresoMensual }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- DATOS DE CONTACTO -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom">
+                <div class="col-4">
+                  <span class="titulo-seccion">
+                    Detalles de contacto
+                  </span>
+                </div>
+                <div class="col-8">
+                  <div class="row">
+                    <div class="col-8">
+                      <div class="d-flex flex-column detalle-cliente-dato"
+                        [class.hover]="puedeEditarCampos && !canalesContacto(5, cliente.datosContactoCliente?.canalesContacto)"
+                        (click)="edicionCamposSolicitud(cliente, 'direccionCliente', $event, 5, cliente.datosContactoCliente?.canalesContacto)">
+                        <span class="dato-label">Direcci&oacute;n</span>
+                        <span class="dato-valor"
+                          *ngIf="!canalesContacto(5, cliente.datosContactoCliente?.canalesContacto)">
+                          {{ cliente.datosContactoCliente?.direccion }}</span>
+                        <span class="font-weight-bold text-danger"
+                          *ngIf="canalesContacto(5, cliente.datosContactoCliente?.canalesContacto)">
+                          Restringido</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Ciudad</span>
+                        <span class="dato-valor">{{ cliente.datosContactoCliente?.ciudad?.municipio }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato"
+                        [class.hover]="puedeEditarCampos && !canalesContacto(5, cliente.datosContactoCliente?.canalesContacto)"
+                        (click)="edicionCamposSolicitud(cliente, 'barrio', $event, 5, cliente.datosContactoCliente?.canalesContacto)">
+                        <span class="dato-label">Barrio</span>
+                        <span class="dato-valor"
+                          *ngIf="!canalesContacto(5, cliente.datosContactoCliente?.canalesContacto)">
+                          {{ cliente.datosContactoCliente?.barrio }}</span>
+                        <span class="font-weight-bold text-danger"
+                          *ngIf="canalesContacto(5, cliente.datosContactoCliente?.canalesContacto)">
+                          Restringido</span>
+                      </div>
+                    </div>
+                    <!-- Nuevo Campo indicaciones -->
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato"
+                        [class.hover]="puedeEditarCampos && !canalesContacto(5, cliente.datosContactoCliente?.canalesContacto)"
+                        (click)="edicionCamposSolicitud(cliente, 'indicaciones', $event, 5, cliente.datosContactoCliente?.canalesContacto)">
+                        <span class="dato-label">Indicaciones para llegar</span>
+                        <span class="dato-valor"
+                          *ngIf="!canalesContacto(5, cliente.datosContactoCliente?.canalesContacto)">
+                          {{ cliente.datosContactoCliente?.indicaciones }}</span>
+                        <span class="font-weight-bold text-danger"
+                          *ngIf="canalesContacto(5, cliente.datosContactoCliente?.canalesContacto)">
+                          Restringido</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato"
+                        [class.hover]="puedeEditarCampos && !canalesContacto(2, cliente.datosContactoCliente?.canalesContacto)"
+                        (click)="edicionCamposSolicitud(cliente, 'email', $event, 2, cliente.datosContactoCliente?.canalesContacto)">
+                        <span class="dato-label">Email</span>
+                        <span class="dato-valor"
+                          *ngIf="!canalesContacto(2, cliente.datosContactoCliente?.canalesContacto)">
+                          {{ cliente.datosContactoCliente?.email }}</span>
+                        <span class="font-weight-bold text-danger"
+                          *ngIf="canalesContacto(2, cliente.datosContactoCliente?.canalesContacto)">
+                          Restringido</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato"
+                        [class.hover]="puedeEditarCampos && !canalesContacto(3, cliente.datosContactoCliente?.canalesContacto)"
+                        (click)="edicionCamposSolicitud(cliente, 'telefono', $event, 3, cliente.datosContactoCliente?.canalesContacto)">
+                        <span class="dato-label">Tel&eacute;fono</span>
+                        <span class="dato-valor"
+                          *ngIf="!canalesContacto(3, cliente.datosContactoCliente?.canalesContacto)">
+                          {{ cliente.datosContactoCliente?.telefono }}</span>
+                        <span class="font-weight-bold text-danger"
+                          *ngIf="canalesContacto(3, cliente.datosContactoCliente?.canalesContacto)">
+                          Restringido</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato"
+                        [class.hover]="puedeEditarCampos && !canalesContacto(3, cliente.datosContactoCliente?.canalesContacto)"
+                        (click)="edicionCamposSolicitud(cliente, 'telefono1', $event, 3, cliente.datosContactoCliente?.canalesContacto)">
+                        <span class="dato-label">Tel&eacute;fono 2</span>
+                        <span class="dato-valor"
+                          *ngIf="!canalesContacto(3, cliente.datosContactoCliente?.canalesContacto)">
+                          {{ cliente.datosContactoCliente?.telefono1 }}</span>
+                        <span class="font-weight-bold text-danger"
+                          *ngIf="canalesContacto(3, cliente.datosContactoCliente?.canalesContacto)">
+                          Restringido</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Whatsapp</span>
+                        <span class="dato-valor"
+                          *ngIf="!canalesContacto(1, cliente.datosContactoCliente?.canalesContacto)">
+                          {{ cliente.datosContactoCliente?.telefono }}</span>
+                        <span class="font-weight-bold text-danger"
+                          *ngIf="canalesContacto(1, cliente.datosContactoCliente?.canalesContacto)">
+                          Restringido</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Mensaje de texto(SMS)</span>
+                        <span class="dato-valor"
+                          *ngIf="!canalesContacto(4, cliente.datosContactoCliente?.canalesContacto)">
+                          {{ cliente.datosContactoCliente?.telefono }}</span>
+                        <span class="font-weight-bold text-danger"
+                          *ngIf="canalesContacto(4, cliente.datosContactoCliente?.canalesContacto)">
+                          Restringido</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SECCION PEP -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="cliente.datosPersonalesCliente?.relacionadoPEP">
+
+                <div class="col-4">
+                  <span class="titulo-seccion">
+                    Información del PEP relacionado
+                  </span>
+                </div>
+
+                <div class="col-8">
+                  <div class="row">
+
+                    <!-- Relación -->
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Relación</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosPersonalesCliente?.relacionPEP?.relacion }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Tipo identificación -->
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">
+                          Tipo de identificación relacionado PEP
+                        </span>
+                        <span class="dato-valor">
+                          {{ cliente.datosPersonalesCliente?.tipoIdentificacionRelacionadoPEP?.tipo }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Número identificación -->
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">
+                          Número de identificación relacionado PEP
+                        </span>
+                        <span class="dato-valor">
+                          {{ cliente.datosPersonalesCliente?.numeroIdentificacionRelacionadoPEP }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Primer nombre -->
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">
+                          Primer nombre relacionado PEP
+                        </span>
+                        <span class="dato-valor">
+                          {{ cliente.datosPersonalesCliente?.primerNombreRelacionadoPEP }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Segundo nombre -->
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">
+                          Segundo nombre relacionado PEP
+                        </span>
+                        <span class="dato-valor">
+                          {{ cliente.datosPersonalesCliente?.segundoNombreRelacionadoPEP }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Primer apellido -->
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">
+                          Primer apellido relacionado PEP
+                        </span>
+                        <span class="dato-valor">
+                          {{ cliente.datosPersonalesCliente?.primerApellidoRelacionadoPEP }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Segundo apellido -->
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">
+                          Segundo apellido relacionado PEP
+                        </span>
+                        <span class="dato-valor">
+                          {{ cliente.datosPersonalesCliente?.segundoApellidoRelacionadoPEP }}
+                        </span>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+              <!-- DATOS DE NEGOCIO -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="cliente.tipoMiembro.id !== 4">
+                <div class="col-12">
+                  <span class="titulo-seccion">
+                    Datos del negocio
+                  </span>
+                </div>
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Nombre del establecimiento</span>
+                        <span class="dato-valor">{{ cliente.datosComerciales?.nombreEstablecimiento }}</span>
+                      </div>
+                    </div>
+                    <!-- Nuevo Campo telefonoComercial -->
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'telefonoComercial', $event)">
+                        <span class="dato-label">Tel&eacute;fono</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosComerciales?.telefonoComercial }}</span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Actividad</span>
+                        <span class="dato-valor">{{ cliente.datosComerciales?.CIIUSubSector?.descripcionActividad
+                          }}</span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">C&oacute;digo CIIU</span>
+                        <span class="dato-valor">{{ cliente.datosComerciales?.CIIUSubSector?.actividad }}</span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Ambulante</span>
+                        <span class="dato-valor">{{ cliente.datosComerciales?.ambulante | boolean : 'SÍ' : 'NO'
+                          }}</span>
+                      </div>
+                    </div>
+                    <!-- Nuevo Campo ambulanteConUbicacionFIja -->
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Ambulante ubicaci&oacute;n fija</span>
+                        <span class="dato-valor">{{ cliente.datosComerciales?.ambulanteConUbicacionFIja | boolean : 'SÍ'
+                          : 'NO' }}</span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Negocio ubicado en la vivienda</span>
+                        <span class="dato-valor">{{ cliente.datosComerciales?.negocioEnVivienda | boolean: 'SÍ' :
+                          'NO'}}</span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'direccion', $event)">
+                        <span class="dato-label">Direcci&oacute;n de la microempresa</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosComerciales?.direccion }}</span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Barrio</span>
+                        <span class="dato-valor">{{ cliente.datosComerciales?.barrio }}</span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Ciudad</span>
+                        <span class="dato-valor">{{ cliente.datosComerciales?.ciudad?.municipio }}</span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">N&uacute;mero de empleados</span>
+                        <span class="dato-valor">{{ cliente.datosComerciales?.numeroEmpleados }}</span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'tiempoExpDesarrollandoActividad', $event)">
+                        <span class="dato-label">Tiempo operando</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosComerciales?.tiempoExpDesarrollandoActividad }}</span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'tiempoEnLugarActual', $event)">
+                        <span class="dato-label">Tiempo en el lugar actual</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosComerciales?.tiempoEnLugarActual }}</span>
+                      </div>
+                    </div>
+                    <!-- Nuevo Campo indicaciones -->
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Indicaciones para llegar</span>
+                        <span class="dato-valor">{{ cliente.datosComerciales?.indicaciones }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- DATOS LABORALES (SOLO PARA COODEUDOR ASALARIADO - MIEMBRO TIPO 4) -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="cliente.tipoMiembro.id === 4">
+                <div class="col-12">
+                  <span class="titulo-seccion">
+                    Informaci&oacute;n laboral
+                  </span>
+                </div>
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'nombreEmpresaLaboral', $event)">
+                        <span class="dato-label">Nombre de empresa</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosCoodeudorAsalariado?.informacionLaboral?.nombreEmpresa }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Direcci&oacute;n</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosCoodeudorAsalariado?.informacionLaboral?.direccion }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Departamento</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosCoodeudorAsalariado?.informacionLaboral?.departamento.departamento }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Ciudad</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosCoodeudorAsalariado?.informacionLaboral?.ciudad?.municipio }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'barrioLaboral', $event)">
+                        <span class="dato-label">Barrio</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosCoodeudorAsalariado?.informacionLaboral?.barrio }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'telefonoLaboral', $event)">
+                        <span class="dato-label">Tel&eacute;fono</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosCoodeudorAsalariado?.informacionLaboral?.telefono }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'cargoLaboral', $event)">
+                        <span class="dato-label">Cargo</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosCoodeudorAsalariado?.informacionLaboral?.cargo }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Jefe Inmediato</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosCoodeudorAsalariado?.informacionLaboral?.nombreJefe }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">Tipo de contrato</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosCoodeudorAsalariado?.informacionLaboral?.tipoContrato?.tipo }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                        (click)="edicionCamposSolicitud(cliente, 'antiguedadLaboral', $event)">
+                        <span class="dato-label">Antigüedad</span>
+                        <span class="dato-valor">
+                          {{ cliente.datosCoodeudorAsalariado?.informacionLaboral?.antiguedad }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- REFERENCIA ZONAL -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="cliente.tipoMiembro.id !== 4">
+                <div class="col-4">
+                  <span class="titulo-seccion">
+                    Referencia zonal
+                  </span>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column detalle-cliente-dato">
+                    <span class="dato-label">Nombre de la referencia</span>
+                    <span class="dato-valor">{{ cliente.referenciasCliente?.nombreReferenciaZonal }}</span>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="d-flex flex-column detalle-cliente-dato">
+                    <span class="dato-label">Tel&eacute;fono de la referencia</span>
+                    <span class="dato-valor">{{ cliente.referenciasCliente?.telefono }}</span>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">¿Cu&aacute;l es el nombre del dueño del negocio?</span>
+                        <span class="dato-valor">{{ cliente.referenciasCliente?.nombreDueno }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">¿Cu&aacute;nto tiempo lleva funcionando el negocio?</span>
+                        <span class="dato-valor">{{ cliente.referenciasCliente?.tiempoFuncionando }}</span>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label">¿El dueño del negocio es buen vecino?</span>
+                        <span class="dato-valor">{{ cliente.referenciasCliente?.buenVecino }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ENCUESTA SOCIECONOMICA -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="cliente.tipoMiembro.id !== 4">
+                <div class="col-12">
+                  <span class="titulo-seccion">
+                    Encuesta sociecon&oacute;mica
+                  </span>
+                </div>
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-12 encuesta-socioeconomica">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Demostraci&oacute;n de resultados</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="clickeable" (click)="detalleMetodos(cliente)">
+                            <td class="d-flex justify-content-between clickeable">
+                              <span>M&eacute;todos:</span>
+                              <div class="titulo-seccion">
+                                <u class="pl-3"
+                                  *ngIf="(cliente.encuestaSocioEconomica.montoVentas | mostrarDetalleMetodos: montoVentasKeys.REGISTROS_VENTAS)">Registro
+                                  de ventas</u>
+                                <u class="pl-3"
+                                  *ngIf="(cliente.encuestaSocioEconomica.montoVentas | mostrarDetalleMetodos: montoVentasKeys.BUENOS_MALOS)">Dias
+                                  buenos y malos</u>
+                                <u class="pl-3"
+                                  *ngIf="(cliente.encuestaSocioEconomica.montoVentas | mostrarDetalleMetodos: montoVentasKeys.POR_PERIODO)">Ventas
+                                  por periodo</u>
+                                <u class="pl-3"
+                                  *ngIf="(cliente.encuestaSocioEconomica.montoVentas | mostrarDetalleMetodos: montoVentasKeys.COMPRAS_PROVEEDORES : cliente.datosComerciales.CIIUSubSector)">Relaci&oacute;n
+                                  compras proveedores</u>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>&nbsp;</td>
+                          </tr>
+                        </tbody>
+                        <tbody>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Monto de venta mensual promedio:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.encuestaSocioEconomica?.montoVentas?.ventasMensualPromedio | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>M&aacute;rgen de ventas bruto:</span>
+                              <span class="titulo-seccion">
+                                {{ (cliente.encuestaSocioEconomica?.margenVentasBruto / 100) | percent: '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Costo de ventas:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.encuestaSocioEconomica?.costoDeVentas | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td class="d-flex justify-content-center align-items-center">
+                              <span>Utilidad operacional:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.encuestaSocioEconomica?.montoVentas?.ventasMensualPromedio -
+                                cliente.encuestaSocioEconomica?.costoDeVentas | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                    <div class="col-12 encuesta-socioeconomica">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Ingresos del cliente</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Otros ingresos (Demostrables con soportes):</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.encuestaSocioEconomica?.ingresosDelCliente?.monto | currency: '$' : 'symbol'
+                                : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-sm-6 encuesta-socioeconomica">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Gastos de la microempresa</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <span>Salarios y mano de obra:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'salariosYManoObra', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosMicroEmpresa?.salariosYManoObra | currency: '$'
+                                : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Transporte:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'transporte', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosMicroEmpresa?.transporte | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Arriendo:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'arriendo', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosMicroEmpresa?.arriendo | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Servicios:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'servicios', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosMicroEmpresa?.servicios | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Obligaciones con el sector financiero:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.encuestaSocioEconomica?.gastosMicroEmpresa?.obligacionesConSectorFinanciero |
+                                currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Cuotas de cr&eacute;ditos (terceros):</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'cuotasDeCredito', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosMicroEmpresa?.cuotasDeCredito | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Otros gastos:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'otrosGastos', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosMicroEmpresa?.otrosGastos | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td class="d-flex justify-content-end align-items-center">
+                              <span>Total de gastos de la microempresa:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.encuestaSocioEconomica?.gastosMicroEmpresa | sumaKeys | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                    <div class="col-12 col-sm-6 encuesta-socioeconomica">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Gastos del cliente</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <span>Alimentaci&oacute;n:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'alimentacion', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosDelCliente?.alimentacion | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Arriendo:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'arriendoCliente', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosDelCliente?.arriendo | currency: '$' : 'symbol'
+                                : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Servicios:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'serviciosCliente', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosDelCliente?.servicios | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Transporte:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'transporteCliente', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosDelCliente?.transporte | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Salud:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'salud', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosDelCliente?.salud | currency: '$' : 'symbol' :
+                                '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Educaci&oacute;n:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'educacion', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosDelCliente?.educacion | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Deudas con terceros:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'deudasTerceros', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosDelCliente?.deudasTerceros | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Otros gastos:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'otrosGastosCliente', $event)">
+                                {{ cliente.encuestaSocioEconomica?.gastosDelCliente?.otrosGastos | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td class="d-flex justify-content-end align-items-center">
+                              <span>Total de gastos del cliente:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.encuestaSocioEconomica.gastosDelCliente | sumaKeys | currency: '$' : 'symbol'
+                                : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                    <div class="col-12 encuesta-socioeconomica">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Utilidad</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Ingresos - Gastos:</span>
+                              <span class="titulo-seccion">
+                                {{ cuotaMax(cliente) / 0.65 | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Cuota m&aacute;xima:</span>
+                              <span class="titulo-seccion">
+                                {{ cuotaMax(cliente) | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-12 col-sm-6 encuesta-socioeconomica">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Activos</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <span>Efectivo y bancos:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'efectivoBancos', $event)">
+                                {{ cliente.encuestaSocioEconomica?.activo?.efectivoBancos | currency: '$' : 'symbol' :
+                                '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Cuentas por cobrar:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'cuentasPorCobrar', $event)">
+                                {{ cliente.encuestaSocioEconomica?.activo?.cuentasPorCobrar | currency: '$' : 'symbol' :
+                                '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Inventarios:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'inventarios', $event)">
+                                {{ cliente.encuestaSocioEconomica?.activo?.inventarios | currency: '$' : 'symbol' :
+                                '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Inmuebles:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'inmuebles', $event)">
+                                {{ cliente.encuestaSocioEconomica?.activo?.inmuebles | currency: '$' : 'symbol' :
+                                '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Activos fijos:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'activosFijos', $event)">
+                                {{ cliente.encuestaSocioEconomica?.activo?.activosFijos | currency: '$' : 'symbol' :
+                                '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Veh&iacute;culos:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'vehiculos', $event)">
+                                {{ cliente.encuestaSocioEconomica?.activo?.vehiculos | currency: '$' : 'symbol' :
+                                '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td class="d-flex justify-content-end align-items-center">
+                              <span>Total activos:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.encuestaSocioEconomica.activo | sumaKeys | currency: '$' : 'symbol' : '1.0-0'
+                                }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                    <div class="col-12 col-sm-6 encuesta-socioeconomica">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Pasivos</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <span>Proveedores:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'proveedores', $event)">
+                                {{ cliente.encuestaSocioEconomica?.pasivo?.proveedores | currency: '$' : 'symbol' :
+                                '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Anticipo de clientes:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'anticipoClientes', $event)">
+                                {{ cliente.encuestaSocioEconomica?.pasivo?.anticipoClientes | currency: '$' : 'symbol' :
+                                '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Saldo hipoteca:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'saldoHipoteca', $event)">
+                                {{ cliente.encuestaSocioEconomica?.pasivo?.saldoHipoteca | currency: '$' : 'symbol' :
+                                '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Deudas con terceros o familiares:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'deudasTercerosPasivos', $event)">
+                                {{ cliente.encuestaSocioEconomica?.pasivo?.deudasTerceros | currency: '$' : 'symbol' :
+                                '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Deudas con Prospera:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.encuestaSocioEconomica?.pasivo?.deudasConProspera | currency: '$' : 'symbol'
+                                : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Deudas con el sector financiero:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.encuestaSocioEconomica?.pasivo?.deudasSectorFinanciero | currency: '$' :
+                                'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td class="d-flex justify-content-end align-items-center">
+                              <span>Total pasivos:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.encuestaSocioEconomica.pasivo | sumaKeys | currency: '$' : 'symbol' : '1.0-0'
+                                }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 py-3 encuesta-socioeconomica">
+                  <table class="table">
+                    <tfoot>
+                      <tr>
+                        <td class="d-flex justify-content-center align-items-center">
+                          <span>Patrimonio:</span>
+                          <span class="titulo-seccion">
+                            {{ (cliente.encuestaSocioEconomica?.activo | sumaKeys) -
+                            (cliente.encuestaSocioEconomica?.pasivo | sumaKeys) | currency: '$' : 'symbol' : '1.0-0' }}
+                          </span>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+
+              <!-- ENCUESTA SOCIECONOMICA - (SOLO PARA ASALARIADOS - MIEMBROS TIPO 4) -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="cliente.tipoMiembro.id === 4">
+                <div class="col-12">
+                  <span class="titulo-seccion">
+                    Encuesta sociecon&oacute;mica
+                  </span>
+                </div>
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-12 encuesta-socioeconomica">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Demostraci&oacute;n de resultados</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Sueldo:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.ingresosDelCliente?.sueldo
+                                | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Otros ingresos:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.ingresosDelCliente?.monto |
+                                currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 encuesta-socioeconomica">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Gastos del cliente</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Alimentaci&oacute;n:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'alimentacionCodeudorAsalariado', $event)">
+                                {{
+                                cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.gastosDelCliente?.alimentacion
+                                | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Arriendo:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'arriendoCodeudorAsalariado', $event)">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.gastosDelCliente?.arriendo
+                                | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Servicios:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'serviciosCodeudorAsalariado', $event)">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.gastosDelCliente?.servicios
+                                | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Transporte:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'transporteCodeudorAsalariado', $event)">
+                                {{
+                                cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.gastosDelCliente?.transporte |
+                                currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Salud:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'saludCodeudorAsalariado', $event)">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.gastosDelCliente?.salud |
+                                currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Educaci&oacute;n:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'educacionCodeudorAsalariado', $event)">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.gastosDelCliente?.educacion
+                                | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Deudas terceros:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'deudasTercerosGastosCodeudorAsalariado', $event)">
+                                {{
+                                cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.gastosDelCliente?.deudasTerceros
+                                | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Otros gastos:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'otrosGastosCodeudorAsalariado', $event)">
+                                {{
+                                cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.gastosDelCliente?.otrosGastos
+                                | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td class="d-flex justify-content-end align-items-center">
+                              <span>Total de gastos del cliente:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica.gastosDelCliente | sumaKeys
+                                | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                    <div class="col-12 encuesta-socioeconomica">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Utilidad</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Ingresos - Gastos:</span>
+                              <span class="titulo-seccion">
+                                {{ cuotaMaxCodeudorAsalariado(cliente) / 0.65 | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="d-flex justify-content-between">
+                              <span>Cuota m&aacute;xima:</span>
+                              <span class="titulo-seccion">
+                                {{ cuotaMaxCodeudorAsalariado(cliente) | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="col-12 col-sm-6 encuesta-socioeconomica">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Activos</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <span>Efectivo y bancos:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'efectivoBancosCodeudorAsalariado', $event)">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.activo?.efectivoBancos |
+                                currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Cuentas por cobrar:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'cuentasPorCobrarCodeudorAsalariado', $event)">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.activo?.cuentasPorCobrar |
+                                currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Activos del hogar:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'activosHogarCodeudorAsalariado', $event)">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.activo?.activosHogar |
+                                currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Inmuebles:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'inmueblesCodeudorAsalariado', $event)">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.activo?.inmuebles |
+                                currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td class="d-flex justify-content-end align-items-center">
+                              <span>Total activos:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica.activo | sumaKeys |
+                                currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                    <div class="col-12 col-sm-6 encuesta-socioeconomica">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Pasivos</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <span>Saldo hipoteca:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'saldoHipotecaCodeudorAsalariado', $event)">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.pasivo?.saldoHipoteca |
+                                currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Deudas con terceros:</span>
+                              <span class="titulo-seccion" [class.hover]="puedeEditarCampos"
+                                (click)="edicionCamposSolicitud(cliente, 'deudasTercerosCodeudorAsalariado', $event)">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.pasivo?.deudasTerceros |
+                                currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Deudas con Prospera:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.pasivo?.deudasConProspera |
+                                currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <span>Deudas con el sector financiero:</span>
+                              <span class="titulo-seccion">
+                                {{
+                                cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.pasivo?.deudasSectorFinanciero
+                                | currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td class="d-flex justify-content-end align-items-center">
+                              <span>Total pasivos:</span>
+                              <span class="titulo-seccion">
+                                {{ cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.pasivo | sumaKeys |
+                                currency: '$' : 'symbol' : '1.0-0' }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 py-3 encuesta-socioeconomica">
+                  <table class="table">
+                    <tfoot>
+                      <tr>
+                        <td class="d-flex justify-content-center align-items-center">
+                          <span>Patrimonio:</span>
+                          <span class="titulo-seccion">
+                            {{ (cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.activo | sumaKeys) -
+                            (cliente.datosCoodeudorAsalariado?.encuestaSocioEconomica?.pasivo | sumaKeys) | currency:
+                            '$' : 'symbol' : '1.0-0' }}
+                          </span>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+
+              <!-- DESEMBOLSO -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="![4,5].includes(cliente.tipoMiembro.id)">
+                <div class="col-12">
+                  <span class="titulo-seccion">
+                    Desembolso
+                  </span>
+                </div>
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-12 py-3">
+                      <div class="row border rounded py-3">
+                        <div class="col-12 detalle-cliente-dato">
+                          <span class="titulo-seccion">Crédito de la cuenta</span>
+                          <span class="dato-label px-1">({{ cliente.desembolso.tipoDesembolso.tipo }})</span>
+                        </div>
+                        <div class="col-4 d-flex flex-column detalle-cliente-dato"
+                          *ngIf="cliente.desembolso.tipoDesembolso.id === 2">
+                          <span class="dato-label">Banco</span>
+                          <span class="dato-valor" [class.hover]="puedeEditarDesembolso"
+                            (click)="edicionCamposDesembolso(cliente, 'banco', $event)">{{
+                            cliente.desembolso?.banco?.banco }}</span>
+                        </div>
+                        <div class="col-3 d-flex flex-column detalle-cliente-dato"
+                          *ngIf="cliente.desembolso.tipoDesembolso.id === 2">
+                          <span class="dato-label">Tipo de cuenta</span>
+                          <span class="dato-valor" [class.hover]="puedeEditarDesembolso"
+                            (click)="edicionCamposDesembolso(cliente, 'tipoCuenta', $event)">{{
+                            cliente.desembolso?.tipoCuenta?.tipo }}</span>
+                        </div>
+                        <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                          <span class="dato-label"># cuenta</span>
+                          <span class="dato-valor" [class.hover]="puedeEditarDesembolso"
+                            (click)="edicionCamposDesembolso(cliente, 'numeroCuenta', $event)">{{
+                            cliente.desembolso?.numeroCuenta }}</span>
+                        </div>
+                        <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                          <span class="dato-label">Seguro opcional</span>
+                          <span class="dato-valor">{{ findSeguro(cliente.seguro)?.aprobado | boolean : 'SÍ' : 'NO'
+                            }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- seguro obligaorio -->
+
+                  <div class="row" *ngIf="cliente?.seguroObligatorio?.length > 0">
+                    <div class="col-12">
+                      <span class="titulo-seccion">Seguro</span>
+                    </div>
+                    <div class="col-12 py-3">
+                      <div class="row border rounded py-3">
+                        <div class="col-4 detalle-cliente-dato">
+                          <span class="titulo-seccion">Seguro Obligatorio</span>
+                        </div>
+
+                        <div class="col-12 detalle-cliente-dato">
+                          <span class="titulo-seccion">Beneficiarios</span>
+                        </div>
+                        <ng-container>
+                          <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-label">Nombre</span>
+                          </div>
+                          <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-label">Tipo documento</span>
+                          </div>
+                          <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-label">C&eacute;dula</span>
+                          </div>
+
+                          <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-label">Porcentaje</span>
+                          </div>
+                          <ng-container *ngFor="let asegurado of cliente?.seguroObligatorio">
+                            <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-valor">{{ asegurado?.nombre }}</span>
+                            </div>
+                            <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-valor">{{ asegurado?.tipoIdentificacion?.detalle
+                                }}</span>
+                            </div>
+                            <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-valor">{{ asegurado?.documentoIdentidad }}</span>
+                            </div>
+                            <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-valor">{{ asegurado?.porcentaje }}</span>
+                            </div>
+
+                          </ng-container>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="findSeguro(cliente.seguro)?.aprobado">
+                    <div class="col-12">
+                      <span class="titulo-seccion">Seguro</span>
+                    </div>
+                    <div class="col-12 py-3" *ngFor="let seguro of cliente.seguro">
+                      <div class="row border rounded py-3">
+                        <div class="col-4 detalle-cliente-dato">
+                          <span class="titulo-seccion">{{ seguro?.nombre }}</span>
+                        </div>
+                        <div class="col-5 d-flex flex-column detalle-cliente-dato">
+                          <span class="titulo-seccion">Valor del seguro:
+                            <span class="dato-valor">{{ seguro?.valorMensual | currency: '' : 'symbol' : '1.0-0'
+                              }}</span>
+                          </span>
+                        </div>
+                        <div class="col-3 d-flex flex-column detalle-cliente-dato"
+                          *ngIf="seguro?.usuarioRegistra?.idRol === 2 && [45].includes(solicitud.estado) && session.user.rol.id === 2">
+                          <button class="btn btn-outline-secondary btn-sm mt-2"
+                            (click)="borrarSeguro(seguro?.cf, cliente, solicitud?._id)">
+                            Borrar seguro
+                          </button>
+                        </div>
+
+
+                        <div class="col-12 detalle-cliente-dato">
+                          <span class="titulo-seccion">Detalle del seguro</span>
+                        </div>
+                        <div class="col-4 d-flex flex-column detalle-cliente-dato">
+                          <span class="dato-label">Cobertura</span>
+                        </div>
+                        <div class="col-8 d-flex flex-column detalle-cliente-dato">
+                          <span class="dato-label"></span>
+                        </div>
+                        <ng-container *ngFor="let detalle of seguro?.detalles">
+                          <div class="col-4 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-valor">{{ detalle?.clave }}</span>
+                          </div>
+                          <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-valor" style="text-align: center">{{ detalle?.valor }}</span>
+                          </div>
+                          <div class="col-6 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-valor"></span>
+                          </div>
+                        </ng-container>
+
+                        <div class="col-12 detalle-cliente-dato" *ngIf="findSeguroAsegurados(seguro?.asegurados)">
+                          <span class="titulo-seccion">Asegurados</span>
+                        </div>
+                        <ng-container *ngIf="findSeguroAsegurados(seguro?.asegurados)">
+                          <div class="col-4 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-label">Nombre</span>
+                          </div>
+                          <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-label">C&eacute;dula</span>
+                          </div>
+                          <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-label">Parentesco</span>
+                          </div>
+                          <ng-container *ngFor="let asegurado of seguro?.asegurados">
+                            <div class="col-4 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-valor">{{ asegurado?.nombre }} {{ asegurado?.apellido }}</span>
+                            </div>
+                            <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-valor">{{ asegurado?.documentoIdentidad }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-valor">{{ asegurado?.parentesco || asegurado?.tipoBeneficiario?.tipo
+                                }}</span>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+
+                        <div class="col-12 detalle-cliente-dato" *ngIf="findSeguroBeneficiarios(seguro?.beneficiarios)">
+                          <span class="titulo-seccion">Beneficiarios del seguro</span>
+                        </div>
+                        <ng-container *ngIf="findSeguroBeneficiarios(seguro?.beneficiarios)">
+                          <div class="col-4 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-label">Nombre</span>
+                          </div>
+                          <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-label">C&eacute;dula</span>
+                          </div>
+                          <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-label">Parentesco</span>
+                          </div>
+                          <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                            <span class="dato-label">Participaci&oacute;n</span>
+                          </div>
+                          <ng-container *ngFor="let beneficiario of seguro?.beneficiarios">
+                            <div class="col-4 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-valor">{{ beneficiario?.nombre }}</span>
+                            </div>
+                            <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-valor">{{ beneficiario?.documentoIdentidad }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-valor">{{ beneficiario?.parentesco || beneficiario.tipoBeneficiario.tipo
+                                }}</span>
+                            </div>
+                            <div class="col-3 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-valor">{{ (beneficiario?.porcentaje / 100) | percent: '1.0-0' }}</span>
+                            </div>
+                          </ng-container>
+                        </ng-container>
+
+
+
+                        <ng-container *ngFor="let mipyme of seguro?.mipyme">
+
+                          <div class="col-12 d-flex flex-column detalle-cliente-dato mt-3">
+                            <span class="titulo-seccion">Tipo de Construcción del Riesgo a Asegurar</span>
+                            <span class="dato-valor">{{ mipyme?.tipoConstruccion?.tipo }}</span>
+                          </div>
+                          <!-- Datos COMERCIAL -->
+                          <ng-container *ngIf="mipyme?.habilitarComercial">
+                            <div class="col-12 detalle-cliente-dato mt-3">
+                              <span class="titulo-seccion">Datos del Mipyme Comercial a asegurar</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Raz&oacute;n social</span>
+                              <span class="dato-valor">{{ mipyme?.razonSocial }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Actividad de la Mipyme</span>
+                              <span class="dato-valor">{{ mipyme?.actividadMipyme }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Identificación</span>
+                              <span class="dato-valor">{{ mipyme?.documentoIdentidad }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Direcci&oacute;n del bien a asegurar</span>
+                              <span class="dato-valor">{{ mipyme?.direccion }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Valor objetos de valor</span>
+                              <span class="dato-valor">{{ mipyme?.objetosDeValor | currency: '$': 'symbol' }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Años de construcci&oacute;n</span>
+                              <span class="dato-valor">{{ aniosConstruccion(mipyme) }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Número de sótanos</span>
+                              <span class="dato-valor">{{ mipyme?.numeroSotanos }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Número de pisos</span>
+                              <span class="dato-valor">{{ mipyme?.numeroPisos }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Departamento</span>
+                              <span class="dato-valor">{{ mipyme?.departamento?.departamento }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Ciudad/Municipio</span>
+                              <span class="dato-valor">{{ mipyme?.municipio?.municipio }}</span>
+                            </div>
+                            <!-- ... puedes incluir más campos si son exclusivos de comercial ... -->
+                          </ng-container>
+
+                          <!-- Datos RESIDENCIAL -->
+                          <ng-container *ngIf="mipyme?.habilitarResidencial">
+                            <div class="col-12 detalle-cliente-dato">
+                              <span class="titulo-seccion">Datos del Residencial a asegurar</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Dirección del bien a asegurar</span>
+                              <span class="dato-valor">{{ mipyme?.direccionResidencial }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Tipo de vivienda</span>
+                              <span class="dato-valor">{{ mipyme?.tipoDeViviendaResid?.tipo }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Protección alarma</span>
+                              <span class="dato-valor">{{ mipyme?.proteccionDeAlarma?.tipo }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Protección vigilancia</span>
+                              <span class="dato-valor">{{ mipyme?.proteccionDeVigilancia?.tipo }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Departamento</span>
+                              <span class="dato-valor">{{ mipyme?.departamentoResidencial?.departamento }}</span>
+                            </div>
+                            <div class="col-2 d-flex flex-column detalle-cliente-dato">
+                              <span class="dato-label">Ciudad/Municipio</span>
+                              <span class="dato-valor">{{ mipyme?.municipioResid?.municipio }}</span>
+                            </div>
+                          </ng-container>
+
+                        </ng-container>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ALERTA CAMBIO DE MONTO -->
+              <div class="row mx-0 py-4 detalle-cliente-group border-bottom"
+                *ngIf="cliente.solicitudEconomica.valoresDetalles.montoAnterior || cliente.solicitudEconomica.valoresDetalles.plazoAnterior">
+                <div class="col-12 d-flex py-3 border rounded">
+                  <i class="icon-alert"></i>
+                  <div class="d-flex flex-column py-3 pl-3">
+                    <div class="d-flex alerta-cambio-monto">
+                      <span class="dato-valor">Hubo un cambio de monto y/o cuotas.</span>
+                      <span class="dato-label pl-2">Por favor confirme con el cliente enviando el OTP.</span>
+                    </div>
+                    <div class="d-flex" *ngIf="!!cliente.solicitudEconomica.valoresDetalles.montoAnterior">
+                      <div class="d-flex alerta-cambio-monto">
+                        <span class="dato-valor">Monto anterior:</span>
+                        <span class="dato-label">
+                          {{ cliente.solicitudEconomica?.valoresDetalles?.montoAnterior | currency: '$': 'symbol':
+                          '1.0-0' }}
+                        </span>
+                      </div>
+                      <span class="px-1">/</span>
+                      <div class="d-flex alerta-cambio-monto">
+                        <span class="dato-valor">Nuevo monto:</span>
+                        <span class="dato-label">
+                          {{ cliente.solicitudEconomica?.valoresDetalles?.monto | currency: '$': 'symbol': '1.0-0' }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="d-flex" *ngIf="!!cliente.solicitudEconomica.valoresDetalles.plazoAnterior">
+                      <div class="d-flex alerta-cambio-monto py-0">
+                        <span class="dato-valor">Plazo anterior:</span>
+                        <span class="dato-label">{{ cliente.solicitudEconomica?.valoresDetalles?.plazoAnterior?.meses }}
+                          meses</span>
+                      </div>
+                      <span class="px-1">/</span>
+                      <div class="d-flex alerta-cambio-monto py-0">
+                        <span class="dato-valor">Nuevo plazo: </span>
+                        <span class="dato-label">{{ cliente.solicitudEconomica?.valoresDetalles?.plazoMeses?.meses }}
+                          meses</span>
+                      </div>
+                    </div>
+                    <div>
+                      <button class="btn btn-link px-0" (click)="detalleMontos(cliente)">Ver detalles</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                 <!-- BUSCAR COINCIDENCIAS -->
+                 <!-- <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                 *ngIf="[45,50, 60].includes(solicitud.estado)">
+                 <div class="col-12">
+                   <span class="titulo-seccion">Validar coincidencias</span>
+                 </div>
+                 <div class="col-12">
+                   <div class="row align-items-center">
+                     <div class="col-12 col-sm-4">
+                       <a class="btn btn-outline-secondary text-primary w-100" (click)="buscarCoincidencias()">CONSULTAR COINCIDENCIAS</a>
+                     </div>
+                   </div>
+                 </div>
+               </div> -->
+
+              <!-- AJUSTAR MONTO - CTA -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="[50, 55].includes(solicitud.estado) && ![4, 5].includes(cliente.tipoMiembro.id)">
+                <div class="col-12">
+                  <span class="titulo-seccion">
+                    Ajustar monto de cr&eacute;dito
+                  </span>
+                </div>
+                <div class="col-12">
+                  <div class="row align-items-center">
+                    <div class="col-12 col-sm-4">
+                      <button class="btn btn-outline-secondary text-primary w-100"
+                        (click)="ajustarMontos(4, 1, cliente, solicitud.tipoSolicitud, solicitud.garantia, solicitud.usuarioRegistra)">
+                        AJUSTAR MONTOS
+                      </button>
+                    </div>
+                    <div class="col-12 col-sm-8 d-flex align-items-center">
+                      <div class="text-success px-2"></div>
+                      <div class="d-flex flex-column detalle-cliente-dato ml-3">
+                        <span class="dato-valor">
+                          Si consideras necesario, puedes ajustar los montos y plazos para cada uno de los diferentes
+                          integrantes del cr&eacute;dito
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PREGUNTAS SEGURIDAD - CTA -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="[60].includes(solicitud.estado)">
+                <div class="col-12">
+                  <span class="titulo-seccion">
+                    Preguntas de seguridad
+                  </span>
+                </div>
+                <div class="col-12">
+                  <div class="row align-items-center">
+                    <div class="col-12 col-sm-4" *ngIf="session.user.rol.id !== 9">
+                      <button class="btn btn-outline-secondary text-primary w-100"
+                        (click)="validarPreguntasOtp(cliente, solicitud._id)">
+                        GENERAR PREGUNTAS
+                      </button>
+                    </div>
+                    <div class="col-12 col-sm-8 d-flex align-items-center">
+                      <div class="custom-control custom-switch"
+                        *ngIf="[45, 50, 60].includes(solicitud.estado) && session.user.rol.id !== 9 ">
+                        <input type="checkbox" class="custom-control-input" disabled
+                          id="comprobarGenerarPreguntasFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"
+                          [formControl]="aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.preguntasOTP">
+                        <label class="custom-control-label"
+                          for="comprobarGenerarPreguntasFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"></label>
+                      </div>
+                      <div class="d-flex flex-column detalle-cliente-dato ml-3">
+                        <span class="dato-label">
+                          Confirmo que:
+                        </span>
+                        <span class="dato-valor">
+                          La informaci&oacute;n coincide con la de la aplicaci&oacute;n
+                        </span>
+                        <span class="text-danger"
+                          *ngIf="controlInvalid(aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.preguntasOTP)">
+                          {{
+                          aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.preguntasOTP.errors?.aprobar
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- VALIDAR IDENTIDAD - CTA -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="[60].includes(solicitud.estado)">
+                <div class="col-12">
+                  <span class="titulo-seccion">
+                    Validar identidad
+                  </span>
+                </div>
+                <div class="col-12">
+                  <div class="row align-items-center">
+                    <div class="col-12 col-sm-4" *ngIf="session.user.rol.id !== 9">
+                      <button class="btn btn-outline-secondary text-primary w-100"
+                        [disabled]="cliente.otp.validadoGerente" (click)="validarIdentidad(cliente, 3, 2)">
+                        ENVIAR OTP
+                      </button>
+                    </div>
+                    <div class="col-12 col-sm-8 d-flex align-items-center">
+                      <div class="custom-control custom-switch" *ngIf="cliente | confirmar: 'otp'">
+                        <input type="checkbox" class="custom-control-input"
+                          id="forzarOTPFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"
+                          [formControl]="forzarOTPForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.validadoGerente">
+                        <label class="custom-control-label"
+                          for="forzarOTPFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"></label>
+                      </div>
+                      <div class="text-success px-2"
+                        *ngIf="[60].includes(solicitud.estado) && (!!cliente.otp.validadoOtp || !!cliente.otp.validadoGerente)">
+                        <span class="icon-check-rounded"></span>
+                      </div>
+                      <div class="d-flex flex-column detalle-cliente-dato ml-3">
+                        <span class="dato-label">
+                          Confirmo que:
+                        </span>
+                        <span class="dato-valor">
+                          Valid&eacute; la identidad del cliente mediante preguntas de HC
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SEGUROS OPCIONALES - CTA -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="[45].includes(solicitud.estado) && session.user.rol.id === 2 && ![4, 5].includes(cliente.tipoMiembro.id)">
+                <div class="col-12">
+                  <span class="titulo-seccion">Seguros opcionales</span>
+                </div>
+
+                <div class="col-12">
+                  <div class="form-group">
+                    <label style="margin-right: 12px;">¿Desea adquirir seguros opcionales? </label>
+                    <div class="form-check form-check-inline mt-2">
+                      <input class="form-check-input" type="radio" name="segurosOpcionales" id="segurosOpcionalesSi"
+                        value="si" [(ngModel)]="quiereAgregarSeguros">
+                      <label class="form-check-label" for="segurosOpcionalesSi">Sí</label>
+                    </div>
+                    <div class="form-check form-check-inline mt-2">
+                      <input class="form-check-input" type="radio" name="segurosOpcionales" id="segurosOpcionalesNo"
+                        value="no" [(ngModel)]="quiereAgregarSeguros">
+                      <label class="form-check-label" for="segurosOpcionalesNo">No</label>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div *ngIf="quiereAgregarSeguros === 'si'" class="col-12">
+                  <div class="row align-items-center">
+                    <div class="col-12 col-sm-4">
+                      <a class="btn btn-outline-secondary text-primary w-100" (click)="ventaSeguros(cliente)">VENTA DE
+                        SEGUROS</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- EVIDENCIA FOTOGRAFICA - CTA -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom">
+                <div class="col-12">
+                  <span class="titulo-seccion">
+                    Comprobar evidencia fotogr&aacute;fica
+                  </span>
+                </div>
+                <div class="col-12">
+                  <div class="row align-items-center">
+                    <div class="col-12 col-sm-4">
+                      <a class="btn btn-outline-secondary text-primary w-100"
+                        (click)="revisarEvidenciaFotografica(cliente, 1, 1, solicitud.fotos)">EVALUAR
+                        DOCUMENTOS</a>
+                    </div>
+                    <div class="col-12 col-sm-8 d-flex align-items-center">
+                      <div class="custom-control custom-switch"
+                        *ngIf="[45, 50, 60].includes(solicitud.estado) && !aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.fotos.value && session.user.rol.id !== 9">
+                        <input type="checkbox" class="custom-control-input"
+                          id="evaluarDocumentosFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"
+                          [formControl]="aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.fotos">
+                        <label class="custom-control-label"
+                          for="evaluarDocumentosFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"></label>
+                      </div>
+                      <div class="text-success px-2"
+                        *ngIf="[50, 55, 60, 70].includes(solicitud.estado) && aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.fotos.value">
+                        <span class="icon-check-rounded"></span>
+                      </div>
+                      <div class="d-flex flex-column detalle-cliente-dato ml-3">
+                        <span class="dato-label">Confirmo que:</span>
+                        <span class="dato-valor">Estoy de acuerdo con las fotos</span>
+                        <span class="text-danger"
+                          *ngIf="controlInvalid(aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.fotos)">
+                          {{
+                          aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.fotos.errors?.aprobar
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- COMPROBAR FIRMAS - CTA -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom">
+                <div class="col-12">
+                  <span class="titulo-seccion">
+                    Comprobar firmas
+                  </span>
+                </div>
+                <div class="col-12">
+                  <div class="row align-items-center">
+                    <div class="col-12 col-sm-4">
+                      <a class="btn btn-outline-secondary text-primary w-100"
+                        (click)="revisarFirmas(cliente, 2, 1, solicitud.fotos)">EVALUAR
+                        FIRMAS</a>
+                    </div>
+                    <div class="col-12 col-sm-8 d-flex align-items-center">
+                      <div class="custom-control custom-switch"
+                        *ngIf="[45, 50, 60].includes(solicitud.estado) && !aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.firmas.value && session.user.rol.id !== 9">
+                        <input type="checkbox" class="custom-control-input"
+                          id="comprobarFirmasFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"
+                          [formControl]="aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.firmas">
+                        <label class="custom-control-label"
+                          for="comprobarFirmasFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"></label>
+                      </div>
+                      <div class="text-success px-2"
+                        *ngIf="[50, 55, 60, 70].includes(solicitud.estado) && aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.firmas.value">
+                        <span class="icon-check-rounded"></span>
+                      </div>
+                      <div class="d-flex flex-column detalle-cliente-dato ml-3">
+                        <span class="dato-label">Confirmo que:</span>
+                        <span class="dato-valor">Los documentos están firmados y las firmas coinciden</span>
+                        <span class="text-danger"
+                          *ngIf="controlInvalid(aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.firmas)">
+                          {{
+                          aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.firmas.errors?.aprobar
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- COMPROBAR FIRMAS - CTA -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="findSeguro(cliente.seguro)?.aprobado">
+                <div class="col-12">
+                  <span class="titulo-seccion">
+                    Comprobar seguros
+                  </span>
+                </div>
+                <div class="col-12">
+                  <div class="row align-items-center">
+                    <div class="col-12 col-sm-4">
+                      <a class="btn btn-outline-secondary text-primary w-100"
+                        (click)="revisarSeguros(cliente, 2, 1)">EVALUAR
+                        SEGUROS</a>
+                    </div>
+                    <div class="col-12 col-sm-8 d-flex align-items-center">
+                      <div class="custom-control custom-switch"
+                        *ngIf="[45, 50, 60].includes(solicitud.estado) && !aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.seguros.value && session.user.rol.id !== 9">
+                        <input type="checkbox" class="custom-control-input"
+                          id="comprobarSegurosFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"
+                          [formControl]="aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.seguros">
+                        <label class="custom-control-label"
+                          for="comprobarSegurosFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"></label>
+                      </div>
+                      <div class="text-success px-2"
+                        *ngIf="[50, 55, 60, 70].includes(solicitud.estado) && aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.seguros.value">
+                        <span class="icon-check-rounded"></span>
+                      </div>
+                      <div class="d-flex flex-column detalle-cliente-dato ml-3">
+                        <span class="dato-label">Confirmo que:</span>
+                        <span class="dato-valor">Estoy de acuerdo con los seguros</span>
+                        <span class="text-danger"
+                          *ngIf="controlInvalid(aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.seguros)">
+                          {{
+                          aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.seguros.errors?.aprobar
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ELEGIBLE PRODUCTO EXPERTO - CTA -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="esClienteExperto && solicitud.estado <100">
+                <div class="col-12">
+                  <span class="titulo-seccion">
+                    Evaluar si el cliente es elegible para producto Experto
+                  </span>
+                </div>
+                <div class="col-12">
+                  <div class="row align-items-center">
+                    <div class="col-12 col-sm-4">
+                      <button class="btn btn-outline-secondary text-primary w-100"
+                        [disabled]="[50, 55, 60, 70].includes(solicitud.estado) && aprobacionesHistorialForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.clienteExperto.value"
+                        (click)="revisarHistorial(cliente, 5, 1)">VER HISTORIAL
+                      </button>
+                    </div>
+                    <div class="col-12 col-sm-8 d-flex align-items-center">
+                      <div class="custom-control custom-switch" *ngIf="session.user.rol.id !== 9">
+                        <input type="checkbox" class="custom-control-input"
+                          id="elegibleExpertoFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"
+                          [formControl]="aprobacionesHistorialForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.clienteExperto">
+                        <label class="custom-control-label"
+                          for="elegibleExpertoFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"></label>
+                      </div>
+                      <div class="text-success px-2"
+                        *ngIf="[55, 60, 70].includes(solicitud.estado) && aprobacionesHistorialForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.clienteExperto.value">
+                        <span class="icon-check-rounded"></span>
+                      </div>
+                      <div class="d-flex flex-column detalle-cliente-dato ml-3">
+                        <span class="dato-label">Confirmo que:</span>
+                        <span class="dato-valor">He verificado al cliente y es aplicable para experto</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- HISTORIAL DE CEDITO - CTA -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="[50, 55].includes(solicitud.estado) && !esClienteExperto">
+                <div class="col-12">
+                  <span class="titulo-seccion">
+                    Evaluar historial de cr&eacute;dito
+                  </span>
+                </div>
+                <div class="col-12">
+                  <div class="row align-items-center">
+                    <div class="col-12 col-sm-4">
+                      <button class="btn btn-outline-secondary text-primary w-100"
+                        (click)="revisarHistorial(cliente, 6, 1)">VER HISTORIAL
+                      </button>
+                    </div>
+                    <div class="col-12 col-sm-8 d-flex align-items-center">
+                      <div class="custom-control custom-switch" *ngIf="session.user.rol.id !== 9">
+                        <input type="checkbox" class="custom-control-input"
+                          id="historialFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"
+                          [formControl]="aprobacionesHistorialForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.historial">
+                        <label class="custom-control-label"
+                          for="historialFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"></label>
+                      </div>
+                      <div class="text-success px-2"
+                        *ngIf="[55, 60, 70].includes(solicitud.estado) && aprobacionesHistorialForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.historial.value">
+                        <span class="icon-check-rounded"></span>
+                      </div>
+                      <div class="d-flex flex-column detalle-cliente-dato ml-3">
+                        <span class="dato-label">Confirmo que:</span>
+                        <span class="dato-valor">He verificado el historial de cr&eacute;dito</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- VERIFICAR REFERENCIAS - CTA -->
+              <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom"
+                *ngIf="verificaReferenciasArriendoLocal(cliente) || verificaReferenciasArriendoVivienda(cliente) || [4].includes(cliente.tipoMiembro.id)">
+                <div class="col-12 py-2">
+                  <span class="titulo-seccion">
+                    Verificaci&oacute;n de referencias
+                  </span>
+                </div>
+                <div class="col-12 border rounded py-3">
+                  <div class="row" *ngIf="verificaReferenciasArriendoLocal(cliente)">
+                    <div class="col-12 col-sm-6">
+                      <div class="row">
+                        <div class="col-12 pb-3">
+                          <span class="titulo-seccion">Referencias del arriendo del local</span>
+                        </div>
+                        <div class="col-6 d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                          (click)="edicionCamposSolicitud(cliente, 'nombreArrendadorLocal', $event)">
+                          <span class="dato-label">Nombre de referecia</span>
+                          <span class="dato-valor">
+                            {{ cliente.referenciasCliente?.nombreArrendadorLocal }}
+                          </span>
+                        </div>
+                        <div class="col-6 d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                          (click)="edicionCamposSolicitud(cliente, 'telefonoArrendadorLocal', $event)">
+                          <span class="dato-label">Tel&eacute;fono de referencia</span>
+                          <span class="dato-valor">
+                            {{ cliente.referenciasCliente?.telefonoArrendadorLocal }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 py-2">
+                      <div class="row">
+                        <div class="col-4 py-2">
+                          <a class="btn btn-outline-secondary text-primary w-100"
+                            (click)="confirmarReferenciasArriendoLocal(cliente)">
+                            COMPLETAR
+                          </a>
+                        </div>
+                        <div class="col-12 col-sm-8 d-flex align-items-center">
+                          <div class="custom-control custom-switch"
+                            *ngIf="[45, 50, 60].includes(solicitud.estado) && session.user.rol.id !== 9">
+                            <input type="checkbox" class="custom-control-input"
+                              id="referenciasArriendoLocalFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"
+                              [formControl]="aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.referenciasArriendoLocal">
+                            <label class="custom-control-label"
+                              for="referenciasArriendoLocalFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"></label>
+                          </div>
+                          <div class="text-success px-2"
+                            *ngIf="[50, 55, 60, 70].includes(solicitud.estado) && aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.referenciasArriendoLocal.value">
+                            <span class="icon-check-rounded"></span>
+                          </div>
+                          <div class="d-flex flex-column detalle-cliente-dato ml-3">
+                            <span class="dato-label">Confirmo que:</span>
+                            <span class="dato-valor">He verificado las referencias del local del cliente</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="verificaReferenciasArriendoVivienda(cliente)">
+                    <div class="col-12 col-sm-6">
+                      <div class="row">
+                        <div class="col-12 pb-3">
+                          <span class="titulo-seccion">Referencias del arriendo de la vivienda</span>
+                        </div>
+                        <div class="col-6 d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                          (click)="edicionCamposSolicitud(cliente, 'nombreArrendador', $event)">
+                          <span class="dato-label">Nombre de referecia</span>
+                          <span class="dato-valor">
+                            {{ cliente.referenciasCliente?.nombreArrendador }}
+                          </span>
+                        </div>
+                        <div class="col-6 d-flex flex-column detalle-cliente-dato" [class.hover]="puedeEditarCampos"
+                          (click)="edicionCamposSolicitud(cliente, 'telefonoArrendador', $event)">
+                          <span class="dato-label">Tel&eacute;fono de referencia</span>
+                          <span class="dato-valor">
+                            {{ cliente.referenciasCliente?.telefonoArrendador }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 py-2">
+                      <div class="row">
+                        <div class="col-4 py-2">
+                          <a class="btn btn-outline-secondary text-primary w-100"
+                            (click)="confirmarReferenciasArriendoVivienda(cliente)">
+                            COMPLETAR
+                          </a>
+                        </div>
+                        <div class="col-12 col-sm-8 d-flex align-items-center">
+                          <div class="custom-control custom-switch"
+                            *ngIf="[45, 50, 60].includes(solicitud.estado) && session.user.rol.id !== 9">
+                            <input type="checkbox" class="custom-control-input"
+                              id="referenciasArriendoViviendaFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"
+                              [formControl]="aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.referenciasArriendoVivienda">
+                            <label class="custom-control-label"
+                              for="referenciasArriendoViviendaFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"></label>
+                          </div>
+                          <div class="text-success px-2"
+                            *ngIf="[50, 55, 60, 70].includes(solicitud.estado) && aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.referenciasArriendoVivienda.value">
+                            <span class="icon-check-rounded"></span>
+                          </div>
+                          <div class="d-flex flex-column detalle-cliente-dato ml-3">
+                            <span class="dato-label">Confirmo que:</span>
+                            <span class="dato-valor">He verificado las referencias de vivienda del cliente</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="[4].includes(cliente.tipoMiembro.id)">
+                    <div class="col-12 col-sm-6">
+                      <div class="row">
+                        <div class="col-12 pb-3">
+                          <span class="titulo-seccion">Referencias laborales</span>
+                        </div>
+                        <div class="col-6 d-flex flex-column detalle-cliente-dato">
+                          <span class="dato-label">Nombre de referecia</span>
+                          <span class="dato-valor">
+                            {{ cliente.datosCoodeudorAsalariado?.informacionLaboral?.nombreEmpresa }}
+                          </span>
+                        </div>
+                        <div class="col-6 d-flex flex-column detalle-cliente-dato">
+                          <span class="dato-label">Tel&eacute;fono de referencia</span>
+                          <span class="dato-valor">{{ cliente.datosCoodeudorAsalariado?.informacionLaboral?.telefono
+                            }}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 py-2">
+                      <div class="row">
+                        <div class="col-4 py-2">
+                          <a class="btn btn-outline-secondary text-primary w-100"
+                            (click)="confirmarReferenciasLaborales(cliente)">
+                            COMPLETAR
+                          </a>
+                        </div>
+                        <div class="col-12 col-sm-8 d-flex align-items-center">
+                          <div class="custom-control custom-switch"
+                            *ngIf="[45, 50, 60].includes(solicitud.estado) && session.user.rol.id !== 9">
+                            <input type="checkbox" class="custom-control-input"
+                              id="referenciasLaboralesFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"
+                              [formControl]="aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.aprobacionReferenciasLaborales">
+                            <label class="custom-control-label"
+                              for="referenciasLaboralesFieldSwitch{{ cliente.datosIdentificacionCliente.numeroIdentificacion }}"></label>
+                          </div>
+                          <div class="text-success px-2"
+                            *ngIf="[50, 55, 60, 70].includes(solicitud.estado) && aprobacionesForm[cliente.datosIdentificacionCliente.numeroIdentificacion].controls.aprobacionReferenciasLaborales.value">
+                            <span class="icon-check-rounded"></span>
+                          </div>
+                          <div class="d-flex flex-column detalle-cliente-dato ml-3">
+                            <span class="dato-label">Confirmo que:</span>
+                            <span class="dato-valor">He verificado las referencias laborales del codeudor</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row py-3" *ngIf="permisoStep()">
+    <div class="col-12 col-sm-6" *ngIf="solicitud.estado !== 200">
+      <!-- SECCION DE COMENTARIOS -->
+      <app-comentarios [solicitud]="solicitud"></app-comentarios>
+    </div>
+
+    <!-- SECCION DE ACCIONES (APROBAR, RECHAZAR, DEVOLVER, COMITÉ) -->
+    <div class="col-12 col-sm-6 acciones"
+      *ngIf="([45, 50, 55, 60, 100, 120, 150].includes(solicitud.estado) && fechasCierre) && session.user.rol.id !== 9">
+      <div class="d-flex justify-content-start align-items-center py-2">
+        <span class="titulo-seccion">¿Qué quieres hacer?</span>
+      </div>
+      <div class="d-flex flex-column acciones-contenido">
+        <div class="detalle">
+          <span>Toma una decisi&oacute;n sobre esta propuesta</span>
+        </div>
+        <div class="row text-center py-3 px-3">
+          <!-- VALIDACION BIOMETRICA -->
+          <div class="col-12 px-0 py-1" *ngIf="mostrarBotonBiometria">
+            <button class="btn btn-primary w-100" type="button" [disabled]="!puedeValidarBiometria || biometriaEnProceso"
+              (click)="validarBiometria()">
+              {{ biometriaEnProceso ? 'VALIDANDO...' : 'VALIDACIÓN BIOMÉTRICA' }}
+            </button>
+          </div>
+          <!-- COMPARAR DATOS BIOMETRIA -->
+          <div class="col-12 px-0 py-1" *ngIf="mostrarBotonCompararDatos">
+            <button class="btn btn-primary w-100" type="button" [disabled]="biometriaEnProceso"
+              (click)="compararDatosBiometria()">
+              {{ biometriaEnProceso ? 'COMPARANDO...' : 'COMPARAR DATOS' }}
+            </button>
+          </div>
+          <!-- DEVOLVER -->
+          <div class="col-6 px-0 py-1" *ngIf="mostrarBotonDevolver() && accionesBiometriaHabilitadas()">
+            <a class="btn accion d-flex flex-column justify-content-center" (click)="devolver(11, 1)">
+              <i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+                  <g id="Grupo_3882" data-name="Grupo 3882" transform="translate(-90.607 -16.75)">
+                    <path id="Trazado_67" data-name="Trazado 67" d="M60,20A11,11,0,1,1,49,9,11,11,0,0,1,60,20Z"
+                      transform="translate(52.607 7.75)" fill="#f2a51a" />
+                    <path id="Trazado_4072" data-name="Trazado 4072"
+                      d="M42.306,35.113H38.914v1.5h3.392a2.942,2.942,0,0,1,0,5.884H38.475l1.432-1.432L38.849,40l-3.237,3.237,3.237,3.237,1.058-1.058-1.43-1.43h3.829a4.438,4.438,0,0,0,0-8.876Z"
+                      transform="translate(60.43 -13.045)" fill="#fff" />
+                  </g>
+                </svg>
+              </i>
+              <span>Devolver solicitud</span>
+            </a>
+          </div>
+          <!-- COMITE DE DECISION -->
+          <div class="col-6 px-0 py-1" *ngIf="mostrarBotonComiteDecision()">
+            <a class="btn accion d-flex flex-column justify-content-center" (click)="enviarComite(11, 4)">
+              <i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+                  <g id="Grupo_3883" data-name="Grupo 3883" transform="translate(-303 -18)">
+                    <path id="Trazado_68" data-name="Trazado 68" d="M174,20A11,11,0,1,1,163,9,11,11,0,0,1,174,20Z"
+                      transform="translate(151 9)" fill="#5ab8ca" />
+                    <path id="Trazado_4073" data-name="Trazado 4073"
+                      d="M109.568,107.14l-4.028-4.028a4.894,4.894,0,1,0-3.966,2.029,5,5,0,0,0,2.644-.769l4.058,4.058a.892.892,0,0,0,1.291,0A.948.948,0,0,0,109.568,107.14ZM99.391,102.4a3.062,3.062,0,0,1,0-4.335,3.1,3.1,0,0,1,2.183-.892,3.149,3.149,0,0,1,2.183.892,3.118,3.118,0,0,1,0,4.366h0A3.128,3.128,0,0,1,99.391,102.4Z"
+                      transform="translate(211.346 -73.302)" fill="#fff" />
+                  </g>
+                </svg>
+              </i>
+              <span>Comit&eacute; de decisi&oacute;n</span>
+            </a>
+          </div>
+          <!-- RECHAZAR SOLICITUD -->
+          <div class="col-6 px-0 py-1" *ngIf="mostrarBotonRechazar() && accionesBiometriaHabilitadas()">
+            <a class="btn accion d-flex flex-column justify-content-center" (click)="rechazar(11, 2)">
+              <i class="icon-close text-primary"></i>
+              <span>Rechazar solicitud</span>
+            </a>
+          </div>
+          <!-- ENVIAR A OTP -->
+          <div class="col-6 px-0 py-1" *ngIf="mostrarBotonEnviarOtp()">
+            <ng-template #alert4MillonesContent>
+              Las solicitudes con monto superior a {{ montoMaxAprobacion | currency : '$' : 'symbol' : '1.0-0' }}
+              y plazo superior a {{plazoMaxAprobacion}} meses
+              o rechazadas/devueltas por comité deben pasar por comit&eacute;
+            </ng-template>
+            <button class="btn accion d-flex flex-column justify-content-center"
+              [ngbTooltip]="!permitePasoValidarIdentidad ? alert4MillonesContent : null" (click)="otp(11, 5)">
+              <i class="icon-check-rounded text-success"></i>
+              <span>Enviar a OTP</span>
+            </button>
+          </div>
+          <!-- APROBAR SOLICITUD -->
+          <div class="col-6 px-0 py-1" *ngIf="[60].includes(solicitud.estado) && ![3,4].includes(session.user.rol.id) && accionesBiometriaHabilitadas()">
+            <a class="btn accion d-flex flex-column justify-content-center" (click)="aprobar(11, 7)">
+              <i class="icon-check-rounded text-success"></i>
+              <span>Enviar a alta de clientes</span>
+            </a>
+          </div>
+          <!-- ENVIAR A APROBACION -->
+          <div class="col-6 px-0 py-1" *ngIf="mostrarBotonEnviarAprobacion() && accionesBiometriaHabilitadas()">
+            <a class="btn accion d-flex flex-column justify-content-center" (click)="enviarAprobacion(11, 3)">
+              <i [class.text-success]="solicitud.estado === 45" [class.icon-check-rounded]="solicitud.estado === 45"
+                [class.icon-credit-obj]="[55, 60].includes(solicitud.estado)"
+                [class.text-info]="[55, 60].includes(solicitud.estado)"></i>
+              <span>{{ solicitud.estado === 45 ? 'Enviar a aprobaci&oacute;n' : 'Devolver a aprobaci&oacute;n' }}</span>
+            </a>
+          </div>
+          <!-- POSICIONAMIENTO GPS -->
+          <div class="col-6 px-0 py-1" *ngIf="mostrarBotonGPS() && accionesBiometriaHabilitadas()">
+            <a class="btn accion d-flex flex-column justify-content-center" (click)="modalDistanciamentoFotos()">
+              <i style="padding: 10px;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" height="35" width="35">
+                  <defs>
+                    <style>
+                      .cls-1,
+                      .cls-2 {
+                        fill: none;
+                      }
+
+                      .cls-2 {
+                        stroke: rgb(0, 0, 0);
+                        stroke-linecap: round;
+                        stroke-linejoin: round;
+                      }
+                    </style>
+                  </defs>
+                  <g data-name="Layer 2" id="Layer_2">
+                    <g id="Workspace">
+                      <rect class="cls-1" />
+                      <circle class="cls-2" cx="12" cy="10" r="2" />
+                      <path class="cls-2"
+                        d="M17,10a4.64,4.64,0,0,1-.62,2.4C15.36,14.1,12,19,12,19s-3.36-4.9-4.39-6.59A4.64,4.64,0,0,1,7,10a5,5,0,0,1,10,0Z" />
+                    </g>
+                  </g>
+                </svg>
+              </i>
+              <span>Posicionamiento GPS</span>
+            </a>
+          </div>
+          <!-- DESCARGAR CONTRATO -->
+          <div class="col-6 px-0 py-1" *ngIf="[100].includes(solicitud.estado)">
+            <a class="btn accion d-flex flex-column justify-content-center" (click)="descargarContrato(11, 6)">
+              <i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+                  <g id="Grupo_3901" transform="translate(-89 -16.75)">
+                    <path id="Trazado_67" d="M60,20A11,11,0,1,1,49,9,11,11,0,0,1,60,20Z" transform="translate(51 7.75)"
+                      fill="#429321" />
+                    <g id="Grupo_3900" transform="translate(94.287 21.414)">
+                      <g id="Grupo_3899">
+                        <path id="Trazado_4100"
+                          d="M17.91,17.681a1.6,1.6,0,0,0,.22.013,1.312,1.312,0,0,0,.924-.3.918.918,0,0,0,.262-.68.839.839,0,0,0-.3-.663,1.358,1.358,0,0,0-.869-.229,5.223,5.223,0,0,0-.87.06v2.826h.637V17.681Zm0-1.347a1.084,1.084,0,0,1,.266-.025c.321,0,.5.157.5.421,0,.293-.211.468-.553.468a.973.973,0,0,1-.215-.017Z"
+                          transform="translate(-14.957 -13.178)" fill="#fff" />
+                        <path id="Trazado_4101"
+                          d="M29.514,18.364a1.457,1.457,0,0,0,.473-1.16,1.27,1.27,0,0,0-.481-1.079,1.82,1.82,0,0,0-1.165-.306,5.691,5.691,0,0,0-.87.06v2.813a5.534,5.534,0,0,0,.73.043A2.035,2.035,0,0,0,29.514,18.364Zm-1.4-2.023a1.335,1.335,0,0,1,.291-.025.819.819,0,0,1,.9.909.885.885,0,0,1-.963,1,1.164,1.164,0,0,1-.224-.013Z"
+                          transform="translate(-22.743 -13.178)" fill="#fff" />
+                        <path id="Trazado_4102"
+                          d="M40.369,17.621h1.022v-.527H40.369V16.44h1.093v-.531H39.723v2.864h.646Z"
+                          transform="translate(-32.097 -13.246)" fill="#fff" />
+                        <rect id="Rectángulo_114" width="6.941" height="0.792" transform="translate(1.73 7.609)"
+                          fill="#fff" />
+                        <rect id="Rectángulo_115" width="6.941" height="0.792" transform="translate(1.73 8.777)"
+                          fill="#fff" />
+                        <rect id="Rectángulo_116" width="6.941" height="0.792" transform="translate(1.73 9.946)"
+                          fill="#fff" />
+                        <path id="Trazado_4103"
+                          d="M16.926,11.211V0H6.952A1.456,1.456,0,0,0,5.5,1.461V12.672h9.974A1.456,1.456,0,0,0,16.926,11.211ZM6.287,1.461A.668.668,0,0,1,6.952.792h9.187V11.211a.668.668,0,0,1-.665.669H6.287Z"
+                          transform="translate(-5.5)" fill="#fff" />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </i>
+              <span>Descargar Contrato</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

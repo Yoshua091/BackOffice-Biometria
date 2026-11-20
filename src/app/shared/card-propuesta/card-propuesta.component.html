@@ -1,0 +1,433 @@
+<div class="container-fluid px-0 my-3">
+    <div class="row mt-1 ">
+        <div class="col-6">
+            <ul class="nav-pills" ngbNav #navRegistros="ngbNav" style="margin-left: 7px;">
+                <li [ngbNavItem]="'GENERAL'">
+                    <a ngbNavLink *ngIf="propuesta.estado >= 90">Informaci&oacute;n general<span></span></a>
+                    <ng-template ngbNavContent>
+                        <ng-container>
+                            <div class="container-fluid px-4 my-3">
+                                <div class="row mt-1 ">
+                                    <div class="col-1 d-flex align-items-center justify-content-center px-0">
+                                        <div class="row">
+                                            <div class="propuesta-tipo__icon border-dark col-12"
+                                                [class.icon-cliente-lider]="esIndividual(propuesta)"
+                                                [class.icon-cliente-experto]="esClienteExperto(propuesta)"
+                                                [class.icon-cliente-grupo]="esGrupal(propuesta)"
+                                                [class.icon-cliente-garantia]="esGarantia(propuesta)">
+                                            </div>
+                                            <div class="col-12 d-flex align-items-center justify-content-center">
+                                                <span *ngIf="!!propuesta.renovacion"
+                                                    class="propuesta-tipo__renovacion">Renovaci&oacute;n</span>
+                                            </div>
+                                            <div class="col-12 d-flex align-items-center justify-content-center">
+                                                <span *ngIf="!!propuestaGarantia && propuesta.tipoSolicitud?.plus !== true"
+                                                    class="propuesta-garantia__garantia">Garant&iacute;a</span>
+                                            </div>
+                                            <div class="col-12 d-flex align-items-center justify-content-center">
+                                                <span *ngIf="propuestaPlus"
+                                                    class="propuesta-garantia__garantia">Plus</span>
+                                            </div>
+
+                                            <div class="col-12 d-flex align-items-center justify-content-center">
+                                                <span class="propuesta-garantia__garantia">{{ obtenerValores(propuesta) }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-11 d-flex align-items-center">
+                                        <div class="container-fluid" style="border-right: 1px solid #dee2e6">
+                                            <table class="table" style="border: hidden">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="col-4 font-subtitle font-gray"
+                                                            style="padding: 0.12rem; border: hidden;">Miembros
+                                                        </th>
+                                                        <th class="col-2 font-subtitle font-gray"
+                                                            style="padding: 0.12rem; border: hidden; text-align: center">
+                                                            Identificaci&oacute;n
+                                                        </th>
+                                                        <th class="col- font-subtitle font-gray"
+                                                            style="padding: 0.12rem; border: hidden; text-align: center;">
+                                                            Monto Solicitado</th>
+                                                        <th class="col- font-subtitle font-gray"
+                                                            style="padding: 0.12rem; border: hidden; text-align: center;">
+                                                            Plazo</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let miembro of miembros">
+                                                        <td style="border: hidden; padding: 0.12rem;">
+                                                            <div class="font-small font-dark-gray code"
+                                                                (click)="copyToClipboard(element)" #element
+                                                                style="border: hidden; color: #545454; margin-left: 0px;">
+                                                                {{getNameMiembro(miembro)}}
+                                                            </div>
+                                                            <div class="row font-small font-dark-gray font-weight-bold"
+                                                                style="border: hidden; color: #545454; margin-left: 0px;">
+                                                                {{miembro.tipoMiembro.tipo}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="font-small font-dark-gray"
+                                                            style="border: hidden; padding: 0.12rem; text-align: right">
+
+                                                            <span>
+                                                                {{miembro.datosIdentificacionCliente.tipoIdentificacion.tipo}}:
+                                                            </span>
+
+                                                            <div class="font-small font-dark-gray code"
+                                                                (click)="copyToClipboard(element2)"
+                                                                #element2>
+                                                                {{miembro.datosIdentificacionCliente.numeroIdentificacion}}
+                                                            </div>
+
+                                                        </td>
+                                                        <td class="font-small font-dark-gray"
+                                                            *ngIf="!(miembro.tipoMiembro.tipo).includes('Codeudor')"
+                                                            style="border: hidden; padding: 0.12rem; text-align: right">
+                                                            {{miembro.solicitudEconomica.valoresDetalles.monto |
+                                                            currency: '$' : 'symbol' : '1.0-0'}}
+                                                        </td>
+                                                        <td class="font-small font-dark-gray"
+                                                            *ngIf="propuesta.estado >= 45 && !(miembro.tipoMiembro.tipo).includes('Codeudor') "
+                                                            style="border: hidden; padding: 0.12rem; text-align: right">
+                                                            {{ (miembros | extraerDataSolicitud:
+                                                            'lider')?.solicitudEconomica?.valoresDetalles?.plazoMeses?.meses
+                                                            }} Meses
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-template>
+
+
+                </li>
+                <li [ngbNavItem]="'DISPERSION'" *ngIf="propuesta.estado >= 90">
+                    <a ngbNavLink>Estado dispersi&oacute;n <span></span></a>
+                    <ng-template ngbNavContent>
+                        <ng-container>
+                            <div class="container-fluid" style="border-right: 1px solid #dee2e6; padding: 1.92px;">
+                                <div class="row mt-1">
+                                    <div class="col-12 d-flex align-items-center">
+                                        <div class="container-fluid" style="padding: 3px;">
+                                            <div>
+                                                <table class="custom-table table-borderless" style="border: hidden">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="col-3 font-subtitle font-gray">
+                                                                Nombres
+                                                            </th>
+                                                            <th class="col-2 font-subtitle font-gray">
+                                                                Identificaci&oacute;n
+                                                            </th>
+                                                            <th class="col-2 font-subtitle font-gray"
+                                                                style="text-align: center">Estado
+                                                                dispersi&oacute;n</th>
+                                                            <th class="col-2 font-subtitle font-gray"
+                                                                style="text-align: center">Fecha
+                                                                Actualizaci&oacute;n</th>
+                                                            <th class="col-2 font-subtitle font-gray"
+                                                                style="text-align: center"
+                                                                *ngIf="mostrarDatosDispersionesCodigo()">
+                                                                C&oacute;digo
+                                                                plataforma</th>
+                                                            <th class="col-2 font-subtitle font-gray"
+                                                                style="text-align: center"
+                                                                *ngIf="mostrarDatosDispersiones()">
+                                                                Descripci&oacute;n
+                                                                plataforma</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let miembro of miembrosDispersion">
+                                                            <td class="font-small font-dark-gray code"
+                                                                style="border: hidden; padding: 0.12rem; padding-bottom: 20px"
+                                                                (click)="copyToClipboard(element)" #element>
+                                                                {{getNameMiembro(miembro)}}
+                                                            </td>
+                                                            <td class="font-small font-dark-gray code"
+                                                                style="border: hidden; padding: 0.12rem; padding-bottom: 20px"
+                                                                (click)="copyToClipboard(element2)" #element2>
+                                                                {{miembro.datosIdentificacionCliente.tipoIdentificacion.tipo}}:
+                                                                {{miembro.datosIdentificacionCliente.numeroIdentificacion}}
+                                                            </td>
+                                                            <td class="font-small font-dark-gray"
+                                                                *ngIf="!(miembro.tipoMiembro.tipo).includes('Codeudor')"
+                                                                style="border: hidden; padding: 0.12rem; text-align: center; padding-bottom: 20px">
+                                                                {{miembro?.dispersion?.descripcion}}
+                                                            </td>
+                                                            <td class="font-small font-dark-gray"
+                                                                *ngIf="!(miembro.tipoMiembro.tipo).includes('Codeudor')"
+                                                                style="border: hidden; padding: 0.12rem; text-align: center; padding-bottom: 20px">
+                                                                {{miembro?.dispersion?.fechaActualizacion | date:
+                                                                'dd/MM/yy, h:mm a'}}
+                                                            </td>
+                                                            <td class="font-small font-dark-gray"
+                                                                *ngIf="miembro?.dispersion?.codigoPlataforma !== undefined"
+                                                                style="border: hidden; padding: 0.12rem; text-align: center; padding-bottom: 20px">
+                                                                {{miembro?.dispersion?.codigoPlataforma}}
+                                                            </td>
+                                                            <td class="font-small font-dark-gray"
+                                                                *ngIf="miembro?.dispersion?.descripcionPlataforma !== undefined"
+                                                                style="border: hidden; padding: 0.12rem; text-align: center;padding-bottom: 20px">
+                                                                {{miembro?.dispersion?.descripcionPlataforma}}
+                                                            </td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </ng-container>
+
+                    </ng-template>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="navRegistros"></div>
+        </div>
+        <div class="col-6 d-flex align-items-center mt-4" *ngIf="propuesta.estado >= 90">
+            <div class="mt4">
+                <div class="mx-0 mb-2 mt-4 detalle-procesados">
+                    <ng-container>
+                        <div class="container-fluid px-4 my-3"
+                            style="position: absolute; top:0; right:0; margin-top: 29px !important">
+                            <div class="row mt-1">
+                                <div class="col-3">
+                                    <div class="font-subtitle font-gray">
+                                        # de propuesta:
+                                    </div>
+                                    <div class="font-small font-dark-gray mt-2 code" (click)="copyToClipboard(element3)"
+                                        #element3>
+                                        {{propuesta.idSolicitud}}
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="font-subtitle font-gray">
+                                        F. de recepci&oacute;n:
+                                    </div>
+                                    <div class="font-small font-dark-gray mt-2" style="cursor: pointer;"
+                                        (click)="solicitudLog(propuesta)">
+                                        {{fechaEstados | date: 'dd/MM/yy, h:mm a'}}
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="font-subtitle font-gray">
+                                        Valor del cr&eacute;dito:
+                                    </div>
+                                    <div class="font-small font-dark-gray mt-2">
+                                        {{ sumCuotas(propuesta) | currency: '$' : 'symbol' : '1.0-0'}}
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="font-subtitle font-gray">
+                                        Sucursal:
+                                    </div>
+                                    <div class="font-small font-dark-gray mt-2">
+                                        {{propuesta.sucursal.nombre}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3 mt-4">
+                                    <div class="font-subtitle font-gray">
+                                        Estado:
+                                    </div>
+                                    <div class="font-small font-dark-gray mt-2">
+                                        {{estadosSolicitud[propuesta.estado]}}
+                                    </div>
+                                </div>
+                                <div class="col-3 mt-4">
+                                    <div class="font-subtitle font-gray">
+                                        Agente:
+                                    </div>
+                                    <div class="font-small font-dark-gray mt-2">
+                                        {{ propuesta.usuarioRegistra?.nombre | titlecase}} {{
+                                        propuesta.usuarioRegistra?.apellido |
+                                        titlecase}}
+                                    </div>
+                                </div>
+                                <div class="col-3 mt-4" *ngIf="[90, 95, 100, 120, 150, 200].includes(propuesta.estado)">
+                                    <div class="font-subtitle font-gray">
+                                        # desembolso:
+                                    </div>
+                                    <div class="font-small font-dark-gray mt-2 code" (click)="copyToClipboard(element4)"
+                                        #element4>
+                                        {{ propuesta.siif?.wsgyg29?.ok?.numeroPrestamo }}
+                                    </div>
+                                </div>
+                                <div class="col-3 mt-4" *ngIf="propuesta.estado === 55">
+                                    <div class="font-subtitle font-gray">
+                                        Analista:
+                                    </div>
+                                    <div class="font-small font-dark-gray mt-2">
+                                        {{ analista? analista.nombre : "" | titlecase}} {{ analista? analista.apellido :
+                                        ""
+                                        |
+                                        titlecase }}
+                                    </div>
+                                </div>
+                                <div class="col-3 mt-4" style="right: -19px;">
+                                    <div class="font-subtitle font-gray">
+                                        Zona:
+                                    </div>
+                                    <div class="font-small font-dark-gray mt-2">
+                                        {{propuesta.zona?.nombre || ''}}
+                                    </div>
+                                </div>
+                                <div class="col-3 mt-4">
+                                    <div class="font-subtitle font-gray">
+                                        Vigencia:
+                                    </div>
+                                    <div class="font-small font-dark-gray mt-2"
+                                        [class.text-danger]="vigenciaSolicitudColor > 25"
+                                        [class.font-weight-bold]="vigenciaSolicitudColor > 25">
+                                        {{vigenciaSolicitud || ''}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 d-flex align-items-center" *ngIf="propuesta.estado < 90">
+            <div class="container-fluid px-0" style="position: absolute; top:0; right:0;  margin-top: 15px">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="font-subtitle font-gray">
+                            # de propuesta:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2 code" (click)="copyToClipboard(element3)" #element3>
+                            {{propuesta.idSolicitud}}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="font-subtitle font-gray">
+                            F. de recepci&oacute;n:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2" style="cursor: pointer;"
+                            (click)="solicitudLog(propuesta)">
+                            {{fechaEstados | date: 'dd/MM/yy, h:mm a'}}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="font-subtitle font-gray">
+                            Valor del cr&eacute;dito:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2">
+                            {{ sumCuotas(propuesta) | currency: '$' : 'symbol' : '1.0-0'}}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="font-subtitle font-gray">
+                            Sucursal:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2">
+                            {{propuesta.sucursal.nombre}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 mt-4">
+                        <div class="font-subtitle font-gray">
+                            Estado:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2">
+                            {{estadosSolicitud[propuesta.estado]}}
+                        </div>
+                    </div>
+                    <div class="col-3 mt-4">
+                        <div class="font-subtitle font-gray">
+                            Agente:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2">
+                            {{ propuesta.usuarioRegistra?.nombre | titlecase}} {{ propuesta.usuarioRegistra?.apellido |
+                            titlecase}}
+                        </div>
+                    </div>
+                    <div class="col-3 mt-4" *ngIf="[90, 95, 100, 120, 150, 200].includes(propuesta.estado)">
+                        <div class="font-subtitle font-gray">
+                            # desembolso:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2 code" (click)="copyToClipboard(element4)" #element4>
+                            {{ propuesta.siif?.wsgyg29?.ok?.numeroPrestamo }}
+                        </div>
+                    </div>
+                    <div class="col-3 mt-4" *ngIf="propuesta.estado === 55">
+                        <div class="font-subtitle font-gray">
+                            Analista:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2">
+                            {{ analista? analista.nombre : "" | titlecase}} {{ analista? analista.apellido : "" |
+                            titlecase }}
+                        </div>
+                    </div>
+                    <div class="col-3 mt-4">
+                        <div class="font-subtitle font-gray">
+                            Vigencia:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2" [class.text-danger]="vigenciaSolicitudColor > 25"
+                            [class.font-weight-bold]="vigenciaSolicitudColor > 25">
+                            {{vigenciaSolicitud || ''}}
+                        </div>
+                    </div>
+                    <div class="col-3 mt-4">
+                        <div class="font-subtitle font-gray">
+                            Zona:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2">
+                            {{propuesta.zona.nombre || ''}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Botones -->
+    <div class="row" style="margin-top: 4.5rem !important">
+        <div class="col-lg-4">
+            <div class="px-4" *ngIf="mostrarMotivoAltair">
+                <div class="font-subtitle font-red">
+                    Motivo de rechazo Altair: <span class="font-small font-dark-gray" style="cursor: pointer;"
+                        (click)="solicitudLogRechazoAltair(propuesta)"> Haga click aqu&iacute;</span>
+                </div>
+            </div>
+            <div class="px-4" *ngIf="mostrarSolicitudSoporte">
+                <div class="font-subtitle font-dark-gray font-red">La solicitud fue sincronizada por medio del
+                    m&oacute;dulo de soporte y no puede ser modificada.
+                </div>
+            </div>
+            <div class="px-4" *ngIf="mostrarLogSiiw">
+                <div class="font-subtitle font-red">
+                    Esta solicitud contiene alertas.<span class="font-small font-dark-gray" style="cursor: pointer;"
+                        (click)="solicitudLogSiif(propuesta)"> Haga click aqu&iacute; para ver</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-8">
+            <!-- boton ver -->
+            <button *ngIf="permisoVerSolicitud(propuesta)" style="margin: 1em 8px" type="submit "
+                class="btn btn-primary float-right" (click)="emitEvent()">Ver</button>
+            <!-- boton descargar contato -->
+            <button *ngIf="propuesta.estado >= 90" style="margin: 1em 8px" type="submit"
+                class="btn btn-primary float-right" (click)="descargarContrato()">Descargar contrato</button>
+            <!-- boton asignar -->
+            <button *ngIf="esLider && propuesta.estado === 55" style="margin: 1em 8px" type="submit"
+                class="btn btn-primary float-right" (click)="asignarComite()">Asignar</button>
+        </div>
+    </div>
+</div>

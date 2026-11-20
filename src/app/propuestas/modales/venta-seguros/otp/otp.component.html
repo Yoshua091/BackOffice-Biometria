@@ -1,0 +1,23 @@
+<div id="modal-validar-otp" class="px-2">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">OTP Seguro</h4>
+        <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></a>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">Ingresa código entregado por el cliente para autorización de consulta</p>
+        <form (ngSubmit)="confirmarCodigo()" #codigoForm="ngForm">
+          <div class="form-group">
+            <input type="text" class="form-control" autocomplete="off" maxlength="4" placeholder="----" required [(ngModel)]="codigo" name="codigo" />
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary" [disabled]="codigo.length !== 4">Confirmar</button>
+          </div>
+          <div *ngIf="errorMessage" class="text-danger text-center">
+            {{ errorMessage }}
+          </div>
+        </form>
+      </div>
+</div>
+
+
+  

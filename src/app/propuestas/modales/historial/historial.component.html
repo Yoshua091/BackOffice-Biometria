@@ -1,0 +1,20 @@
+<div id="modal-rechazar-docs" class="px-2">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Historial de cr&eacute;dito</h4>
+    <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></a>
+  </div>
+  <div class="modal-body">
+    <app-historial-item [historial]="historial"></app-historial-item>
+  </div>
+  <div class="modal-footer border-0">
+    <div class="row w-100 justify-content-end">
+      <div class="col-12 col-sm-7">
+        <div class="row justify-content-end">
+          <div class="col-6">
+            <a class="btn btn-primary w-100" (click)="modal.dismiss('')">Entendido</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

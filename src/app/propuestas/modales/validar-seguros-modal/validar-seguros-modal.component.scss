@@ -1,0 +1,153 @@
+#modal-verificar-docs {
+  // max-height: calc(100vh - 75px);
+
+  .modal-header {}
+
+  .modal-body {
+    // height: 50%;
+
+    .card {
+      // height: 75%;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      box-shadow: 0 4px 8px #2222221F;
+
+      .card-header,
+      .card-body {
+        padding-right: 0;
+        padding-left: 0;
+      }
+
+      .nav-pills {
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        flex-wrap: nowrap;
+
+        .nav-link {
+          padding-left: 0.5rem;
+          color: #545454;
+
+          .icono-estado {
+            &.no-revisado {
+              content: url("../../../../assets/images/documento-no-revisado.svg");
+            }
+
+            &.aprobado {
+              content: url("../../../../assets/images/documento-aprobado.svg");
+            }
+
+            &.rechazado {
+              content: url("../../../../assets/images/documento-rechazado.svg");
+            }
+          }
+        }
+
+        .nav-link.active,
+        .show>.nav-link {
+          color: #545454;
+          font-weight: 700;
+          background-color: transparent;
+        }
+      }
+
+    }
+
+    // esta regla se ha movido al style.scss porque esta no logra ser aplicada
+    // por alguna razón.
+    .tab-content {
+      >.active {
+        height: 100%;
+      }
+    }
+
+    .declaracion {
+      font: normal normal 13px/19px Roboto;
+      color: #545454;
+
+      .titulo-seccion {
+        font-weight: 700;
+      }
+    }
+
+  }
+
+  .form-group {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Hide the browser's default checkbox */
+  .form-group input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: #fff;
+    border: 2px solid #CC0000;
+    border-radius: 5px;
+  }
+
+  /* On mouse-over, add a grey background color */
+  .form-group:hover input~.checkmark {
+    background-color: #CC000011;
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the checkmark when checked */
+  .form-group input:checked~.checkmark:after {
+    display: block;
+  }
+
+  /* Style the checkmark/indicator */
+  .form-group .checkmark:after {
+    left: 2px;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: #CC0000;
+    border-radius: 3px;
+  }
+}
+
+.mensaje-otp {
+  font: normal normal 18px/19px Roboto;
+  color: #545454;
+  text-align: center;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.otp-codigo {
+  color: #545454;
+  /* Example color for OTP code */
+  font-weight: 700;
+}
+
+.otp-fecha {
+  color: #545454;
+  /* Example color for date */
+}

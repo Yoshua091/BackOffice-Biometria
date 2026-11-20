@@ -1,0 +1,35 @@
+.encuesta-socioeconomica {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  table {
+
+    th, td {
+      border: none;
+      color: #545454;
+      text-align: left;
+    }
+
+    tr {
+      > th {
+        font-size: 16px/20px;
+      }
+
+      > td {
+        padding-bottom: 0.5rem;
+        padding-top: 0.5rem;
+        font-size: 14px/18px;
+
+        .titulo-seccion {
+          font-weight: bold;
+        }
+      }
+    }
+
+    tfoot {
+      tr {
+        background-color: #D5D5D5;
+      }
+    }
+  }
+}

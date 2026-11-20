@@ -1,0 +1,85 @@
+<div id="modal-rechazar-docs" class="px-2">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Historial de cliente</h4>
+    <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></a>
+  </div>
+  <div class="modal-body">
+
+    <div class="creditos-cliente__datos-cliente">
+      <i class="creditos-cliente__datos-cliente-icon"></i>
+      <div class="creditos-cliente__datos-cliente-detalle">
+        <span class="detalle-dato">
+          {{ cliente.datosPersonalesCliente?.nombre1 || '' }}
+          {{ cliente.datosPersonalesCliente?.nombre2 || '' }}
+          {{ cliente.datosPersonalesCliente?.apellido1 || '' }}
+          {{ cliente.datosPersonalesCliente?.apellido2 || '' }}
+        </span>
+        <span class="detalle-label">
+          {{cliente.datosIdentificacionCliente.tipoIdentificacion.tipo}}:
+          {{cliente.datosIdentificacionCliente.numeroIdentificacion}}
+        </span>
+
+      </div>
+    </div>
+
+    <div class="creditos-cliente__list" *ngIf="!!solicitudes; else NoHaySolicitudes">
+      <div class="creditos-cliente__list-item" *ngFor="let solicitud of solicitudes">
+        <div class="list-item__encabezado">
+          <a [routerLink]="['/propuestas', 'detalle']" [queryParams]="{_id: solicitud._id}" target="_blank">
+            <span>
+              Solicitud #{{solicitud.idSolicitud}}
+              - {{(solicitud.miembros | buscarCliente: 'numeroIdentificacion' : cliente.datosIdentificacionCliente.numeroIdentificacion)?.tipoMiembro.tipo}}
+            </span>
+            <span>{{solicitud.createdAt | date: 'dd/MM/yyyy'}}</span>
+          </a>
+        </div>
+        <div class="list-item__detalle">
+          <div class="condicion-prestamo">
+            <div class="condicion-prestamo-item flex-fill d-flex align-items-center">
+              <i class="valor-solicitado-icon"></i>
+              <div class="d-flex flex-column justify-content-start detalle">
+                <span>Valor solicitado</span>
+                <span>{{ solicitud.simulacion?.simulacion.montoSolicitado || 0 | currency: '$' : 'symbol' : '1.0-0' }}</span>
+              </div>
+            </div>
+            <div class="condicion-prestamo-item flex-fill d-flex align-items-center">
+              <i class="valor-cuota-icon"></i>
+              <div class="d-flex flex-column justify-content-start detalle">
+                <span>Valor de la cuota</span>
+                <span>{{ solicitud.simulacion?.simulacion.cuota || 0 | currency: '$' : 'symbol' : '1.0-0' }}</span>
+              </div>
+            </div>
+            <div class="condicion-prestamo-item flex-fill d-flex align-items-center">
+              <i class="plazo-icon"></i>
+              <div class="d-flex flex-column justify-content-start detalle">
+                <span>Plazo</span>
+                <span>{{ (solicitud.miembros | extraerDataSolicitud: 'lider')?.solicitudEconomica?.valoresDetalles?.plazoMeses?.meses || 0 }}</span>
+              </div>
+            </div>
+            <div class="condicion-prestamo-item flex-fill d-flex align-items-center">
+              <i class="primera-cuota-icon"></i>
+              <div class="d-flex flex-column justify-content-start detalle">
+                <span>Primera cuota</span>
+                <span>{{ solicitud.simulacion?.simulacion.fechaPago || 0 | date: 'dd/MM/yyyy' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #NoHaySolicitudes>
+      <div class="d-flex justify-content-center py-3">
+        <span class="h4 align-self-center titulo-seccion">Este cliente no ha tenido cr&eacute;ditos prospera :(</span>
+      </div>
+    </ng-template>
+  </div>
+  <div class="modal-footer border-0">
+    <!-- BOTON ENTENDIDO -->
+    <div class="row w-100 justify-content-center">
+      <div class="col-8">
+        <button class="btn btn-dark w-100" (click)="modal.dismiss()">Entendido</button>
+      </div>
+    </div>
+  </div>
+</div>

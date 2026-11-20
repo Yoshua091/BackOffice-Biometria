@@ -1,0 +1,65 @@
+<div id="modal-sin-acuerdo-pago" class="px-2">
+  <div class="modal-header py-3">
+    <h4 class="modal-title titulo" id="modal-basic-title">Historial de eventos</h4>
+    <button type="button" class="close icon-close text-primary" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="d-flex flex-column">
+      <table class="table">
+        <tbody>
+          <ng-container *ngIf="logEstado?.length > 0; else NoHayLogEstados">
+            <tr class="detalle-cliente" *ngFor="let logRegistro of logEstado">
+              <td>
+                <div class="row flex-grow-1 mx-0 detalle-cliente-group">
+                  <div class="col-8 d-flex align-items-center justify-content-start">
+                    <div class="d-flex">
+                      <div class="d-flex flex-column detalle-cliente-dato">
+                        <div>
+                          <span class="titulo-seccion">
+                            {{ logRegistro?.usuario?.nombre || '' }}
+                          </span>
+                          <span class="titulo-seccion">
+                            {{ logRegistro?.usuario?.apellido || '' }}
+                          </span>
+
+                          <span class="rol-chip" *ngIf="logRegistro?.usuario?.rol">
+                            {{ logRegistro?.usuario?.rol }}
+                          </span>
+                        </div>
+        
+                        <div>
+                          <span class="dato-label">
+                            Estado: {{ logRegistro?.estado?.estado }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+        
+                  <div class="col-4">
+                    <div class="d-flex flex-column detalle-cliente-dato">
+                      <span class="titulo-seccion">Fecha evento</span>
+                      <span class="dato-valor">
+                        {{ logRegistro?.fecha || '' | date: 'dd/MM/yy, h:mm a' }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        
+          <ng-template #NoHayLogEstados>
+            <tr>
+              <td class="mt-3 text-center">
+                <span class="titulo-seccion">No hay cambios de estados</span>
+              </td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,158 @@
+.vertical-line {
+  border-left: 1px solid #707070;
+  opacity: 0.27;
+  margin-right: 0.75rem;
+}
+
+.cartera-filtro {
+  border-bottom: 1px solid rgba(112, 112, 112, 0.3);
+}
+
+.detalle-cliente {
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  border-radius: 5px;
+  box-shadow: 0 3px 6px #00000029;
+
+
+  .detalle-cliente-group {
+    &.border-bottom {
+      border-bottom: 1px solid #47474733;
+    }
+  }
+
+  .titulo-seccion {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: 14px;
+    color: #222222;
+  }
+
+  .detalle-cliente-dato {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    .dato-label {
+      font-size: 14px;
+      color: #767676;
+    }
+
+    .dato-valor {
+      font-weight: bold;
+      font-size: 14px;
+      color: #CC0000;
+    }
+  }
+
+  span.icon-cliente {
+    height: 2.625rem;
+    width: 2.625rem;
+
+    &.icon-cliente-lider {
+      content: url("../../../assets/images/icon-individual.svg");
+    }
+
+    &.icon-cliente-experto {
+      content: url("../../../assets/images/icon-cliente-experto.svg");
+    }
+
+    &.icon-cliente-grupo {
+      content: url("../../../assets/images/icon-grupal.svg");
+    }
+    &.icon-cliente-garantia {
+      content: url("../../../assets/images/icono-garantia.svg");
+    }
+  }
+
+  .barra-progreso {
+    height: 6px;
+    width: 100%;
+    background: #EEF0FC 0 0 no-repeat padding-box;
+    border-radius: 3px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    > .fill {
+      position: absolute;
+      height: 6px;
+      background: #F7B500 0 0 no-repeat padding-box;
+      border-radius: 8px;
+    }
+  }
+}
+
+.dato-label {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  color: #222222;
+  font: normal bold 15px Roboto;
+}
+
+.propuesta-tipo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 0.75rem;
+  width: 3.75rem;
+
+  &__icon {
+      height: 2.625rem;
+      width: 2.625rem;
+
+      &.icon-cliente-lider {
+          content: url("../../../assets/images/icon-individual.svg");
+      }
+
+      &.icon-cliente-experto {
+          content: url("../../../assets/images/icon-cliente-experto.svg");
+      }
+
+      &.icon-cliente-grupo {
+          content: url("../../../assets/images/icon-grupal.svg");
+      }
+
+      &.icon-cliente-garantia {
+        content: url("../../../assets/images/icono-garantia.svg");
+    }
+
+      border-radius: 50%;
+  }
+
+  &__renovacion {
+      padding-top: 3px;
+      padding-bottom: 3px;
+      color: #c00;
+      font-size: 9px;
+      font-weight: bold;
+      letter-spacing: 1px;
+  }
+}
+
+.propuesta-garantia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 0.75rem;
+  width: 3.75rem;
+
+  &__icon {
+      height: 2.625rem;
+      width: 2.625rem;
+
+      &.icon-cliente-lider {
+          content: url("../../../assets/images/icono-garantia.svg");
+      }
+
+      border-radius: 50%;
+  }
+
+  &__garantia {
+      padding-top: 3px;
+      padding-bottom: 3px;
+      color: #c00;
+      font-size: 9px;
+      font-weight: bold;
+      letter-spacing: 1px;
+  }
+}

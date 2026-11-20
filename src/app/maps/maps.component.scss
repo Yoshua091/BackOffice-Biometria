@@ -1,0 +1,22 @@
+agm-map {
+    height: 500px; /* ajusta la altura según tus necesidades */
+  }
+  
+  .custom-info-window {
+    width: 380px; /* Ajusta el ancho según tus necesidades */
+    height: 80px; /* Ajusta la altura según tus necesidades */
+    background-color: #fff; /* Color de fondo */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 5px; /* Borde redondeado */
+  }
+  
+  .titulo-seccion {
+    font: normal normal bold 18px/20px Roboto;
+  }
+  
+  /* Ajustar el tamaño del marcador */
+  agm-marker .agm-marker-container {
+    width: 180px !important;
+    height: 180px !important;
+  }

@@ -1,0 +1,66 @@
+<div class="d-flex flex-column px-3">
+  <app-cargar-dispersiones (subirArchivo)="onSubirArchivos($event)"></app-cargar-dispersiones>
+
+  <div style="height: 630px;" class="my-4">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="col-3">
+            <span class="font-weight-bold">Archivo</span>
+          </td>
+          <td class="col-2">
+            <span class="font-weight-bold">Fecha de Carga</span>
+          </td>
+          <td class="col-2">
+            <span class="font-weight-bold">Estado Actual</span>
+          </td>
+          <td class="col-2">
+            <span class="font-weight-bold">Usuario</span>
+          </td>
+          <td class="col-1">
+            <span class="font-weight-bold">Avance</span>
+          </td>
+          <td class="col-1">
+            <span class="font-weight-bold">Errores</span>
+          </td>
+          <td class="col-1">
+            <span class="font-weight-bold">Detalles</span>
+          </td>
+        </tr>
+        <tr *ngFor="let element of dispersiones">
+          <td class="col-3">
+            <span class="font-weight-light">{{element.nombreArchivo}}</span>
+          </td>
+          <td class="col-2">
+            <span class="font-weight-light">{{element.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</span>
+          </td>
+          <td class="col-2">
+            <span class="font-weight-light">{{element.estado?.estado}}</span>
+          </td>
+          <td class="col-2">
+            <span class="font-weight-light">{{element.usuario?.nombre | titlecase}} {{element.usuario?.apellido |
+              titlecase}}</span>
+          </td>
+          <td class="col-1">
+            <span class="font-weight-light">{{getPorcentajeAvance(element)}}% </span>
+          </td>
+          <td class="col-1">
+            <span class="font-weight-light">{{element.errores}} </span>
+          </td>
+          <td class="col-1">
+            <a class="btn btn-link"
+               [class.text-success]="element.errores === 0 && element.estado.id === 100"
+               [class.no-processed]="element.estado.id < 100" 
+               (click)="detalle(element)">Ver</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- <ngb-pagination class="align-self-center"
+                        [collectionSize]="paginador.cantidad"
+                        [(page)]="paginador.pagina"
+                        [pageSize]="paginador.cantidadPagina"
+                        (pageChange)="filtrar()">
+    </ngb-pagination> -->
+</div>

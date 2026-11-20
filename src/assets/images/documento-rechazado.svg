@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="Grupo_2510" data-name="Grupo 2510" transform="translate(-352 -433)">
+    <circle id="Circle" cx="16" cy="16" r="16" transform="translate(352 433)" fill="#c00"/>
+    <rect id="Icons_Filled_ic_circle_check_background" data-name="Icons/Filled/ic_circle_check background" width="24" height="24" transform="translate(356 437)" fill="none"/>
+    <path id="Path" d="M20,10A10,10,0,1,0,10,20,10,10,0,0,0,20,10Z" transform="translate(358 439)" fill="#fff"/>
+    <line id="Línea_35" data-name="Línea 35" x1="7" y2="7" transform="translate(365 445.5)" fill="none" stroke="#c00" stroke-linecap="round" stroke-width="1"/>
+    <line id="Línea_36" data-name="Línea 36" x2="7" y2="7" transform="translate(365 445.5)" fill="none" stroke="#c00" stroke-linecap="round" stroke-width="1"/>
+  </g>
+</svg>

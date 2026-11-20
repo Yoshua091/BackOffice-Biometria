@@ -1,0 +1,49 @@
+<div id="inicio-sesion" class="container-fluid h-100 d-flex flex-column justify-content-center align-items-center">
+
+  <img src="../../../assets/images/brand.svg" alt="prospera brand" class="brand slide-up">
+
+  <div class="card px-4 py-3">
+
+    <div class="card-header bg-white">
+      <span class="card-title">
+        <strong>Bienvenido, inicia sesi&oacute;n para continuar</strong>
+      </span>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="row group-form-material">
+          <input type="text" class="w-100 text-lowercase" formControlName="usuario"
+                 [class.is-invalid]="form.controlInvalid(form.controls.usuario)">
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label [class.input-filled]="form.controls.usuario.value !== ''">Usuario</label>
+          <div class="invalid-feedback">
+            Por favor ingresa tu usuario.
+          </div>
+        </div>
+        <div class="row group-form-material d-flex justify-content-end">
+          <input [type]="showPassword ? 'text' : 'password'" class="w-100" formControlName="clave"
+                 [class.is-invalid]="form.controlInvalid(form.controls.clave)">
+          <span [class.view-password]="!showPassword"
+                [class.hide-password]="showPassword"
+                (click)="showPassword = !showPassword"></span>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label [class.input-filled]="form.controls.clave.value !== ''">Contraseña</label>
+          <div class="invalid-feedback">
+            Por favor ingresa tu contraseña
+          </div>
+        </div>
+        <div class="d-flex flex-row justify-content-center align-items-center mt-5">
+          <button class="btn w-100" [disabled]="form.invalid">
+            Iniciar sesi&oacute;n
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+</div>
+
+

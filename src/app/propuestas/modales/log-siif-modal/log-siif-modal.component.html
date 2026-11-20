@@ -1,0 +1,42 @@
+<div id="modal-altair-rechazo" class="px-2">
+    <div class="modal-header py-3">
+        <h4 class="modal-title titulo" id="modal-basic-title">Alertas generadas sobre la solicitud</h4>
+        <button type="button" class="close icon-close text-primary" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="d-flex flex-column">
+            <table class="table">
+                <tbody>
+                    <ng-container *ngIf="motivoSiif?.length > 0; else NoHayDatos">
+                        <tr class="detalle-cliente" *ngFor="let motivo of motivoSiif">
+                            <td>
+                                <div class="row flex-grow-1 mx-0 detalle-cliente-group">
+                                    <div class="col-4">
+                                        <div class="dato-label font-weight-bold">
+                                            Fecha: {{motivo.fecha | date: 'dd/MM/yyyy hh:mm a'}}
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="dato-label">
+                                            {{ motivo.evento || ''}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-template #NoHayDatos>
+                        <tr>
+                            <td class="mt-3 text-center">
+                                <span class="titulo-seccion">No hay datos</span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

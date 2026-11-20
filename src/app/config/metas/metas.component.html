@@ -1,0 +1,135 @@
+<div class="p-3">
+
+  <div class="d-flex pt-4">
+    <span class="h4">Metas</span>
+  </div>
+
+  <ul class="nav-pills nav-fill filter-options pt-3" ngbNav #nav="ngbNav" [(activeId)]="current">
+    <li *ngFor="let metaForm of forms; index as i" [ngbNavItem]="i">
+      <a ngbNavLink>{{ metaForm.controls.perfil.value.perfil }}</a>
+      <ng-template ngbNavContent>
+        <form [formGroup]="metaForm" (ngSubmit)="modificar(metaForm)" class="pt-3">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <div class="group-form-material">
+                <input type="text" class="w-100" formControlName="cuantiaMensual"
+                       [class.is-invalid]="metaForm.controlInvalid(metaForm.controls.cuantiaMensual)">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label [class.input-filled]="metaForm.controls.cuantiaMensual.value !== ''">Cuantia de prestamos mensual ($)</label>
+                <div class="invalid-feedback">
+                  <span *ngIf="metaForm.controls.cuantiaMensual.errors?.required">Por favor ingresa un valor.</span>
+                  <span *ngIf="metaForm.controls.cuantiaMensual.errors?.maxlength">Solo puedes ingresar hasta {{ metaForm.controls.cuantiaMensual.errors?.maxlength.requiredLength }} caracteres.</span>
+                  <span *ngIf="metaForm.controls.cuantiaMensual.errors?.pattern">Por favor ingresa solo números</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="group-form-material">
+                <input type="text" class="w-100" formControlName="creimientoCartera"
+                       [class.is-invalid]="metaForm.controlInvalid(metaForm.controls.creimientoCartera)">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label [class.input-filled]="metaForm.controls.creimientoCartera.value !== ''">Crecimiento de cartera (%)</label>
+                <div class="invalid-feedback">
+                  <span *ngIf="metaForm.controls.creimientoCartera.errors?.required">Por favor ingresa un valor.</span>
+                  <span *ngIf="metaForm.controls.creimientoCartera.errors?.maxlength">Solo puedes ingresar hasta {{ metaForm.controls.creimientoCartera.errors?.maxlength.requiredLength }} caracteres.</span>
+                  <span *ngIf="metaForm.controls.creimientoCartera.errors?.pattern">Por favor ingresa solo números</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="group-form-material">
+                <input type="text" class="w-100" formControlName="carteraVencida10"
+                       [class.is-invalid]="metaForm.controlInvalid(metaForm.controls.carteraVencida10)">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label [class.input-filled]="metaForm.controls.carteraVencida10.value !== ''">Mora general (%)</label>
+                <div class="invalid-feedback">
+                  <span *ngIf="metaForm.controls.carteraVencida10.errors?.required">Por favor ingresa un valor.</span>
+                  <span *ngIf="metaForm.controls.carteraVencida10.errors?.maxlength">Solo puedes ingresar hasta {{ metaForm.controls.carteraVencida10.errors?.maxlength.requiredLength }} caracteres.</span>
+                  <span *ngIf="metaForm.controls.carteraVencida10.errors?.pattern">Por favor ingresa solo números</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="group-form-material">
+                <input type="text" class="w-100" formControlName="carteraVencida30"
+                       [class.is-invalid]="metaForm.controlInvalid(metaForm.controls.carteraVencida30)">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label [class.input-filled]="metaForm.controls.carteraVencida30.value !== ''">Cartera vencida (30 dias)</label>
+                <div class="invalid-feedback">
+                  <span *ngIf="metaForm.controls.carteraVencida30.errors?.required">Por favor ingresa un valor.</span>
+                  <span *ngIf="metaForm.controls.carteraVencida30.errors?.maxlength">Solo puedes ingresar hasta {{ metaForm.controls.carteraVencida30.errors?.maxlength.requiredLength }} caracteres.</span>
+                  <span *ngIf="metaForm.controls.carteraVencida30.errors?.pattern">Por favor ingresa solo números</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="group-form-material">
+                <input type="text" class="w-100" formControlName="ventasSeguro"
+                       [class.is-invalid]="metaForm.controlInvalid(metaForm.controls.ventasSeguro)">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label [class.input-filled]="metaForm.controls.ventasSeguro.value !== ''">Ventas seguro (%)</label>
+                <div class="invalid-feedback">
+                  <span *ngIf="metaForm.controls.ventasSeguro.errors?.required">Por favor ingresa un valor.</span>
+                  <span *ngIf="metaForm.controls.ventasSeguro.errors?.maxlength">Solo puedes ingresar hasta {{ metaForm.controls.ventasSeguro.errors?.maxlength.requiredLength }} caracteres.</span>
+                  <span *ngIf="metaForm.controls.ventasSeguro.errors?.pattern">Por favor ingresa solo números</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="group-form-material">
+                <input type="text" class="w-100" formControlName="ventasDatafono"
+                       [class.is-invalid]="metaForm.controlInvalid(metaForm.controls.ventasDatafono)">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label [class.input-filled]="metaForm.controls.ventasDatafono.value !== ''">Ventas Datáfono (%)</label>
+                <div class="invalid-feedback">
+                  <span *ngIf="metaForm.controls.ventasDatafono.errors?.required">Por favor ingresa un valor.</span>
+                  <span *ngIf="metaForm.controls.ventasDatafono.errors?.maxlength">Solo puedes ingresar hasta {{ metaForm.controls.ventasDatafono.errors?.maxlength.requiredLength }} caracteres.</span>
+                  <span *ngIf="metaForm.controls.ventasDatafono.errors?.pattern">Por favor ingresa solo números</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="group-form-material">
+                <input type="text" class="w-100" formControlName="numeroPrestamos"
+                       [class.is-invalid]="metaForm.controlInvalid(metaForm.controls.numeroPrestamos)">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label [class.input-filled]="metaForm.controls.numeroPrestamos.value !== ''">N&uacute;mero de pr&eacute;stamos</label>
+                <div class="invalid-feedback">
+                  <span *ngIf="metaForm.controls.numeroPrestamos.errors?.required">Por favor ingresa un valor.</span>
+                  <span *ngIf="metaForm.controls.numeroPrestamos.errors?.pattern">Por favor ingresa solo números</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="group-form-material">
+                <input type="text" class="w-100" formControlName="aperturaCuentas"
+                       [class.is-invalid]="metaForm.controlInvalid(metaForm.controls.aperturaCuentas)">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label [class.input-filled]="metaForm.controls.aperturaCuentas.value !== ''">Apertura de cuentas (Superdigital)</label>
+                <div class="invalid-feedback">
+                  <span *ngIf="metaForm.controls.aperturaCuentas.errors?.required">Por favor ingresa un valor.</span>
+                  <span *ngIf="metaForm.controls.aperturaCuentas.errors?.pattern">Por favor ingresa solo números</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-row justify-content-end align-items-center mt-5">
+            <button class="btn btn-primary" [disabled]="metaForm.invalid">
+              GUARDAR
+            </button>
+          </div>
+        </form>
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav"></div>
+</div>

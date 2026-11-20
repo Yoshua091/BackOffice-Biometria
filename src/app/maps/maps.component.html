@@ -1,0 +1,107 @@
+<div class="px-3 py-3">
+    <div class="d-flex pt-4">
+        <span class="h4">Mapa</span>
+    </div>
+
+    <form [formGroup]="form" class="row">
+        <div class="col-12 col-sm-3">
+            <div class="group-form-material">
+                <label for="filterPropuestasSucursalField"
+                    [class.input-filled]="form.controls._idSucursal.value !== ''">Sucursal</label>
+                <select id="filterPropuestasSucursalField" class="w-100"
+                    [class.is-invalid]="form.controls._idSucursal.invalid"
+                    [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                    formControlName="_idSucursal">
+                    <option *ngFor="let sucursal of sucursales" [ngValue]="sucursal._id">{{sucursal.nombre}}</option>
+                </select>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <div class="invalid-feedback">
+                    <span *ngIf="form.controls._idSucursal.errors?.required">Por favor selecciona un valor.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-2">
+            <div class="group-form-material">
+                <label for="filterSucursalAniosField" [class.input-filled]="form.controls.ano.value !== ''">Año</label>
+                <select id="filterSucursalAniosField" class="w-100" [class.is-invalid]="form.controls.ano.invalid"
+                    [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                    formControlName="ano">
+                    <option *ngFor="let anio of anios" [ngValue]="anio">{{anio}}</option>
+                </select>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <div class="invalid-feedback">
+                    <span *ngIf="form.controls.ano.errors?.required">Por favor selecciona un valor.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-2">
+            <div class="group-form-material">
+                <label for="filterSucursalMesField" [class.input-filled]="form.controls.mes.value !== ''">Mes</label>
+                <select id="filterSucursalMesField" class="w-100" [class.is-invalid]="form.controls.mes.invalid"
+                    [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                    formControlName="mes">
+                    <option *ngFor="let mes of meses" [ngValue]="mes">{{mes}}</option>
+                </select>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <div class="invalid-feedback">
+                    <span *ngIf="form.controls.ano.errors?.required">Por favor selecciona un valor.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-2" style="padding-top: 40px">
+            <button class="btn btn-primary w-100" (click)="filtrar()">
+                Filtrar
+            </button>
+        </div>
+    </form>
+
+    <agm-map [latitude]="lat" [longitude]="lon" [zoom]="11">
+        <agm-marker *ngFor="let marker of markersAll"
+          [latitude]="marker.location.lat"
+          [longitude]="marker.location.lon"
+          [iconUrl]="getSvg(marker.color)"
+          [markerDraggable]="false">
+          <agm-info-window #infoWindow>
+            <div class="custom-info-window">
+              <strong class="titulo-seccion">{{marker.label}}</strong>
+              <br>
+              <em class="dato-label"><b>Cliente:</b></em>
+              <em class="dato-label">
+                {{ (marker.miembros?.datosPersonalesCliente?.nombre1?.toUpperCase() || '') + ' ' +
+                (marker.miembros?.datosPersonalesCliente?.nombre2?.toUpperCase() || '') + ' ' +
+                (marker.miembros?.datosPersonalesCliente?.apellido1?.toUpperCase() || '') + ' ' +
+                (marker.miembros?.datosPersonalesCliente?.apellido2?.toUpperCase() || '') }}
+              </em>
+              <br>
+              <em class="dato-label">
+                {{ marker.miembros?.datosIdentificacionCliente?.tipoIdentificacion?.tipo || ''}}  {{ marker.miembros?.datosIdentificacionCliente?.numeroIdentificacion || ''}}
+              </em>
+            </div>
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
+
+    <table class="table my-4">
+        <tbody>
+            <ng-container *ngFor="let zona of zonasUnicas">
+                <tr>
+                    <td class="col-2">
+                        <span class="font-weight-bold">Zona:</span>
+                        <span class="titulo-seccion ml-2">{{zona.label}}</span>
+                    </td>
+                    <td class="col-2">
+                        <span class="font-weight-bold">Color:</span>
+                        <span class="titulo-seccion ml-2"
+                            style="background-color: {{ zona.color }};">&nbsp;&nbsp;&nbsp;</span>
+                    </td>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>

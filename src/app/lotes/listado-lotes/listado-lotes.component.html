@@ -1,0 +1,32 @@
+<div class="d-flex flex-column px-3">
+
+  <app-cargar-csv (subirArchivo)="onSubirArchivos($event)"></app-cargar-csv>
+
+  <div style="height: 630px;" class="my-4"> 
+    <table class="table my-4">
+      <tbody>
+      <tr *ngFor="let lote of lotes">
+        <td class="col-6">
+          <span class="font-weight-bold">{{lote.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</span>
+          <span class="titulo-seccion ml-5">{{lote.archivo}}</span>
+        </td>
+        <td class="col-3">
+          <span>Subido por:</span>
+          <span class="titulo-seccion ml-3">{{lote.usuario?.nombre}} {{ lote.usuario?.apellido }}</span>
+        </td>
+        <td class="col-3">
+          <a class="btn btn-link"
+            [class.text-success]="lote.validacion.error === 0"
+            (click)="detalle(lote)">Detalle del archivo</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <ngb-pagination class="align-self-center"
+                      [collectionSize]="paginador.cantidad"
+                      [(page)]="paginador.pagina"
+                      [pageSize]="paginador.cantidadPagina"
+                      (pageChange)="cargarTodos()">
+  </ngb-pagination>
+</div>

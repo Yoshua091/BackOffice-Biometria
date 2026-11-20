@@ -1,0 +1,91 @@
+@-webkit-keyframes floatBubble {
+  0% {
+    top: 500px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes floatBubble {
+  0% {
+    top: 500px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+
+@keyframes cssAnimation {
+  to {
+    visibility: visible;
+  }
+}
+
+img.brand {
+  position: relative;
+  padding-bottom: 59px;
+
+  &.slide-up {
+    -webkit-animation: floatBubble 2s normal ease-out;
+    animation: floatBubble 1s normal ease-out;
+  }
+}
+
+.card {
+  width: 445px;
+  padding: 0;
+
+  .card-header {
+    padding: 1rem 0;
+
+    .card-title {
+      color: #222222;
+    }
+  }
+
+  .card-body {
+    padding: 0;
+
+    button {
+      font-size: 16px;
+      background: #CC0000;
+      border-color: #CC0000;
+      padding: 12px;
+      font-weight: 400;
+      color: white;
+
+      &:disabled {
+        background-color: #CCCCCC;
+        border-color: #CCCCCC;
+        color: #767676;
+
+        &:hover {
+          color: #767676;
+        }
+      }
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    .group-form-material {
+
+      input[type="text"] + span, input[type="password"] + span {
+        position: absolute;
+        bottom: -28px;
+
+        &.view-password {
+          content: url("../../../assets/images/eye_on.svg");
+        }
+
+        &.hide-password {
+          content: url("../../../assets/images/eye_off.svg");
+          bottom: -30px;
+        }
+      }
+    }
+  }
+}

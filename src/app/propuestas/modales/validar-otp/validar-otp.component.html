@@ -1,0 +1,140 @@
+<div id="modal-validar-otp" class="px-2">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Validar identidad</h4>
+    <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></a>
+  </div>
+  <div class="modal-body px-5">
+
+    <!-- muestra el comportamiento de las variables.  unicamente para debug
+    <div class="d-flex flex-column">
+      <span>intento en curso: {{ codigoOTPVigente ? codigoOTPVigente : 'Ningúno' | json }}</span>
+      <span>counter: {{ counter }}</span>
+      <span>mostrarEstado: {{ mostrarEstado }}</span>
+      <span>identidadConfirmada: {{ identidadConfirmada }}</span>
+      <span>dispone de intentos: {{ intentosDisponibles }}</span>
+      <span>mostrar resumen: {{ (!codigoOTPVigente || counter === 0) && !mostrarPreguntasOTP }}</span>
+      <span>mostrar captura otp: {{ codigoOTPEnCurso }}</span>
+      <span>mostrar captura preguntas: {{ mostrarPreguntasOTP }}</span>
+    </div>-->
+
+    <!-- RESUMEN/MAIN DEL OTP -->
+    <!--
+        Esta vista solo debe aparecer si:
+          No hay otp vigentes
+          Contador de segundos esta en cero (0)
+    -->
+    <div class="d-flex flex-column justify-content-start align-items-start py-3"
+         *ngIf="(!_otpManager.codigoOTPVigente || counter === 0) && !mostrarPreguntasOTP">
+      <div class="d-flex flex-column">
+        <div class="py-3" *ngIf="mostrarEstado">
+          <span class="pr-2 h4"
+                [class.text-success]="_otpManager.identidadConfirmada"
+                [class.icon-check-rounded]="_otpManager.identidadConfirmada"
+                [class.icon-close]="!_otpManager.identidadConfirmada"
+                [class.text-primary]="!_otpManager.identidadConfirmada"></span>
+          <span class="h5">Identidad {{ _otpManager.identidadConfirmada ? 'confirmada' : 'no confirmada' }}</span>
+        </div>
+        <div class="py-3 d-flex flex-column" *ngIf="!!guion && !mostrarEstado">
+          <span class="h5">Guion</span>
+          <p class="titulo-seccion guion" [innerHTML]="guion"></p>
+        </div>
+        <span class="py-3" *ngIf="!_otpManager.identidadConfirmada">dispones de {{ _otpManager.intentosRestantes }} intentos</span>
+      </div>
+      <div>
+        <span class="font-weight-bold pr-1">Nombre:</span>
+        <span>{{ nombre }}</span>
+      </div>
+      <div>
+        <span class="font-weight-bold pr-1">Identificaci&oacute;n:</span>
+        <span>{{ identificacion }}</span>
+      </div>
+      <div>
+        <span class="font-weight-bold pr-1">Tel&eacute;fono:</span>
+        <span>{{ telefono }}</span>
+      </div>
+    </div>
+
+    <!-- CAPTURA DE CODIGO VIGENTE -->
+    <div class="d-flex flex-column justify-content-start align-items-center py-3" *ngIf="_otpManager.codigoOTPEnCurso">
+      <div class="d-flex flex-column justify-content-start align-items-center">
+        <span>Ingresa el c&oacute;digo que enviamos al celular</span>
+        <span>Tienes {{ counter < 10 ? '0' + counter : counter }} segundos</span>
+      </div>
+      <div>
+        <form [formGroup]="form">
+          <div class="group-form-material">
+            <input type="text" class="w-100" formControlName="codigoOtp"
+                   [class.is-invalid]="form.controlInvalid(form.controls.codigoOtp)">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <div class="invalid-feedback">
+              <span *ngIf="form.controls.codigoOtp.errors?.maxlength">
+                Solo puedes ingresar hasta {{ form.controls.codigoOtp.errors?.maxlength.requiredLength }}
+                caracteres.
+              </span>
+              <span *ngIf="form.controls.codigoOtp.errors?.required">Por favor ingresa un valor.</span>
+              <span *ngIf="form.controls.codigoOtp.errors?.pattern">Por favor ingresa solo n&uacute;meros</span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="d-flex flex-column justify-content-start align-items-center">
+        <span>¿No lleg&oacute; ning&uacute;n SMS?</span>
+        <a class="btn btn-link text-dark">Reenviar c&oacute;digo</a>
+      </div>
+    </div>
+
+    <!-- CAPTURA DE RESPUESTAS -->
+    <div *ngIf="mostrarPreguntasOTP">
+      <form [formGroup]="formPreguntas">
+        <div class="row grupo-pregunta" *ngFor="let p of _otpManager.ultimoIntento.preguntas.Pregunta">
+          <div class="col-12 pregunta-enunciado">{{ p.texto }}</div>
+          <div class="col-6 pregunta-opcion" *ngFor="let r of p.Respuesta">
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input"
+                     id="{{ p.orden + r.id }}" [value]="r.id" [formControlName]="p.orden">
+              <label class="custom-control-label" for="{{ p.orden + r.id }}">{{ r.texto }}</label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer border-0">
+    <!-- BOTONES PARA INICIAR VALIDACION DE IDENTIDAD -->
+    <div class="row w-100 justify-content-center" *ngIf="!_otpManager.codigoOTPEnCurso && _otpManager.intentosDisponibles && !_otpManager.identidadConfirmada && !mostrarPreguntasOTP">
+      <div class="col-4">
+        <button class="btn btn-dark w-100" (click)="modal.dismiss()">Cancelar</button>
+      </div>
+      <div class="col-4">
+        <button class="btn btn-primary w-100"
+                [disabled]="this.counter > 0"
+                (click)="_iniciarValidacion()">
+          Iniciar Validaci&oacute;n
+        </button>
+      </div>
+    </div>
+
+    <!-- BOTON DE CONFIRMAR OTP -->
+    <div class="row w-100 justify-content-center" *ngIf="_otpManager.codigoOTPVigente && counter > 0 && !_otpManager.identidadConfirmada">
+      <div class="col-8">
+        <button class="btn btn-primary w-100" [disabled]="form.invalid" (click)="confirmarOTP()">Confirmar c&oacute;digo</button>
+      </div>
+    </div>
+
+    <!-- BOTON ESTADO FINAL OTP -->
+    <div class="row w-100 justify-content-center"
+         *ngIf="!_otpManager.codigoOTPVigente && counter === 0 && !_otpManager.intentosDisponibles && !mostrarPreguntasOTP">
+      <div class="col-8">
+        <button class="btn btn-primary w-100" (click)="modal.dismiss()">Entendido</button>
+      </div>
+    </div>
+
+    <!-- BOTON ENVIAR RESPUESTAS - PREGUNTAS OTP -->
+    <div class="row w-100 justify-content-center" *ngIf="mostrarPreguntasOTP">
+      <div class="col-8">
+        <button class="btn btn-primary w-100" (click)="_validarPreguntas()">Enviar respuestas</button>
+      </div>
+    </div>
+  </div>
+</div>

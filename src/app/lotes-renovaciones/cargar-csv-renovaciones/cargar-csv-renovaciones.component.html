@@ -1,0 +1,19 @@
+<div class="px-3 w-100">
+    <div class="d-flex justify-content-between mt-5">
+      <span class="h4">Renovaciones</span>
+    </div>
+  
+    <div class="d-flex mt-3">
+      <span class="titulo-seccion">Sube al sistema el archivo</span>
+    </div>
+  
+    <div class="d-flex py-3">
+      <form [formGroup]="form" class="mr-4">
+        <input #file class="d-none" type="file" (change)="seleccionarArchivo(file)"/>
+        <button class="btn btn-outline-primary mr-2" (click)="file.click()">Seleccionar archivo</button>
+        <span class="text-secondary" style="min-width: 200px">{{ form.get('RenovacionLotesRegistrar').value?.name || 'Ningún archivo seleccionado' }}</span>
+      </form>
+      <button class="btn btn-primary" (click)="_subirArchivo()">Subir Archivo</button>
+    </div>
+  
+  </div>

@@ -1,0 +1,54 @@
+<div class="p-3">
+    <a class="btn btn-link text-decoration-none px-0" (click)="zonas()">
+        <img class="boton-back" src="../../../../assets/images/arrow-left.svg">
+        <span class="label-sucur">Lista de Zonas</span>
+    </a>
+
+    <div class="d-flex pt-4">
+        <span class="h4">{{ mode.charAt(0).toUpperCase() + mode.substring(1) }} zona</span>
+    </div>
+
+    <form class="pt-3" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <div class="group-form-material">
+              <input type="text" class="w-100" formControlName="nombre"
+                     [class.is-invalid]="form.controlInvalid(form.controls.nombre)">
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label [class.input-filled]="form.controls.nombre.value !== ''">Nombre</label>
+              <div class="invalid-feedback">
+                <span
+                  *ngIf="form.controls.nombre.errors?.maxlength">Solo puedes ingresar hasta {{ form.controls.nombre.errors?.maxlength.requiredLength }}
+                  caracteres.</span>
+                <span *ngIf="form.controls.nombre.errors?.required">Por favor ingresa un nombre.</span>
+                <span *ngIf="form.controls.nombre.errors?.pattern">Por favor valida el formato</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="group-form-material">
+                <label for="filterHeaderAsesorField" [class.input-filled]="form.controls.usuario_id.value !== ''">Asesor responsable</label>
+                <select id="filterHeaderAsesorField" class="w-100"
+                        [class.is-invalid]="form.controls.usuario_id.invalid"
+                        [class.form-control-plaintext]="form.disabled"
+                        [class.bg-white]="form.disabled"
+                        formControlName="usuario_id">
+                  <option *ngFor="let asesor of asesores" [ngValue]="asesor._id">{{asesor.nombre}} {{asesor.apellido}}</option>
+                </select>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <div class="invalid-feedback">
+                  <span *ngIf="form.controls.usuario_id.errors?.required">Por favor selecciona un asesor.</span>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="d-flex flex-row justify-content-end align-items-center mt-5">
+          <button class="btn btn-primary">
+            GUARDAR
+          </button>
+        </div>
+      </form>
+</div>

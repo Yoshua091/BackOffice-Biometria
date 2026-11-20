@@ -1,0 +1,30 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { APIData } from './api-data';
+import { ResponseStruct } from './api.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ComunicadosDataService extends APIData<any>{
+
+  constructor(protected http: HttpClient) { 
+    super(http);
+    this.endpoint = 'comunicados';
+  }
+
+
+  async comunicadoBuscar(estado: number): Promise<ResponseStruct<any[]>> {
+    return this.http.get<ResponseStruct<any[]>>(`${this.url}/buscar/${estado}`).toPromise();
+  }
+
+  async comunicadoRegistrar(element: any): Promise<ResponseStruct<any>> {
+    return this.http.post<ResponseStruct<any>>(`${this.url}/registrar`, element).toPromise();
+  }
+
+  async comunicadoBorrar(element: any): Promise<ResponseStruct<any>> {
+    return this.http.post<ResponseStruct<any>>(`${this.url}/cambiarestado`, element).toPromise();
+  }
+
+
+}

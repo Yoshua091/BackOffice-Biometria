@@ -1,0 +1,147 @@
+<div class="px-3">
+  <div class="d-flex justify-content-between mt-4">
+    <span class="h4 titulo-seccion">Reportes</span>
+  </div>
+
+  <div class="row border-bottom">
+    <div class="col-3 d-flex align-items-center">
+      <span class="titulo-seccion font-weight-bold">Sabanas de datos</span>
+    </div>
+    <div class="col-6">
+      <form [formGroup]="formSabanasDatos" class="row">
+        <div class="col-12">
+          <div class="group-form-material">
+            <label for="reportesSabanasDatosFormField"
+                   [class.input-filled]="formSabanasDatos.controls.ruta.value !== ''">
+              Archivo
+            </label>
+            <select id="reportesSabanasDatosFormField" class="w-100"
+                    [class.is-invalid]="formSabanasDatos.controlInvalid(formSabanasDatos.controls.ruta)"
+                    [class.form-control-plaintext]="formSabanasDatos.disabled"
+                    [class.bg-white]="formSabanasDatos.disabled"
+                    formControlName="ruta">
+              <option *ngFor="let opcion of opcionesReportes" [ngValue]="opcion.ruta">{{ opcion.nombre }}</option>
+            </select>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <div class="invalid-feedback">
+              <span *ngIf="formSabanasDatos.controls.ruta.errors?.required">Por favor selecciona un valor.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="group-form-material">
+            <label for="reportesSabanasDatosDesdeFormField"
+                   [class.input-filled]="formSabanasDatos.controls.inicio?.value !== ''">
+              Desde (00:00 hrs)
+            </label>
+            <div class="input-group">
+              <input id="reportesSabanasDatosDesdeFormField"
+                     ngbDatepicker
+                     #dpSabanaDesde="ngbDatepicker"
+                     [class.is-invalid]="formSabanasDatos.controls.inicio?.invalid"
+                     [class.form-control-plaintext]="formSabanasDatos.disabled"
+                     [class.bg-white]="formSabanasDatos.disabled"
+                     formControlName="inicio">
+              <div class="input-group-append">
+                <button class="btn px-0 icon-arrow-down" (click)="dpSabanaDesde.toggle()" type="button"></button>
+              </div>
+            </div>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <div class="invalid-feedback">
+              <span *ngIf="formSabanasDatos.controls.inicio?.errors?.required">Por favor selecciona una fecha.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="group-form-material">
+            <label for="reportesSabanasDatoshastaFormField"
+                   [class.input-filled]="formSabanasDatos.controls.fin?.value !== ''">Hasta (23:59 hrs)</label>
+            <div class="input-group">
+              <input id="reportesSabanasDatoshastaFormField"
+                     ngbDatepicker
+                     #dpSabanaHasta="ngbDatepicker"
+                     [class.is-invalid]="formSabanasDatos.controls.fin?.invalid"
+                     [class.form-control-plaintext]="formSabanasDatos.disabled"
+                     [class.bg-white]="formSabanasDatos.disabled"
+                     formControlName="fin">
+              <div class="input-group-append">
+                <button class="btn px-0 icon-arrow-down" (click)="dpSabanaHasta.toggle()" type="button"></button>
+              </div>
+            </div>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <div class="invalid-feedback">
+              <span *ngIf="formSabanasDatos.controls.fin?.errors?.required">Por favor selecciona una fecha.</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-3 d-flex align-items-center">
+      <button class="btn btn-secondary w-100" (click)="descargarSabanasDatos(1, 1)">Descargar</button>
+    </div>
+  </div>
+
+  <div class="row border-bottom">
+    <div class="col-3 d-flex align-items-center">
+      <span class="titulo-seccion font-weight-bold">Asociaci&oacute;n de cuentas</span>
+    </div>
+    <div class="col-6">
+      <form [formGroup]="formAsociacionCuentas" class="row">
+        <div class="col-5">
+          <div class="group-form-material">
+            <label for="reportesVinculacionCuentasFormField" [class.input-filled]="formAsociacionCuentas.controls.tipo.value !== ''">Archivo</label>
+            <select id="reportesVinculacionCuentasFormField" class="w-100"
+                    [class.is-invalid]="formAsociacionCuentas.controlInvalid(formAsociacionCuentas.controls.tipo)"
+                    [class.form-control-plaintext]="formAsociacionCuentas.disabled"
+                    [class.bg-white]="formAsociacionCuentas.disabled"
+                    formControlName="tipo">
+              <option *ngFor="let opcion of opcionesVinculacion" [ngValue]="opcion.tipo">{{ opcion.nombre }}</option>
+            </select>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <div class="invalid-feedback">
+              <span *ngIf="formAsociacionCuentas.controls.tipo.errors?.required">Por favor selecciona un valor.</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-3 d-flex align-items-center">
+      <button class="btn btn-secondary w-100" (click)="descargarVinculacionCuentas(2, 1)">Descargar</button>
+    </div>
+  </div>
+
+  <div class="row border-bottom">
+    <div class="col-3 d-flex align-items-center">
+      <span class="titulo-seccion font-weight-bold">Env&iacute;o de reporte a Altair</span>
+    </div>
+    <div class="col-6">
+      <form [formGroup]="formReportesAltair" class="row">
+        <div class="col-5">
+          <div class="group-form-material">
+            <label for="reportesAltairFormField" [class.input-filled]="tipoReporteAltair.value !== ''">Reporte</label>
+            <select id="reportesAltairFormField" class="w-100"
+                    [class.is-invalid]="formAsociacionCuentas.controlInvalid(tipoReporteAltair)"
+                    [class.form-control-plaintext]="formReportesAltair.disabled"
+                    [class.bg-white]="formReportesAltair.disabled"
+                    formControlName="tipo">
+              <option *ngFor="let opcion of opcionesVinculacion" [ngValue]="opcion.tipo">{{ opcion.nombre }}</option>
+            </select>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <div class="invalid-feedback">
+              <span *ngIf="tipoReporteAltair.errors?.required">Por favor selecciona un valor.</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-3 d-flex align-items-center">
+      <button class="btn btn-secondary w-100" >Enviar</button>
+    </div>
+  </div>
+
+</div>

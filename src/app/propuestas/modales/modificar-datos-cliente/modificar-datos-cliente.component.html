@@ -1,0 +1,135 @@
+<div id="modal-edicion-campos" class="px-2">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Modificar Informaci&oacute;n de Contacto</h4>
+        <button type="button" class="close icon-close text-primary" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body row modal-body-size">
+        <form class="pt-3" [formGroup]="form">
+            <div class="row">
+                <div class="col-12 col-sm-12">
+                    <div class="group-form-material">
+                        <label for="DistanciaFotosMiembroField"
+                            [class.input-filled]="form.controls.miembro.value !== ''">Miembro</label>
+                        <select id="DistanciaFotosMiembroField" class="w-100" (change)="mostrarDatos(+$event.target.selectedOptions[0].dataset.value)"
+                            [class.is-invalid]="form.controlInvalid(form.controls.miembro)"
+                            [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                            formControlName="miembro">
+                            <option *ngFor="let mimebro of solicitud.miembros; let i=index" [ngValue]="mimebro"
+                            [attr.data-value]="mimebro.datosIdentificacionCliente.numeroIdentificacion">
+                                {{ mimebro.datosPersonalesCliente?.nombre1 || '' }}
+                                {{ mimebro.datosPersonalesCliente?.nombre2 || '' }}
+                                {{ mimebro.datosPersonalesCliente?.apellido1 || '' }}
+                                {{ mimebro.datosPersonalesCliente?.apellido2 || '' }}
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <div class="invalid-feedback">
+                            <span *ngIf="form.controls.miembro.errors?.required">Por favor
+                                seleccione un
+                                miembro.</span>
+                        </div>
+                    </div>
+                </div>  
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <input type="text" class="w-100" formControlName="telefono"
+                            [class.is-invalid]="form.controlInvalid(form.controls.telefono)">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label [class.input-filled]="form.controls.telefono.value !== ''">Tel&eacute;fono</label>
+                        <div class="invalid-feedback">
+                            <span
+                                *ngIf="form.controls.telefono.errors?.maxlength || form.controls.telefono.errors?.minlength || form.controls.telefono.errors?.pattern">Por
+                                favor ingresa un n&uacute;mero v&aacute;lido.</span>
+                            <span *ngIf="form.controls.telefono.errors?.required">Por favor ingresa un valor.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <input type="text" class="w-100" formControlName="telefono1"
+                            [class.is-invalid]="form.controlInvalid(form.controls.telefono1)">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label [class.input-filled]="form.controls.telefono1.value !== ''">Tel&eacute;fono 2</label>
+                        <div class="invalid-feedback">
+                            <span
+                                *ngIf="form.controls.telefono1.errors?.maxlength || form.controls.telefono1.errors?.minlength || form.controls.telefono.errors?.pattern">Por
+                                favor ingresa un n&uacute;mero v&aacute;lido.</span>
+                            <span *ngIf="form.controls.telefono1.errors?.required">Por favor ingresa un valor.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <input type="text" class="w-100" formControlName="email"
+                            [class.is-invalid]="form.controlInvalid(form.controls.email)">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label [class.input-filled]="form.controls.email.value !== ''">Email</label>
+                        <div class="invalid-feedback">
+                            <span
+                                *ngIf="form.controls.email.errors?.maxlength ||  form.controls.email.errors?.pattern">Por
+                                favor ingresa una dirección de email valida.</span>
+                            <span *ngIf="form.controls.email.errors?.required">Por favor ingresa un valor.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <input type="text" class="w-100" formControlName="direccion"
+                            [class.is-invalid]="form.controlInvalid(form.controls.direccion)">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label [class.input-filled]="form.controls.direccion.value !== ''">Direcci&oacute;n</label>
+                        <div class="invalid-feedback">
+                            <span *ngIf="form.controls.direccion.errors?.maxlength">Solo puedes ingresar hasta {{
+                                form.controls.direccion.errors?.maxlength.requiredLength }} caracteres.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <input type="text" class="w-100" formControlName="barrio"
+                            [class.is-invalid]="form.controlInvalid(form.controls.barrio)">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label [class.input-filled]="form.controls.barrio.value !== ''">Barrio</label>
+                        <div class="invalid-feedback">
+                            <span
+                                *ngIf="form.controls.barrio.errors?.maxlength || form.controls.barrio.errors?.pattern">El
+                                campo solo permite letras, espacios y n&uacute;meros</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <input type="text" class="w-100" formControlName="indicaciones"
+                            [class.is-invalid]="form.controlInvalid(form.controls.indicaciones)">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label [class.input-filled]="form.controls.indicaciones.value !== ''">Indicaciones</label>
+                        <div class="invalid-feedback">
+                            <span
+                                *ngIf="form.controls.indicaciones.errors?.maxlength || form.controls.indicaciones.errors?.pattern">El
+                                campo solo permite letras, espacios y n&uacute;meros</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="modal-footer border-0">
+        <div class="row w-100 justify-content-center">
+            <div class="col-4">
+                <a class="btn btn-dark w-100 boton" (click)="modal.dismiss()">Cancelar</a>
+            </div>
+            <div class="col-4">
+                <a class="btn btn-primary w-100 boton" (click)="actualizarDatos()">Modificar solicitud</a>
+            </div>
+        </div>
+    </div>
+</div>

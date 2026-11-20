@@ -1,0 +1,31 @@
+<div id="modal-rechazar-docs" class="px-2">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Causas de devoluci&oacute;n</h4>
+      <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></a>
+    </div>
+    <div class="modal-body px-5">
+      <div class="py-3">
+        <span>Por favor seleccione un motivo:</span>
+      </div>
+      <div class="causales">
+        <form [formGroup]="form">
+          <div class="d-flex flex-column justify-content-center">
+            <div class="form-check py-1" *ngFor="let causal of causales">
+              <input class="form-check-input" type="radio" formControlName="causal" [value]="causal">
+              <label class="form-check-label">{{causal.motivo}}</label>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer border-0">
+      <div class="row w-100 justify-content-center">
+        <div class="col-6">
+          <a class="btn btn-dark w-100" (click)="modal.dismiss()">Cancelar</a>
+        </div>
+        <div class="col-6">
+          <a class="btn btn-primary w-100" (click)="submit()">Devolver</a>
+        </div>
+      </div>
+    </div>
+  </div>

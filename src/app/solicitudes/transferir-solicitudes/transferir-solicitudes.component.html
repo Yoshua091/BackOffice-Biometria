@@ -1,0 +1,253 @@
+<div class="p-x3 py-3">
+  <div class="propuestas-filter py-1">
+    <ul class="nav-pills filter-options overflow-auto" ngbNav #navTransferir="ngbNav" [destroyOnHide]="false"
+      [(activeId)]="estado" (activeIdChange)="activeIdChange()">
+      <li [ngbNavItem]="estados.ListaTranferencia">
+        <a class="h5" ngbNavLink>Transferir solicitudes</a>
+        <ng-template ngbNavContent>
+          <div class="py-3">
+            <div class="col-12 contenedor-detalle">
+              <form [formGroup]="form" class="row">
+                <div class="col-12 col-sm-6">
+                  <div class="group-form-material">
+                    <label for="TransferirFormSucursalOrigenlField"
+                      [class.input-filled]="form.controls.sucursalOrigen.value !== ''">Sucursal
+                      origen</label>
+                    <select id="TransferirFormSucursalOrigenlField" class="w-100"
+                      [class.is-invalid]="form.controlInvalid(form.controls.sucursalOrigen)"
+                      [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                      formControlName="sucursalOrigen">
+                      <option *ngFor="let sucursal of sucursales" [ngValue]="sucursal._id">
+                        {{sucursal.nombre}}</option>
+                    </select>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <div class="invalid-feedback">
+                      <span *ngIf="form.controls.sucursalOrigen.errors?.required">Por favor
+                        selecciona una
+                        sucursal.</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="group-form-material">
+                    <label for="TransferirFormSucursalDestinolField"
+                      [class.input-filled]="form.controls.sucursalDestino.value !== ''">Sucursal
+                      destino</label>
+                    <select id="TransferirFormSucursalDestinolField" class="w-100"
+                      [class.is-invalid]="form.controlInvalid(form.controls.sucursalDestino)"
+                      [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                      formControlName="sucursalDestino">
+                      <option *ngFor="let sucursal of sucursales" [ngValue]="sucursal._id">
+                        {{sucursal.nombre}}</option>
+                    </select>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <div class="invalid-feedback">
+                      <span *ngIf="form.controls.sucursalDestino.errors?.required">Por favor
+                        selecciona una
+                        sucursal.</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="group-form-material">
+                    <label for="TransferirFormZonaOrigenField"
+                      [class.input-filled]="form.controls.zonaOrigen.value !== ''">Zona
+                      origen</label>
+                    <select id="TransferirFormZonaOrigenField" class="w-100"
+                      [class.is-invalid]="form.controlInvalid(form.controls.zonaOrigen)" formControlName="zonaOrigen">
+                      <option *ngFor="let zona of zonasOrigen" [ngValue]="zona._id">
+                        {{zona.nombre}}</option>
+                    </select>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <div class="invalid-feedback">
+                      <span *ngIf="form.controls.zonaOrigen.errors?.required">Por favor selecciona
+                        un valor.</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="group-form-material">
+                    <label for="TransferirFormZonaDestinoField"
+                      [class.input-filled]="form.controls.zonaDestino.value !== ''">Zona
+                      destino</label>
+                    <select id="TransferirFormZonaDestinoField" class="w-100"
+                      [class.is-invalid]="form.controlInvalid(form.controls.zonaDestino)" formControlName="zonaDestino">
+                      <option *ngFor="let zona of zonasDestino" [ngValue]="zona._id">
+                        {{zona.nombre}}</option>
+                    </select>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <div class="invalid-feedback">
+                      <span *ngIf="form.controls.zonaDestino.errors?.required">Por favor
+                        selecciona un valor.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 comentario py-3">
+                  <span class="dato-label">Solo se transfieren solicitudes que est&eacute;n en estado
+                    finalizadas o renovaciones en estado inicial de renovaci&oacute;n.</span>
+                </div>
+
+                <div class="form-group col-12 py-2 px-3">
+                  <span><span class="titulo-seccion font-weight-bold pr-3">Motivo:</span></span>
+                  <textarea id="acuerdoComentarioFormField" rows="6" class="w-100" cols="75" formControlName="motivo"
+                    [class.is-invalid]="form.controlInvalid(form.controls.motivo)"></textarea>
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                  <div class="invalid-feedback">
+                    <span *ngIf="form.controls.motivo.errors?.required">Por favor ingresa un
+                      valor.</span>
+                  </div>
+                </div>
+
+                <div class="row w-100 justify-content-center">
+                  <div class="col-4">
+                    <a class="btn btn-primary w-100 boton" (click)="confirmar()">Transferir</a>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="estados.SolicitudRegistrada">
+        <a class="h5" ngbNavLink>Solicitudes registradas</a>
+        <ng-template ngbNavContent>
+          <div class="py-3">
+            <table class="table my-4">
+              <tbody>
+                <span *ngFor="let lista of listado">
+                  <tr>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Fecha solicitud:</span>
+                      <span class="titulo-seccion ml-2">{{lista.fecha | date: 'dd/MM/yyyy hh:mm a'}}</span>
+                    </td>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Zona origen:</span>
+                      <span class="titulo-seccion ml-2">{{lista.zonaOrigen?.nombre}}</span>
+                    </td>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Zona destino:</span>
+                      <span class="titulo-seccion ml-2">{{lista.zonaDestino?.nombre}}</span>
+                    </td>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Solicitudes transferidas:</span>
+                      <span class="titulo-seccion ml-2">{{lista.solicitudesOrigen.length}}</span>
+                    </td>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Usuario registra:</span>
+                      <span class="titulo-seccion ml-2">{{lista.usuarioRegistra?.nombre}} {{
+                        lista.usuarioRegistra?.apellido }}</span>
+                    </td>
+                  </tr>
+                  <div class="col-12 py-3">
+                    <span class="font-weight-bold">Motivo solicitud:</span>
+                    <span class="titulo-seccion ml-5">{{lista.motivo}}</span>
+                  </div>
+                </span>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="d-flex justify-content-center py-3" *ngIf="listado.length === 0">
+            <span class="h4 align-self-center titulo-seccion">No hay datos para mostrar</span>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="estados.ProcesandoTransferencia">
+        <a class="h5" ngbNavLink>En proceso de transferencia</a>
+        <ng-template ngbNavContent>
+          <div class="py-3">
+            <table class="table my-4">
+              <tbody>
+                <span *ngFor="let lista of listado">
+                  <tr>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Fecha solicitud:</span>
+                      <span class="titulo-seccion ml-2">{{lista.fecha | date: 'dd/MM/yyyy hh:mm a'}}</span>
+                    </td>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Zona origen:</span>
+                      <span class="titulo-seccion ml-2">{{lista.zonaOrigen?.nombre}}</span>
+                    </td>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Zona destino:</span>
+                      <span class="titulo-seccion ml-2">{{lista.zonaDestino?.nombre}}</span>
+                    </td>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Solicitudes transferidas:</span>
+                      <span class="titulo-seccion ml-2">{{lista.solicitudesOrigen.length}}</span>
+                    </td>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Usuario registra:</span>
+                      <span class="titulo-seccion ml-2">{{lista.usuarioRegistra?.nombre}} {{
+                        lista.usuarioRegistra?.apellido }}</span>
+                    </td>
+                  </tr>
+                  <div class="col-12 py-3">
+                    <span class="font-weight-bold">Motivo solicitud:</span>
+                    <span class="titulo-seccion ml-5">{{lista.motivo}}</span>
+                  </div>
+                </span>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="d-flex justify-content-center py-3" *ngIf="listado.length === 0">
+            <span class="h4 align-self-center titulo-seccion">No hay datos para mostrar</span>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="estados.TransferenciaFinalizada">
+        <a class="h5" ngbNavLink>Transferencias finalizadas</a>
+        <ng-template ngbNavContent>
+          <div class="py-3">
+            <table class="table my-4">
+              <tbody>
+                <span *ngFor="let lista of listado">
+                  <tr>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Fecha solicitud:</span>
+                      <span class="titulo-seccion ml-2">{{lista.fecha | date: 'dd/MM/yyyy hh:mm a'}}</span>
+                    </td>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Zona origen:</span>
+                      <span class="titulo-seccion ml-2">{{lista.zonaOrigen?.nombre}}</span>
+                    </td>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Zona destino:</span>
+                      <span class="titulo-seccion ml-2">{{lista.zonaDestino?.nombre}}</span>
+                    </td>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Solicitudes transferidas:</span>
+                      <span class="titulo-seccion ml-2">{{lista.solicitudesOrigen.length}}</span>
+                    </td>
+                    <td class="col-2">
+                      <span class="font-weight-bold">Usuario registra:</span>
+                      <span class="titulo-seccion ml-2">{{lista.usuarioRegistra?.nombre}} {{
+                        lista.usuarioRegistra?.apellido }}</span>
+                    </td>
+                  </tr>
+                  <div class="col-12 py-3">
+                    <span class="font-weight-bold">Motivo solicitud:</span>
+                    <span class="titulo-seccion ml-5">{{lista.motivo}}</span>
+                  </div>
+                </span>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="d-flex justify-content-center py-3" *ngIf="listado.length === 0">
+            <span class="h4 align-self-center titulo-seccion">No hay datos para mostrar</span>
+          </div>
+        </ng-template>
+      </li>
+
+    </ul>
+  </div>
+  <div [ngbNavOutlet]="navTransferir"></div>
+</div>

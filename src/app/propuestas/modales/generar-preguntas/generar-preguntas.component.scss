@@ -1,0 +1,84 @@
+.pregunta {
+    font-size: 15px;
+    color: #545454;
+}
+
+.respuesta {
+    font: normal normal bold 12px/18px Roboto;
+    color: #545454;
+}
+
+.respuestas-lista {
+    column-count: 2;
+    list-style: lower-latin;
+    padding-left: -20px;
+    margin-top: 20px;
+}
+
+.respuestas-lista li {
+    margin-bottom: 10px;
+    /* Espacio entre cada elemento de la lista */
+}
+
+
+
+
+.form-group {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    color: #878787;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .form-group input[type='radio'] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: #fff;
+    border: 2px solid #CC0000;
+    border-radius: 5px;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .form-group:hover inputinput[type='radio'] ~ .checkmark {
+    background-color: #CC000011;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .form-group input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .form-group .checkmark:after {
+    left: 2px;
+    top: 2px;
+    width: 16px;
+    height: 16px;
+    background-color: #CC0000;
+    border-radius: 3px;
+  }

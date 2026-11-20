@@ -1,0 +1,222 @@
+<div class="d-flex flex-column px-3">
+  <app-cargar-archivo-primera-linea (subirArchivo)="onSubirArchivos($event)"></app-cargar-archivo-primera-linea>
+
+
+  <div class="motor-filter py-1">
+    <ul class="nav-pills filter-options overflow-auto" ngbNav #navTransferir="ngbNav" [destroyOnHide]="false"
+      [(activeId)]="estado" (activeIdChange)="activeIdChange()">
+      <li [ngbNavItem]="estados.LotePruebasInhabilitado">
+        <a ngbNavLink>Lote en pruebas invalido</a>
+        <ng-template ngbNavContent>
+          <div class="py-3">
+            <div style="height: 630px;" class="my-4">
+              <table class="table" *ngIf="!mostrarMensaje">
+                <tbody>
+                  <tr>
+                    <td class="col-6">
+                      <span class="font-weight-bold">{{lotes?.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</span>
+                      <span class="titulo-seccion ml-5">{{lotes?.nombreArchivo}}</span>
+                    </td>
+                    <td class="col-3">
+                      <span>Estado:</span>
+                      <span class="titulo-seccion ml-3">{{ lotes?.descripcion }}</span>
+                    </td>
+                    <td class="col-3">
+                      <span>Subido por:</span>
+                      <span class="titulo-seccion ml-3">{{lotes?.logs[0]?.usuario?.nombre}} {{
+                        lotes?.logs[0]?.usuario?.apellido }}</span>
+                    </td>
+                    <!-- <td class="col-3">
+                        <a class="btn btn-link">Log del archivo</a>
+                      </td> -->
+                    <td>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-center py-3" *ngIf="mostrarMensaje">
+                <span class="h4 align-self-center titulo-seccion">No hay datos para mostrar</span>
+              </div>
+            </div>
+
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="estados.LoteEnPruebas">
+        <a ngbNavLink>Lote en pruebas</a>
+        <ng-template ngbNavContent>
+          <div class="py-3">
+            <div style="height: 630px;" class="my-4">
+              <table class="table" *ngIf="!mostrarMensaje">
+                <tbody>
+                  <tr>
+                    <td class="col-3">
+                      <span class="font-weight-bold">{{lotes?.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</span>
+                    </td>
+                    <td class="col-5">
+                      <span class="titulo-seccion">{{lotes?.nombreArchivo}}</span>
+                    </td>
+                    <td class="col-4">
+                      <span>Estado: </span>
+                      <span class="titulo-seccion">{{ lotes?.descripcion }}</span>
+                    </td>
+                    <!-- <td class="col-4">
+                      <span>Subido por:</span>
+                      <span class="titulo-seccion ml-3">{{lotes?.logs[0]?.usuario?.nombre}} {{
+                        lotes?.logs[0]?.usuario?.apellido }}</span>
+                    </td> -->
+                    <!-- <td class="col-3">
+                      <a class="btn btn-link">Log del archivo</a>
+                    </td> -->
+                    <td>
+                      <div class="col-12 d-flex align-items-center flex-row justify-content-between">
+                        <button class="btn btn-primary mx-1" style="min-width: 125px" (click)="simular(lotes?.estado)">
+                          Simular
+                        </button>
+                        <button *ngIf="session.user.rol.id === 12" class="btn btn-primary mx-1" style="min-width: 125px"
+                          (click)="aprobar()">
+                          Aprobar
+                        </button>
+                        <button *ngIf="session.user.rol.id === 12" class="btn btn-primary mx-1" style="min-width: 125px"
+                        (click)="rechazar()">
+                        Rechazar
+                      </button>
+                      </div>
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="d-flex justify-content-center py-3" *ngIf="mostrarMensaje">
+                <span class="h4 align-self-center titulo-seccion">No hay datos para mostrar</span>
+              </div>
+            </div>
+          </div>
+
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="estados.LoteProductivo">
+        <a ngbNavLink>Lote productivo</a>
+        <ng-template ngbNavContent>
+          <div class="py-3">
+            <div style="height: 630px;" class="my-4">
+              <table class="table" *ngIf="!mostrarMensaje">
+                <tbody>
+                  <tr>
+                    <td class="col-6">
+                      <span class="font-weight-bold">{{lotes?.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</span>
+                      <span class="titulo-seccion ml-5">{{lotes?.nombreArchivo}}</span>
+                    </td>
+                    <td class="col-3">
+                      <span>Estado:</span>
+                      <span class="titulo-seccion ml-3">{{ lotes?.descripcion }}</span>
+                    </td>
+                    <td class="col-3">
+                      <span>Subido por:</span>
+                      <span class="titulo-seccion ml-3">{{lotes?.logs[0]?.usuario?.nombre}} {{
+                        lotes?.logs[0]?.usuario?.apellido }}</span>
+                    </td>
+                    <!-- <td class="col-3">
+                      <a class="btn btn-link">Log del archivo</a>
+                    </td> -->
+                    <td>
+                      <div class="col-12 d-flex align-items-center">
+                        <button class="btn btn-primary" style="min-width: 125px" (click)="simular()">
+                          Simular
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-center py-3" *ngIf="mostrarMensaje">
+                <span class="h4 align-self-center titulo-seccion">No hay datos para mostrar</span>
+              </div>
+            </div>
+
+          </div>
+
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="estados.LoteProductivoInhabilitado">
+        <a ngbNavLink>Lote productivo inhabilitado</a>
+        <ng-template ngbNavContent>
+          <div class="py-3">
+            <div style="height: 630px;" class="my-4">
+              <table class="table" *ngIf="!mostrarMensaje">
+                <tbody>
+                  <tr>
+                    <td class="col-6">
+                      <span class="font-weight-bold">{{lotes?.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</span>
+                      <span class="titulo-seccion ml-5">{{lotes?.nombreArchivo}}</span>
+                    </td>
+                    <td class="col-3">
+                      <span>Estado:</span>
+                      <span class="titulo-seccion ml-3">{{ lotes?.descripcion }}</span>
+                    </td>
+                    <td class="col-3">
+                      <span>Subido por:</span>
+                      <span class="titulo-seccion ml-3">{{lotes?.logs[0]?.usuario?.nombre}} {{
+                        lotes?.logs[0]?.usuario?.apellido }}</span>
+                    </td>
+                    <!-- <td class="col-3">
+                      <a class="btn btn-link">Log del archivo</a>
+                    </td> -->
+                    <td>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-center py-3" *ngIf="mostrarMensaje">
+                <span class="h4 align-self-center titulo-seccion">No hay datos para mostrar</span>
+              </div>
+            </div>
+
+          </div>
+
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="estados.LoteEnPruebasRechazado">
+        <a ngbNavLink>Lote en pruebas rechazado</a>
+        <ng-template ngbNavContent>
+          <div class="py-3">
+            <div style="height: 630px;" class="my-4">
+              <table class="table" *ngIf="!mostrarMensaje">
+                <tbody>
+                  <tr>
+                    <td class="col-6">
+                      <span class="font-weight-bold">{{lotes?.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</span>
+                      <span class="titulo-seccion ml-5">{{lotes?.nombreArchivo}}</span>
+                    </td>
+                    <td class="col-3">
+                      <span>Estado:</span>
+                      <span class="titulo-seccion ml-3">{{ lotes?.descripcion }}</span>
+                    </td>
+                    <td class="col-3">
+                      <span>Subido por:</span>
+                      <span class="titulo-seccion ml-3">{{lotes?.logs[0]?.usuario?.nombre}} {{
+                        lotes?.logs[0]?.usuario?.apellido }}</span>
+                    </td>
+                    <!-- <td class="col-3">
+                      <a class="btn btn-link">Log del archivo</a>
+                    </td> -->
+                    <td>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-center py-3" *ngIf="mostrarMensaje">
+                <span class="h4 align-self-center titulo-seccion">No hay datos para mostrar</span>
+              </div>
+            </div>
+
+          </div>
+
+        </ng-template>
+      </li>
+
+    </ul>
+  </div>
+  <div [ngbNavOutlet]="navTransferir"></div>
+</div>

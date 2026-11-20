@@ -1,0 +1,82 @@
+.modal-body{
+    height: 600px;
+    width: 100%;
+    overflow-y: auto;
+  }
+
+  .rol-chip {
+    margin-left: 8px;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: #fdecea;
+    color: #b91c1c;  
+    font-weight: 600;
+  }
+
+.titulo {
+    margin-left: 0.25rem;
+    color: #222222;
+    font: normal bold 18px Roboto;
+}
+
+.horizontal-line {
+    height: 1px;
+    border-top: solid #707070 1px;
+    opacity: 0.3;
+}
+
+.dato-comentario {
+    margin-left: 0.25rem;
+    color: #222222;
+    font: normal normal 14px Roboto;
+}
+
+.dato-label {
+    margin-left: 0.25rem;
+    color: #222222;
+    font: normal bold 15px Roboto;
+}
+
+.dato-pago {
+    font: normal normal bold 14px Roboto;
+    color: #cc0000;
+    margin-left: 11px;
+}
+
+.detalle-cliente {
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    border-radius: 5px;
+
+    .detalle-cliente-group {
+        &.border-bottom {
+            border-bottom: 1px solid #47474733;
+        }
+    }
+
+    .titulo-seccion {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        font: normal normal bold 15px Roboto;
+        color: #222222;
+    }
+
+    .detalle-cliente-dato {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+
+        .dato-label {
+            font: normal normal normal 12px Roboto;
+            color: #767676;
+            opacity: 1.2;
+        }
+
+        .dato-valor {
+            font: normal normal bold 14px Roboto;
+            color: #cc0000;
+        }
+    }
+}
+
+

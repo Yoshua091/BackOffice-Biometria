@@ -1,0 +1,65 @@
+.monto-container {
+  .monto-miembro {
+    font: normal normal bold 1rem/20px Roboto;
+    color: #545454;
+  }
+
+  .monto-detalle-cuota {
+    font: normal normal normal 1rem/20px Roboto;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    color: #767676;
+  }
+
+}
+
+.cuota-cargos {
+  padding: 0.10rem;
+  span {
+   
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    font: normal normal bold 1rem/20px Roboto;
+
+    &:first-child {
+      color: #767676;
+    }
+
+    &:last-child {
+      color: #000000;
+    }
+  }
+}
+
+.monto-resultado-container {
+
+  .cuota-mensual {
+
+    span {
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+      font: normal normal bold 1rem/20px Roboto;
+
+      &:first-child {
+        color: #767676;
+      }
+
+      &:last-child {
+        color: #000000;
+      }
+    }
+  }
+
+  .mensaje-total-monto {
+    color: #dc3545;
+    font: normal normal bold 1rem/20px Roboto;
+    text-align: center;
+  }
+
+  .mensaje-total-fng {
+    color: #dc3545;
+    font: normal normal bold 1rem/20px Roboto;
+    text-align: center;
+    margin-top: 40px;
+  }
+}

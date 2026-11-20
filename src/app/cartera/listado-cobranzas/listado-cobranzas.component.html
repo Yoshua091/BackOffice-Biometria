@@ -1,0 +1,194 @@
+<div class="px-3">
+
+  <!-- BREADCRUMB -->
+  <div class="d-flex flex-row justify-content-between mt-5">
+    <div><span class="h4">Cobranzas</span></div>
+  </div>
+
+  <!-- FILTRO -->
+  <div class="py-2 cartera-filtro">
+    <form [formGroup]="form" class="row">
+
+      <div class="col-12 col-sm-3">
+        <div class="group-form-material">
+          <label for="filtroCobranzasSucursalField"
+            [class.input-filled]="form.controls.sucursal_id.value !== ''">Sucursal</label>
+          <select id="filtroCobranzasSucursalField" class="w-100"
+            [class.is-invalid]="form.controlInvalid(form.controls.sucursal_id)" formControlName="sucursal_id">
+            <option *ngFor="let sucursal of sucursales" [ngValue]="sucursal._id">{{sucursal.nombre | titlecase}}
+            </option>
+          </select>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.sucursal_id.errors?.required">Por favor selecciona un valor.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-3">
+        <div class="group-form-material">
+          <label for="filtroCobranzasZonaField" [class.input-filled]="form.controls.zona_id.value !== ''">Zona</label>
+          <select id="filtroCobranzasZonaField" class="w-100"
+            [class.is-invalid]="form.controlInvalid(form.controls.zona_id)" formControlName="zona_id">
+            <option [ngValue]="null">Todas</option>
+            <option *ngFor="let zona of zonas" [ngValue]="zona._id">{{zona.nombre}}</option>
+          </select>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.zona_id.errors?.required">Por favor selecciona un valor.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-2">
+        <div class="group-form-material">
+          <label for="filtroCobranzasEstadoAcuerdoField"
+            [class.input-filled]="form.controls.estadoAcuerdo.value !== ''">Estado del acuerdo</label>
+          <select id="filtroCobranzasEstadoAcuerdoField" class="w-100"
+            [class.is-invalid]="form.controlInvalid(form.controls.estadoAcuerdo)" formControlName="estadoAcuerdo">
+            <option [ngValue]="null">Todos</option>
+            <option [ngValue]="0">Con acuerdo</option>
+            <option [ngValue]="1">Acdo. vencido</option>
+            <option [ngValue]="2">Sin acuerdo</option>
+          </select>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.estadoAcuerdo.errors?.required">Por favor selecciona un valor.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-2 d-flex flex-column justify-content-center">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="filtroCobranzasOrdenSaldoField" formControlName="orden"
+            [value]="0">
+          <label class="form-check-label" for="filtroCobranzasOrdenSaldoField">Saldo</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="filtroCobranzasOrdenDiasMoraField" formControlName="orden"
+            [value]="1">
+          <label class="form-check-label" for="filtroCobranzasOrdenDiasMoraField">D&iacute;as de mora</label>
+        </div>
+      </div>
+      <div class="col-12 col-sm-2 d-flex align-items-center">
+        <button class="btn btn-outline-primary mr-2" style="min-width: 125px" (click)="filtrar()">
+          Filtrar
+        </button>
+      </div>
+    </form>
+  </div>
+
+
+  <!-- TABLA -->
+  <div class="d-flex flex-column py-2" *ngIf="cobranzas.length > 0">
+    <table class="table table-borderless">
+      <tbody>
+        <tr class="detalle-cliente" *ngFor="let cobranza of cobranzas">
+          <td>
+            <div class="row flex-grow-1 mx-0 detalle-cliente-group">
+              <div class="col-1 d-flex align-items-center justify-content-center px-0">
+                <div class="row">
+                  <div class="propuesta-tipo__icon border-dark col-12"
+                    [class.icon-cliente-lider]="esIndividual(cobranza)"
+                    [class.icon-cliente-experto]="esClienteExperto(cobranza)"
+                    [class.icon-cliente-grupo]="esGrupal(cobranza)"
+                    [class.icon-cliente-garantia]="esGarantia(cobranza)">
+                  </div>
+                  <div class="col-12 d-flex align-items-center justify-content-center">
+                    <span *ngIf="esGarantia(cobranza)" class="propuesta-garantia__garantia">Garant&iacute;a</span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-4 d-flex align-items-center">
+                <div class="d-flex">
+                  <div class="d-flex flex-column detalle-cliente-dato">
+                    <div>
+                      <span class="titulo-seccion">
+                        {{ (cobranza.miembros | extraerDataSolicitud:
+                        'lider')?.datosPersonalesCliente?.nombre1?.toUpperCase() || '' }}
+                        {{ (cobranza.miembros | extraerDataSolicitud:
+                        'lider')?.datosPersonalesCliente?.nombre2?.toUpperCase() || '' }}
+                      </span>
+                      <span class="titulo-seccion">
+                        {{ (cobranza.miembros | extraerDataSolicitud:
+                        'lider')?.datosPersonalesCliente?.apellido1?.toUpperCase() || '' }}
+                        {{ (cobranza.miembros | extraerDataSolicitud:
+                        'lider')?.datosPersonalesCliente?.apellido2?.toUpperCase() || '' }}
+                      </span>
+                    </div>
+                    <div>
+                      <span class="dato-label">
+                        #{{ cobranza?.idSolicitud}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-3 pl-0">
+                    <div class="d-flex flex-column detalle-cliente-dato">
+                      <span class="titulo-seccion">Saldo</span>
+                      <span class="dato-valor">{{ (cobranza.cartera.cartera | extraerDataCartera:
+                        'estadoCobro')?.saldo | currency: '$' : 'symbol' : '1.0-0' || ''}}</span>
+                    </div>
+                  </div>
+                  <div class="col-3 pl-0">
+                    <div class="d-flex flex-column detalle-cliente-dato">
+                      <span class="titulo-seccion">Pago m&iacute;nimo</span>
+                      <span class="dato-valor">{{ (cobranza.cartera.cartera | extraerDataCartera:
+                        'estadoCobro')?.totalDeuda | currency: '$' : 'symbol' : '1.0-0' || ''}}</span>
+                    </div>
+                  </div>
+                  <div class="col-3 pl-0">
+                    <div class="d-flex flex-column detalle-cliente-dato">
+                      <span class="titulo-seccion">D&iacute;as en mora:</span>
+                      <span class="dato-valor">{{ (cobranza.cartera.cartera | extraerDataCartera:
+                        'estadoCobro')?.diasEnMora }}</span>
+                    </div>
+                  </div>
+                  <div class="col-3 pl-0">
+                    <div class="d-flex flex-column detalle-cliente-dato">
+                      <span class="titulo-seccion">Estado:</span>
+                      <span class="dato-label font-weight-bold"
+                        [class.text-primary]="[1, 3].includes(estadoCobro(cobranza.cartera.cartera | extraerDataCartera:'estadoCobro'))"
+                        [class.text-warning]="estadoCobro(cobranza.cartera.cartera | extraerDataCartera:'estadoCobro') === 2">
+                        {{
+                        (estadoCobro(cobranza.cartera.cartera | extraerDataCartera:'estadoCobro') === 1 && 'Sin
+                        acuerdo') ||
+                        (estadoCobro(cobranza.cartera.cartera | extraerDataCartera:'estadoCobro') === 2 && 'Con
+                        acuerdo') ||
+                        (estadoCobro(cobranza.cartera.cartera | extraerDataCartera:'estadoCobro') === 3 && 'Acuerdo
+                        vencido')
+                        }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-1 pl-0 d-flex flex-column justify-content-center align-items-center">
+                <button class="btn btn-primary mr-2" style="min-width: 100px"
+                  (click)="gestionarCartera(cobranza, 5, 1)">Detalles
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ngb-pagination class="align-self-center" [collectionSize]="paginador.cantidad" [(page)]="paginador.pagina"
+      [pageSize]="paginador.cantidadPagina" (pageChange)="filtrar()">
+    </ngb-pagination>
+
+  </div>
+
+  <!-- EMPTY STATE -->
+  <div class="d-flex justify-content-center py-3" *ngIf="cobranzas.length === 0">
+    <span class="h4 align-self-center titulo-seccion">
+      No se han encontrado resultados para la búsqueda
+    </span>
+  </div>
+</div>

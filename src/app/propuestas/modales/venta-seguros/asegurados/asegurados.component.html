@@ -1,0 +1,194 @@
+<div id="modal-venta-beneficiarios" class="px-2">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Listado de Asegurados</h4>
+        <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></a>
+    </div>
+
+    <div class="modal-body modal-info">
+        <form class="pt-3" [formGroup]="aseguradosForm" (ngSubmit)="agregarAsegurado()">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <input type="text" class="w-100" formControlName="nombre"
+                            [class.is-invalid]="aseguradosForm.controlInvalid(aseguradosForm.controls.nombre)">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label [class.input-filled]="aseguradosForm.controls.nombre.value !== ''">Nombres
+                            completos</label>
+                        <div class="invalid-feedback">
+                            <span *ngIf="aseguradosForm.controls.nombre.errors?.maxlength">Solo puedes ingresar hasta
+                                {{ aseguradosForm.controls.nombre.errors?.maxlength.requiredLength }}
+                                caracteres.</span>
+                            <span *ngIf="aseguradosForm.controls.nombre.errors?.required">Por favor ingresa un
+                                nombre.</span>
+                            <span *ngIf="aseguradosForm.controls.nombre.errors?.pattern">Por favor valida el
+                                formato</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <input type="text" class="w-100" formControlName="apellido"
+                            [class.is-invalid]="aseguradosForm.controlInvalid(aseguradosForm.controls.apellido)">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label [class.input-filled]="aseguradosForm.controls.apellido.value !== ''">Apellidos
+                            completos</label>
+                        <div class="invalid-feedback">
+                            <span *ngIf="aseguradosForm.controls.apellido.errors?.maxlength">Solo puedes ingresar hasta
+                                {{ aseguradosForm.controls.apellido.errors?.maxlength.requiredLength }}
+                                caracteres.</span>
+                            <span *ngIf="aseguradosForm.controls.apellido.errors?.required">Por favor ingresa un
+                                nombre.</span>
+                            <span *ngIf="aseguradosForm.controls.apellido.errors?.pattern">Por favor valida el
+                                formato</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <label for="filterListaSegurosField"
+                            [class.input-filled]="aseguradosForm.controls.TipoDocumentoCliente.value !== ''">Seleccione
+                            tipo documento</label>
+                        <select id="filterListaSegurosField" class="w-100"
+                            [class.is-invalid]="aseguradosForm.controls.TipoDocumentoCliente.invalid"
+                            [class.form-control-plaintext]="aseguradosForm.disabled"
+                            [class.bg-white]="aseguradosForm.disabled" formControlName="TipoDocumentoCliente">
+                            <option *ngFor="let tipo of tipoDocumento" [ngValue]="tipo">{{ tipo.detalle }}
+                            </option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <div class="invalid-feedback">
+                            <span *ngIf="aseguradosForm.controls.TipoDocumentoCliente.errors?.required">Por favor
+                                ingresa un valor.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <input type="text" class="w-100" formControlName="documentoIdentidad"
+                            [class.is-invalid]="aseguradosForm.controlInvalid(aseguradosForm.controls.documentoIdentidad)">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label [class.input-filled]="aseguradosForm.controls.documentoIdentidad.value !== ''">Documento
+                            de identidad</label>
+                        <div class="invalid-feedback">
+                            <span *ngIf="aseguradosForm.controls.documentoIdentidad.errors?.maxlength">Solo puedes
+                                ingresar hasta {{
+                                aseguradosForm.controls.documentoIdentidad.errors?.maxlength.requiredLength }}
+                                caracteres.</span>
+                            <span *ngIf="aseguradosForm.controls.documentoIdentidad.errors?.pattern">Por favor valida
+                                el formato</span>
+                            <span *ngIf="aseguradosForm.controls.documentoIdentidad.errors?.required">Por favor
+                                ingresa un valor.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <label for="filterFechaFinalField"
+                            [class.input-filled]="aseguradosForm.controls.fechaNacimiento.value !== ''">Fecha de
+                            nacimiento</label>
+                        <div class="input-group">
+                            <span class="input-uneditable">{{aseguradosForm.controls.fechaNacimiento.value}}</span>
+                            <input id="edicionCamposFechaFormField" class="d-none" ngbDatepicker
+                                #dpFechaFinal="ngbDatepicker"
+                                [class.is-invalid]="aseguradosForm.controls.fechaNacimiento.invalid"
+                                [maxDate]="maxDate"
+                                [class.form-control-plaintext]="aseguradosForm.disabled"
+                                formControlName="fechaNacimiento">
+                            <div class="input-group-append">
+                                <button class="btn px-0 icon-arrow-down" (click)="dpFechaFinal.toggle()"
+                                    type="button"></button>
+                            </div>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <div class="invalid-feedback">
+                                <span *ngIf="aseguradosForm.controls.fechaNacimiento.errors?.required">Por favor
+                                    selecciona un
+                                    valor.</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <label for="filterListaSegurosField"
+                            [class.input-filled]="aseguradosForm.controls.tipoBeneficiario.value !== ''">Seleccione el
+                            parentesco</label>
+                        <select id="filterListaSegurosField" class="w-100"
+                            [class.is-invalid]="aseguradosForm.controls.tipoBeneficiario.invalid"
+                            [class.form-control-plaintext]="aseguradosForm.disabled"
+                            [class.bg-white]="aseguradosForm.disabled" formControlName="tipoBeneficiario">
+                            <option *ngFor="let beneficiario of tipoBeneficiario" [ngValue]="beneficiario">{{
+                                beneficiario.tipo }}
+                            </option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <div class="invalid-feedback">
+                            <span *ngIf="aseguradosForm.controls.tipoBeneficiario.errors?.required">Por favor
+                                ingresa un valor.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row justify-content-end align-items-center">
+                <button type="button" class="btn btn-primary" (click)="agregarAsegurado()">
+                    Agregar Asegurado
+                </button>
+            </div>
+
+            <div class="col-12 mensaje-validaciones mt-4">
+                <span *ngIf="errorMessage">
+                    {{ errorMessage }}
+                </span>
+            </div>
+
+        </form>
+
+        <hr />
+
+        <h6 *ngIf="aseguradosList.length > 0">Listado de Asegurados</h6>
+        <table class="table" *ngIf="aseguradosList.length > 0">
+            <thead>
+                <tr>
+                    <th class="text-center">Nombres</th>
+                    <th class="text-center">Apellidos</th>
+                    <th class="text-center">Tipo Documento</th>
+                    <th class="text-center">Documento Identidad</th>
+                    <th class="text-center">Fecha Nacimiento</th>
+                    <th class="text-center">Parentesco</th>
+                    <th class="text-center">Acciones</th> <!-- Nueva columna para las acciones -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let asegurado of aseguradosList; let i = index">
+                    <td>{{ asegurado.nombre }}</td>
+                    <td>{{ asegurado.apellido }}</td>
+                    <td class="text-center">{{ asegurado.TipoDocumentoCliente.detalle }}</td>
+                    <td class="text-center">{{ asegurado.documentoIdentidad }}</td>
+                    <td class="text-center">{{ asegurado.fechaNacimiento }}</td>
+                    <td class="text-center">{{ asegurado.tipoBeneficiario.tipo }}</td>
+                    <td class="text-center">
+                        <!-- Botón para eliminar con un ícono -->
+                        <button class="btn btn-outline-secondary btn-sm" (click)="eliminarAsegurado(i)">
+                            Borrar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex flex-row justify-content-end align-items-center" *ngIf="aseguradosList.length > 0">
+            <button type="button" class="btn btn-primary" (click)="guardarBeneficiarios()">
+                Guardar Cambios
+            </button>
+        </div>
+    </div>
+
+
+</div>

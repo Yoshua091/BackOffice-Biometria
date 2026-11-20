@@ -1,0 +1,165 @@
+<div id="modal-venta-beneficiarios" class="px-2">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Listado de Beneficiarios</h4>
+        <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></a>
+    </div>
+
+    <div class="modal-body modal-info">
+        <form class="pt-3" [formGroup]="beneficiarioForm" (ngSubmit)="agregarBeneficiario()">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <input type="text" class="w-100" formControlName="nombre"
+                            [class.is-invalid]="beneficiarioForm.controlInvalid(beneficiarioForm.controls.nombre)">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label [class.input-filled]="beneficiarioForm.controls.nombre.value !== ''">Nombres y apellidos
+                            completos</label>
+                        <div class="invalid-feedback">
+                            <span *ngIf="beneficiarioForm.controls.nombre.errors?.maxlength">Solo puedes ingresar hasta
+                                {{ beneficiarioForm.controls.nombre.errors?.maxlength.requiredLength }}
+                                caracteres.</span>
+                            <span *ngIf="beneficiarioForm.controls.nombre.errors?.required">Por favor ingresa un
+                                nombre.</span>
+                            <span *ngIf="beneficiarioForm.controls.nombre.errors?.pattern">Por favor valida el
+                                formato</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <label for="filterListaSegurosField"
+                            [class.input-filled]="beneficiarioForm.controls.TipoDocumentoCliente.value !== ''">Seleccione
+                            tipo documento</label>
+                        <select id="filterListaSegurosField" class="w-100"
+                            [class.is-invalid]="beneficiarioForm.controls.TipoDocumentoCliente.invalid"
+                            [class.form-control-plaintext]="beneficiarioForm.disabled"
+                            [class.bg-white]="beneficiarioForm.disabled" formControlName="TipoDocumentoCliente">
+                            <option *ngFor="let tipo of tipoDocumento" [ngValue]="tipo">{{ tipo.detalle }}
+                            </option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <div class="invalid-feedback">
+                            <span *ngIf="beneficiarioForm.controls.TipoDocumentoCliente.errors?.required">Por favor
+                                ingresa un valor.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <input type="text" class="w-100" formControlName="documentoIdentidad"
+                            [class.is-invalid]="beneficiarioForm.controlInvalid(beneficiarioForm.controls.documentoIdentidad)">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label
+                            [class.input-filled]="beneficiarioForm.controls.documentoIdentidad.value !== ''">Documento
+                            de identidad</label>
+                        <div class="invalid-feedback">
+                            <span *ngIf="beneficiarioForm.controls.documentoIdentidad.errors?.maxlength">Solo puedes
+                                ingresar hasta {{
+                                beneficiarioForm.controls.documentoIdentidad.errors?.maxlength.requiredLength }}
+                                caracteres.</span>
+                            <span *ngIf="beneficiarioForm.controls.documentoIdentidad.errors?.pattern">Por favor valida
+                                el formato</span>
+                            <span *ngIf="beneficiarioForm.controls.documentoIdentidad.errors?.required">Por favor
+                                ingresa un valor.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <input type="text" class="w-100" formControlName="porcentaje"
+                            [class.is-invalid]="beneficiarioForm.controlInvalid(beneficiarioForm.controls.porcentaje)">
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label [class.input-filled]="beneficiarioForm.controls.porcentaje.value !== ''">Porcentaje de
+                            participación</label>
+                        <div class="invalid-feedback">
+                            <span *ngIf="beneficiarioForm.controls.porcentaje.errors?.maxlength">Solo puedes ingresar
+                                hasta {{ beneficiarioForm.controls.porcentaje.errors?.maxlength.requiredLength }}
+                                caracteres.</span>
+                            <span *ngIf="beneficiarioForm.controls.porcentaje.errors?.required">Por favor ingresa un
+                                valor.</span>
+                            <span *ngIf="beneficiarioForm.controls.porcentaje.errors?.pattern">Por favor valida el
+                                formato</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="group-form-material">
+                        <label for="filterListaSegurosField"
+                            [class.input-filled]="beneficiarioForm.controls.tipoBeneficiario.value !== ''">Seleccione el
+                            parentesco</label>
+                        <select id="filterListaSegurosField" class="w-100"
+                            [class.is-invalid]="beneficiarioForm.controls.tipoBeneficiario.invalid"
+                            [class.form-control-plaintext]="beneficiarioForm.disabled"
+                            [class.bg-white]="beneficiarioForm.disabled" formControlName="tipoBeneficiario">
+                            <option *ngFor="let beneficiario of tipoBeneficiario" [ngValue]="beneficiario">{{
+                                beneficiario.tipo }}
+                            </option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <div class="invalid-feedback">
+                            <span *ngIf="beneficiarioForm.controls.tipoBeneficiario.errors?.required">Por favor
+                                ingresa un valor.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row justify-content-end align-items-center">
+                <button type="button" class="btn btn-primary" (click)="agregarBeneficiario()">
+                    Agregar Beneficiario
+                </button>
+            </div>
+
+            <div class="col-12 mensaje-validaciones mt-4">
+                <span *ngIf="errorMessage">
+                    {{ errorMessage }}
+                </span>
+              </div>
+
+        </form>
+
+        <hr />
+
+        <h6 *ngIf="beneficiariosList.length > 0">Listado de Beneficiarios</h6>
+        <table class="table" *ngIf="beneficiariosList.length > 0">
+            <thead>
+                <tr>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Tipo Documento</th>
+                    <th class="text-center">Documento Identidad</th>
+                    <th class="text-center">Porcentaje</th>
+                    <th class="text-center">Parentesco</th>
+                    <th class="text-center">Acciones</th> <!-- Nueva columna para las acciones -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let beneficiario of beneficiariosList; let i = index">
+                    <td>{{ beneficiario.nombre }}</td>
+                    <td class="text-center">{{ beneficiario.TipoDocumentoCliente.detalle }}</td>
+                    <td class="text-center">{{ beneficiario.documentoIdentidad }}</td>
+                    <td class="text-center">{{ beneficiario.porcentaje }}</td>
+                    <td class="text-center">{{ beneficiario.tipoBeneficiario.tipo }}</td>
+                    <td class="text-center">
+                        <!-- Botón para eliminar con un ícono -->
+                        <button class="btn btn-outline-secondary btn-sm" (click)="eliminarBeneficiario(i)">
+                            Borrar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="d-flex flex-row justify-content-end align-items-center" *ngIf="beneficiariosList.length > 0">
+            <button type="button" class="btn btn-primary" (click)="guardarBeneficiarios()">
+                Guardar Cambios
+            </button>
+        </div>
+    </div>
+
+
+</div>

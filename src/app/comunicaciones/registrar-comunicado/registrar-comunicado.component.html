@@ -1,0 +1,124 @@
+<div class="px-3">
+    <div class="d-flex justify-content-between mt-4">
+        <span class="h4 titulo-seccion">Comunicaciones</span>
+    </div>
+
+    <div class="col-12 contenedor-detalle">
+        <form [formGroup]="form" class="row">
+            <div class="col-12 col-sm-6">
+                <div class="group-form-material">
+                    <input type="text" class="w-100" formControlName="titulo" maxlength="50"
+                        [class.is-invalid]="form.controlInvalid(form.controls.titulo)">
+                    <label [class.input-filled]="form.controls.titulo.value !== ''">T&iacute;tulo</label>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <div class="feedback d-flex justify-content-between flex-row-reverse">
+                        <span class="feedback-detalle" [class.text-danger]="form.controls.titulo.value?.length > 50">{{
+                            form.controls.titulo.value?.length }}
+                            /50</span>
+                        <div class="invalid-feedback">
+                            <span *ngIf="form.controls.titulo.errors?.maxlength">Solo puedes ingresar hasta
+                                {{ form.controls.titulo.errors?.maxlength.requiredLength }}
+                                caracteres.</span>
+                            <span *ngIf="form.controls.titulo.errors?.required">Por favor ingresa un
+                                t&iacute;tulo.</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <div class="group-form-material">
+                    <label for="comunicadoFormCategoriaField"
+                        [class.input-filled]="form.controls.seccion.value !== ''">Categor&iacute;a</label>
+                    <select id="comunicadoFormCategoriaField" class="w-100"
+                        [class.is-invalid]="form.controlInvalid(form.controls.seccion)"
+                        [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                        formControlName="seccion">
+                        <option *ngFor="let categoria of listCategoria" [ngValue]="categoria">
+                            {{categoria.nombre}}</option>
+                    </select>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <div class="invalid-feedback">
+                        <span *ngIf="form.controls.seccion.errors?.required">Por favor
+                            selecciona una categor&iacute;a</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 py-3">
+                <div class="group-form-material">
+                    <label for="comunicadoVigenciaFormField"
+                        [class.input-filled]="form.controls.vigencia?.value !== ''">Vigencia</label>
+                    <div class="input-group">
+                        <input id="comunicadoVigenciaFormField" ngbDatepicker #dpSabanaHasta="ngbDatepicker"
+                            autocomplete="off" [minDate]="minFecha"
+                            [class.is-invalid]="form.controlInvalid(form.controls.vigencia)"
+                            [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                            formControlName="vigencia">
+                        <div class="input-group-append">
+                            <button class="btn px-0 icon-arrow-down" (click)="dpSabanaHasta.toggle()"
+                                type="button"></button>
+                        </div>
+                    </div>
+
+                    <div class="invalid-feedback">
+                        <span *ngIf="form.controls.vigencia?.errors?.required">Por favor selecciona una fecha.</span>
+                    </div>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 py-4">
+                <div class="form-group-material">
+                    <label for="comunicadoVigenciaFormField"
+                        [class.input-filled]="form.controls.base64?.value !== ''">Sube al sistema el archivo</label>
+                    <div class="input-group">
+                        <input #file class="d-none" type="file" accept="application/pdf"
+                            (change)="seleccionarArchivo(file)" />
+                        <button class="btn btn-outline-primary mr-2" (click)="file.click()">Seleccionar archivo</button>
+                        <span class="text-secondary" style="min-width: 200px">{{ form.get('base64').value?.name ||
+                            'Ningún archivo seleccionado' }}</span>
+                    </div>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <div class="invalid-feedback">
+                        <span *ngIf="form.controls.base64.errors?.required">Por favor ingresa un
+                            valor.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12">
+                <div class="form-group-material">
+                    <label for="comunicadoVigenciaFormField"
+                        [class.input-filled]="form.controls.comunicado?.value !== ''">Comunicado</label>
+                    <textarea id="acuerdoComentarioFormField" rows="3" class="w-100" cols="75"
+                        formControlName="comunicado" maxlength="250"
+                        [class.is-invalid]="form.controlInvalid(form.controls.comunicado)"></textarea>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <div class="feedback d-flex justify-content-between flex-row-reverse">
+                        <span class="feedback-detalle"
+                            [class.text-danger]="form.controls.comunicado.value?.length > 250">{{
+                            form.controls.comunicado.value?.length }}
+                            /250</span>
+                        <div class="invalid-feedback">
+                            <span *ngIf="form.controls.comunicado.errors?.required">Por favor ingresa un
+                                valor.</span>
+                            <span *ngIf="form.controls.comunicado.errors?.maxlength">Solo puedes ingresar hasta {{
+                                form.controls.comunicado.errors?.maxlength.requiredLength }}
+                                caracteres.</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row w-100 justify-content-end py-3">
+                <div class="col-sm-2">
+                    <a class="btn btn-primary w-100 boton justify-content-end" (click)="_subirArchivo()">Registrar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

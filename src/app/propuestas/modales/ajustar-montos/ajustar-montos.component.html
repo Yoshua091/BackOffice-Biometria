@@ -1,0 +1,324 @@
+<div id="modal-rechazar-docs" class="px-2">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Ajustar cr&eacute;dito</h4>
+    <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></a>
+  </div>
+  <div class="modal-body px-5">
+    <div class="px-5">
+      <div class="d-flex justify-content-start align-items-center py-3">
+        <span class="h5 titulo-seccion">Cambiar monto del pr&eacute;stamo</span>
+      </div>
+
+      <form [formGroup]="form" (submit)="submit()">
+
+        <div class="row border rounded mx-0 mb-3 monto-container" formArrayName="montos"
+          *ngFor="let m of form.montos?.groups; let i = index">
+          <div class="col-4 d-flex align-items-center">
+            <span class="monto-miembro">
+              {{ m.controls.nombreCompleto.value }}
+            </span>
+          </div>
+          <div class="col-4 d-flex justify-content-center align-items-center">
+            <div class="d-flex flex-column">
+              <span class="monto-detalle-cuota">
+                Valor por cuota: {{ cuotaMiembro(m.controls.numeroIdentificacion.value) | currency: '$': 'symbol':
+                '1.0-0' }}
+              </span>
+              <span class="monto-detalle-cuota">
+                M&aacute;x por cuota: {{ cuotaMaximaMiembro(m.controls.numeroIdentificacion.value) | currency: '$':
+                'symbol': '1.0-0' }}
+              </span>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="group-form-material" [formGroupName]="i">
+              <input type="text" class="w-100" formControlName="monto"
+                [class.is-invalid]="form.controlInvalid(m.controls.monto)">
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label [class.input-filled]="m.controls.monto.value !== ''">
+                Ajustar monto a:
+              </label>
+              <div class="invalid-feedback">
+                <span *ngIf="m.controls.monto.errors?.maxlength">
+                  Solo puedes ingresar hasta {{ m.controls.monto.errors?.maxlength.requiredLength }}
+                  caracteres.
+                </span>
+                <span *ngIf="m.controls.monto.errors?.required">Por favor ingresa un valor.</span>
+                <span *ngIf="m.controls.monto.errors?.pattern">Por favor valida el formato</span>
+                <span *ngIf="m.controls.monto.errors?.monto">{{ m.controls.monto.errors?.monto }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row rounded mx-0 monto-resultado-container" style="background-color: #F5F5F5">
+          <div class="col-3 d-flex align-items-center">
+            <div class="group-form-material w-100">
+              <label [class.input-filled]="form.controls.plazoMeses.value !== ''">
+                Cuotas
+              </label>
+              <select class="w-100" [class.is-invalid]="form.controlInvalid(form.controls.plazoMeses)"
+                [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                formControlName="plazoMeses" [compareWith]="comparador">
+                <option *ngFor="let plazo of plazos" [ngValue]="plazo">{{plazo.meses}}</option>
+              </select>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <div class="invalid-feedback">
+                <span *ngIf="form.controls.plazoMeses.errors?.required">Por favor selecciona una opci&oacute;n.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-3 d-flex justify-content-center align-items-center">
+            <div class="d-flex flex-column cuota-mensual">
+              <span>Cuotas mensuales de:</span>
+              <span>
+                {{ resultadoSimulador?.cuota | currency: '$' : 'symbol' : '1.0-0' }}
+              </span>
+            </div>
+          </div>
+          <div class="col-3 d-flex justify-content-center align-items-center">
+            <div class="d-flex flex-column cuota-mensual">
+              <span>Total monto solicitado:</span>
+              <span>
+                {{ resultadoSimulador?.montoSolicitado | currency: '$' : 'symbol' : '1.0-0' }}
+              </span>
+            </div>
+          </div>
+          <div class="col-3 d-flex justify-content-center align-items-center">
+            <div class="d-flex flex-column cuota-mensual">
+              <span>Total monto prestado:</span>
+              <span>
+                {{ resultadoSimulador?.montoPrestado | currency: '$' : 'symbol' : '1.0-0' }}
+              </span>
+            </div>
+          </div>
+
+          <div class="col-12 mensaje-total-monto" *ngIf="mensaje">
+            <span class="text-danger">
+              {{ mensaje }}
+            </span>
+          </div>
+
+          
+        </div>
+      </form>
+
+      <div *ngIf="!hayErrorFNG()" class="col-12" style="background-color: #F5F5F5">
+        <table class="table table-borderless">
+          <tbody>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>Plan de interes</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.planDeInteres.NUMERODELPLANDEINTERES }} {{ resultadoSimulador?.planDeInteres.tipo }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>Tasa interes</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.tasa }}%
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between" >
+                <td class="d-flex cuota-cargos justify-content-between" >
+                <span>Monto solicitado</span>
+                <span class="titulo-seccion">
+                  {{ mostrarMontoSolicitado() | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between" *ngIf="!!propuesta.renovacion">
+                <span>Saldo a recoger créditos anteriores</span>
+                <span class="titulo-seccion">
+                  {{ propuesta.renovacion?.saldo | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr *ngIf="!!propuesta.renovacion">
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>Monto préstamo solicitado (monto solicitado + saldo a recoger)</span>
+                <span class="titulo-seccion">
+                  {{ calcularMontoPrestamo() | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr *ngIf="soat">
+              <td class="d-flex cuota-cargos justify-content-between" >
+                <td class="d-flex cuota-cargos justify-content-between" >
+                <span>Valor SOAT</span>
+                <span class="titulo-seccion">
+                  {{ mostrarValorSoat() | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between" >
+                <td class="d-flex cuota-cargos justify-content-between" >
+                <span>Monto solicitado + Valor SOAT</span>
+                <span class="titulo-seccion">
+                  {{ mostrarTotalSolicitadoMasSoat() | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>IVA Garantía</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.valivafga === undefined ? 'No aplica' : resultadoSimulador?.valivafga | currency:
+                  '$' : 'symbol' : '1.0-0' ||
+                  'No aplica' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class=" d-flex cuota-cargos justify-content-between">
+                <span>Comisión Garantía</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.fga === undefined ? 'No aplica' : resultadoSimulador?.fga | currency: '$' :
+                  'symbol' : '1.0-0' ||
+                  'No aplica' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex  cuota-cargos justify-content-between">
+                <span>Comisión Mipyme</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.mipyme | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>I.V.A</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.iva | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>4 X 1000</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.v4x1000 | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>Seguro de vida Deudor</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.seguroVidaDeudores | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>Canal de desembolso</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.canalDesembolso | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>Canales premium de recaudo</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.canalesPremium | currency: '$' : 'symbol' : '1.0-0'}}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>IVA Canales premium de recaudo</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.IVAcanalesPremium | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>Centrales de riesgo</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.centralesRiesgo | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>Seguros voluntarios</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.segurosVoluntarios | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>Monto total Financiado (Total a Pagar)</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.montoPrestado | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+           
+            
+            
+            
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>Valor cuota Mensual</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.cuota | currency: '$' : 'symbol' : '1.0-0' }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>Plazo</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.plazo }} meses
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>Fecha de Pago</span>
+                <span class="titulo-seccion">
+                  {{ resultadoSimulador?.fechaPago }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="d-flex cuota-cargos justify-content-between">
+                <span>Fecha de simulación</span>
+                <span class="titulo-seccion">
+                  {{ fechaActual | date:'yyyy-MM-dd' }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+
+  </div>
+  <div class="modal-footer border-0">
+    <div class="row w-100 justify-content-center">
+      <div class="col-3">
+        <a class="btn btn-dark w-100" (click)="modal.dismiss()">Cancelar</a>
+      </div>
+      <div class="col-3" *ngIf="!aplicaValidacion">
+        <a class="btn btn-primary w-100" (click)="submit()">Aceptar</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+.historial-monto {
+
+  &__listado {
+    display: flex;
+    flex-flow: column;
+
+    &-item {
+      display: flex;
+      flex-flow: column;
+      padding-bottom: 0.75rem;
+      padding-top: 0.75rem;
+
+      &-encabezado {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      &-detalle {
+        display: flex;
+
+        .dato {
+          display: flex;
+          font-size: 14px;
+
+          .dato-label {
+            margin-left: 0.25rem;
+            color: #545454;
+            opacity: 0.5;
+          }
+
+          .dato-valor {
+            color: #545454;
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+}

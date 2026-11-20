@@ -1,0 +1,135 @@
+<div id="modal-detalle-archivo" class="px-2">
+    <div class="modal-header py-3">
+        <h4 class="modal-title" id="modal-basic-title">Detalle de la Dispersión</h4>
+        <button type="button" class="close icon-close text-primary" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body" *ngIf="detalle">
+        <ul class="nav-pills" ngbNav #navRegistros="ngbNav">
+            <li [ngbNavItem]="'REGISTROS_PROCESADOS'">
+                <a ngbNavLink>Procesados<span>({{ procesados.length }})</span></a>
+                <ng-template ngbNavContent>
+                    <div class="mx-0 mb-2 detalle-procesados">
+                        <ng-container *ngIf="procesados.length > 0; else noHayEnProceso">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="col-5">
+                                            <span class="font-weight-bold">Nombre Beneficiario</span>
+                                        </td>
+                                        <td class="col-3">
+                                            <span class="font-weight-bold">Identificación</span>
+                                        </td>
+                                        <td class="col-4">
+                                            <span class="font-weight-bold">Estado Dispersión</span>
+                                        </td>
+                                    </tr>
+                                    <tr *ngFor="let reg of procesados">
+                                        <td class="col-5">
+                                            <span class="font-weight-light">{{reg.nombreBeneficiario}}</span>
+                                        </td>
+                                        <td class="col-3">
+                                            <span class="font-weight-light">{{reg.nitBeneficiario}}</span>
+                                        </td>
+                                        <td class="col-4">
+                                            <span class="font-weight-light">{{reg.estado.estado}}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </ng-container>
+                        <ng-template #noHayEnProceso>
+                            <div class="mt-3 text-center">
+                                <span class="titulo-seccion">No hay registros en proceso</span>
+                            </div>
+                        </ng-template>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'REGISTROS_ERROR'">
+                <a ngbNavLink>Errores <span>({{ errores.length || 0 }})</span></a>
+                <ng-template ngbNavContent>
+                    <div class="mb-2 detalle-errores">
+                        <div *ngIf="errores.length > 0; else noHayErrores">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="col-5">
+                                            <span class="font-weight-bold">Nombre Beneficiario</span>
+                                        </td>
+                                        <td class="col-3">
+                                            <span class="font-weight-bold">Identificación</span>
+                                        </td>
+                                        <td class="col-4">
+                                            <span class="font-weight-bold">Estado Dispersión</span>
+                                        </td>
+                                    </tr>
+                                    <tr *ngFor="let reg of errores">
+                                        <td class="col-5">
+                                            <span class="font-weight-light">{{reg.nombreBeneficiario}}</span>
+                                        </td>
+                                        <td class="col-3">
+                                            <span class="font-weight-light">{{reg.nitBeneficiario}}</span>
+                                        </td>
+                                        <td class="col-4">
+                                            <span class="font-weight-light">{{reg.estado.estado}}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ng-template #noHayErrores>
+                            <div class="mt-3 text-center">
+                                <span class="titulo-seccion">No hay errores</span>
+                            </div>
+                        </ng-template>
+                    </div>
+                </ng-template>
+            </li>
+        </ul>
+
+        <div [ngbNavOutlet]="navRegistros"></div>
+
+    </div>
+    <!-- <div class="modal-body">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="col-4">
+                        <span class="font-weight-bold">Nombre Beneficiario</span>
+                    </td>
+                    <td class="col-2">
+                        <span class="font-weight-bold">Documento</span>
+                    </td>
+                    <td class="col-2">
+                        <span class="font-weight-bold">Estado Registro</span>
+                    </td>
+                    <td class="col-4">
+                        <span class="font-weight-bold">Estado Dispersión</span>
+                    </td>
+                </tr>
+                <tr *ngFor="let reg of registros">
+                    <td class="col-4">
+                        <span class="font-weight-light">{{reg.nombre_beneficiario}}</span>
+                    </td>
+                    <td class="col-2">
+                        <span class="font-weight-light">{{reg.documento_beneficiario}}</span>
+                    </td>
+                    <td class="col-2">
+                        <span class="font-weight-light">{{reg.estado.estado}}</span>
+                    </td>
+                    <td class="col-4">
+                        <span class="font-weight-light">{{reg.descripcion_codigo_resultado}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+    <div class="modal-footer border-0">
+        <div class="row w-100 justify-content-center">
+            <div class="col-12">
+                <a class="btn btn-primary w-100 boton" (click)="modal.close()">Entendido</a>
+            </div>
+        </div>
+    </div>
+</div>

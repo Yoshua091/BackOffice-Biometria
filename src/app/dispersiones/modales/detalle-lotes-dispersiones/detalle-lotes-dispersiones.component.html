@@ -1,0 +1,52 @@
+<div id="modal-detalle-dispersiones" class="d-flex flex-column px-2">
+    <div class="modal-header py-3">
+      <h4 class="modal-title" id="modal-basic-title">Detalle ciclos de dispersión</h4>
+      <button type="button" class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="group-form-material">
+            <input type="text" #nombre class="w-100" [formControl]="filter">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label [class.input-filled]="nombre.value !== ''">Buscar</label>
+          </div>
+        </div>
+      </div>
+      <table class="table" *ngIf="!aviso">
+        <tbody>
+          <tr>
+            <td class="col-2"><span class="font-weight-bold">Identificación</span></td>
+            <td class="col-3"><span class="font-weight-bold">Nombres</span></td>
+            <td class="col-2"><span class="font-weight-bold">Código dispersión</span></td>
+            <td class="col-2"><span class="font-weight-bold">Detalle dispersión</span></td>
+            <td class="col-2"><span class="font-weight-bold">Código plataforma</span></td>
+            <td class="col-2"><span class="font-weight-bold">Descripción plataforma</span></td>
+            <td class="col-2"><span class="font-weight-bold">Monto</span></td>
+          </tr>
+          <tr *ngFor="let reg of detalleDispersiones$ | async; index as i">
+            <td class="col-2"><span class="font-weight-light">{{ reg?.numeroIdentificacion }}</span></td>
+            <td class="col-3"><span class="font-weight-light">{{ reg?.nombres | uppercase }} {{ reg?.apellidos | uppercase }}</span></td>
+            <td class="col-2" style="text-align: center;"><span class="font-weight-light">{{ reg?.estado }}</span></td>
+            <td class="col-2"><span class="font-weight-light" [ngStyle]="{ 'color': getColorByEstado(reg.estado) }">{{ estadoDispersion[reg?.estado] }}</span></td>
+            <td class="col-2" style="text-align: center;"><span class="font-weight-light">{{ reg?.codigoPlataforma || 'No aplica' }}</span></td>
+            <td class="col-2"><span class="font-weight-light">{{ reg?.descripcionPlataforma || 'No aplica' }}</span></td>
+            <td class="col-2"><span class="font-weight-light">{{ reg?.monto | currency: '$' : 'symbol' : '1.0-0' }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-center py-3" *ngIf="aviso">
+        <span class="h4 align-self-center titulo-seccion">No hay resultados para esta búsqueda</span>
+      </div>
+    </div>
+    <div class="modal-footer border-0">
+      <div class="row w-100 justify-content-center">
+        <div class="col-12">
+          <a class="btn btn-primary w-100 boton" (click)="modal.close()">Entendido</a>
+        </div>
+      </div>
+    </div>
+    <ngb-pagination class="align-self-center" *ngIf="!aviso" [collectionSize]="paginador.cantidad" [(page)]="paginador.pagina" [pageSize]="paginador.cantidadPagina" (pageChange)="getDetalle()"></ngb-pagination>
+  </div>
+  

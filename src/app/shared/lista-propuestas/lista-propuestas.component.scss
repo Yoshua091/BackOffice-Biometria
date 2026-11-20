@@ -1,0 +1,82 @@
+.detalle-cliente {
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  border: 1px solid #C5C5C5;
+  border-radius: 5px;
+
+  .propuesta-tipo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 0.75rem;
+    width: 3.75rem;
+
+    &__icon {
+      height: 2.625rem;
+      width: 2.625rem;
+
+      &.icon-cliente-lider {
+        content: url("../../../assets/images/icon-individual.svg");
+      }
+      &.icon-cliente-experto {
+        content: url("../../../assets/images/icon-cliente-experto.svg");
+      }
+      &.icon-cliente-grupo {
+        content: url("../../../assets/images/icon-grupal.svg");
+      }
+      border-radius: 50%;
+    }
+
+    &__renovacion {
+      padding-top: 3px;
+      padding-bottom: 3px;
+      color: #c00;
+      font-size: 9px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+  }
+
+  .detalle-cliente-group {
+
+    &.border-bottom {
+      border-bottom: 1px solid #47474733;
+    }
+
+  }
+
+  .titulo-seccion {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font: normal normal bold 14px/20px Roboto;
+    color: #545454;
+  }
+
+  .detalle-cliente-dato {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    .dato-label {
+      font-size: 12px;
+      font-weight: bold;
+      color: #545454;
+      opacity: 0.5;
+    }
+
+    .dato-valor {
+      font-size: 14px;
+      font-weight: bold;
+      color: #545454;
+    }
+
+    .text-danger {
+      font-size: 12px;
+    }
+
+    .hover:hover{
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+  }
+}

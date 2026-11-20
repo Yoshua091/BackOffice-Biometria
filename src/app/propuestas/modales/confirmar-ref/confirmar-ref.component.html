@@ -1,0 +1,82 @@
+<div id="modal-rechazar-docs" class="px-2">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Verificaci&oacute;n de referencias</h4>
+    <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></a>
+  </div>
+  <div class="modal-body">
+    <div class="d-flex justify-content-start align-items-center">
+      <div class="d-flex flex-column align-items-start detalle-cliente-dato">
+        <span class="dato-label">Nombre de referencia</span>
+        <span class="dato-valor">
+          {{ clienteNombre }}
+        </span>
+      </div>
+      <div class="d-flex flex-column align-items-end pl-3 detalle-cliente-dato">
+        <span class="dato-label">Tel&eacute;fono de referencia</span>
+        <span class="dato-valor">{{ clienteTelefono }}</span>
+      </div>
+    </div>
+
+    <form [formGroup]="form" (submit)="submit()">
+
+      <div class="row">
+        <div class="col-12 col-sm-6" formArrayName="preguntas"
+             *ngFor="let formItem of form.preguntas?.controls; let i = index">
+          <div class="group-form-material" *ngIf="[1, 2].includes(form.findPregunta(i).controls.tipo.value)"
+               [formGroupName]="i">
+            <input type="text" class="w-100"
+                   formControlName="respuestaCliente"
+                   [class.is-invalid]="form.controlInvalid(form.findPregunta(i).controls.respuestaCliente)">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label [class.input-filled]="form.findPregunta(i).controls.respuestaCliente.value !== ''">
+              {{ (i + 1) + '. ' + form.findPregunta(i).controls.pregunta.value }}
+            </label>
+            <div class="invalid-feedback">
+              <span *ngIf="form.findPregunta(i).controls.respuestaCliente.errors?.maxlength">
+                Solo puedes ingresar hasta {{ form.findPregunta(i).controls.respuestaCliente.errors?.maxlength.requiredLength }}
+                caracteres.
+              </span>
+              <span *ngIf="form.findPregunta(i).controls.respuestaCliente.errors?.required">Por favor ingresa una respuesta.</span>
+              <span
+                *ngIf="form.findPregunta(i).controls.respuestaCliente.errors?.pattern">Por favor valida el formato</span>
+            </div>
+          </div>
+
+          <div class="group-form-material" [formGroupName]="i"
+               *ngIf="[3].includes(form.findPregunta(i).controls.tipo.value)">
+            <label for="empleadosFormRolField"
+                   [class.input-filled]="form.findPregunta(i).controls.respuestaCliente.value !== ''">
+              {{ (i + 1) + '. ' + form.findPregunta(i).controls.pregunta.value }}
+            </label>
+            <select id="empleadosFormRolField" class="w-100"
+                    [class.is-invalid]="form.controlInvalid(form.findPregunta(i).controls.respuestaCliente)"
+                    [class.form-control-plaintext]="form.findPregunta(i).disabled"
+                    [class.bg-white]="form.findPregunta(i).disabled"
+                    formControlName="respuestaCliente">
+              <option *ngFor="let respuesta of form.findPregunta(i).controls.respuestas.value"
+                      [ngValue]="respuesta">{{respuesta}}</option>
+            </select>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <div class="invalid-feedback">
+              <span *ngIf="form.findPregunta(i).controls.respuestaCliente.errors?.required">Por favor selecciona una respuesta.</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </form>
+
+  </div>
+  <div class="modal-footer border-0">
+    <div class="row w-100 justify-content-end"  *ngIf="session.user.rol.id !== 9">
+      <div class="col-12 px-0">
+        <a class="btn btn-primary w-100" (click)="submit()">Enviar verificaci&oacute;n</a>
+
+      </div>
+    </div>
+  </div>
+</div>

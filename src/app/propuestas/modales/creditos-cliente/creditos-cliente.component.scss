@@ -1,0 +1,138 @@
+.creditos-cliente {
+
+  &__datos-cliente {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #47474733;
+    padding: 0.75rem 0.5rem;
+
+    &-icon {
+      content: url("../../../../assets/images/icon-individual.svg");
+    }
+
+    &-detalle {
+      display: flex;
+      flex-direction: column;
+      padding-left: 0.75rem;
+
+      .detalle-dato {
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      .detalle-label {
+        font-size: 14px;
+        color: #545454;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  &__list {
+    padding: 0.5rem 0.75rem;
+
+    &-item {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+
+      .list-item {
+
+        &__encabezado {
+          display: flex;
+          font-size: 16px;
+          color: #545454;
+
+          a {
+            color: #545454;
+
+            &:after {
+              content: url('../../../../assets/images/icon-blank-black.svg');
+              margin-left: 0.5rem;
+            }
+
+          }
+
+          span {
+
+            &:nth-child(1) {
+              font-weight: bold;
+              color: #545454;
+            }
+
+            &:nth-child(2) {
+              padding-left: 0.5rem;
+              padding-right: 0.5rem;
+              opacity: 0.5;
+            }
+
+          }
+        }
+
+        &__detalle {
+
+          .condicion-prestamo {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            align-items: center;
+            overflow: auto;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+
+            &-item {
+              min-width: 165px;
+              border: 1px solid #C5C5C5;
+              border-radius: 5px;
+              opacity: 1;
+              padding: 0.5rem 1rem;
+
+              &:not(:first-child) {
+                margin-left: 0.5rem;
+              }
+
+              &:not(:last-child) {
+                margin-right: 0.5rem;
+              }
+
+              > i {
+                height: 26px;
+                width: 26px;
+                margin-right: 0.5rem;
+
+                &.valor-solicitado-icon {
+                  content: url("../../../../assets/images/propuestas-icon.svg");
+                }
+
+                &.valor-cuota-icon {
+                  content: url("../../../../assets/images/valor-cuota.svg");
+                }
+
+                &.plazo-icon {
+                  content: url("../../../../assets/images/plazo.svg");
+                }
+
+                &.primera-cuota-icon {
+                  content: url("../../../../assets/images/primera-cuota.svg");
+                }
+              }
+
+              > .detalle {
+
+                span {
+                  font: normal normal normal 12px/18px Roboto;
+                  color: #545454;
+
+                  &:first-child {
+                    font-weight: 700;
+                  }
+                }
+              }
+            }
+
+          }
+        }
+      }
+    }
+
+  }
+}

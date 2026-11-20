@@ -1,0 +1,176 @@
+<div class="p-3">
+  <a class="btn btn-link text-decoration-none px-0" [routerLink]="['/', 'config', 'control-empleados']">
+    <img class="boton-back" src="../../../../assets/images/arrow-left.svg">
+    <span class="label-sucur">Lista de empleados</span>
+  </a>
+
+  <div class="d-flex pt-4">
+    <span class="h4">{{ mode.charAt(0).toUpperCase() + mode.substring(1) }} Empleado</span>
+  </div>
+
+  <form class="pt-3" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-12 col-sm-6">
+        <div class="group-form-material">
+          <input type="text" class="w-100" formControlName="nombre"
+                 [class.is-invalid]="form.controlInvalid(form.controls.nombre)">
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label [class.input-filled]="form.controls.nombre.value !== ''">Nombre</label>
+          <div class="invalid-feedback">
+            <span
+              *ngIf="form.controls.nombre.errors?.maxlength">Solo puedes ingresar hasta {{ form.controls.nombre.errors?.maxlength.requiredLength }}
+              caracteres.</span>
+            <span *ngIf="form.controls.nombre.errors?.required">Por favor ingresa un nombre.</span>
+            <span *ngIf="form.controls.nombre.errors?.pattern">Por favor valida el formato</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="group-form-material">
+          <input type="text" class="w-100" formControlName="apellido"
+                 [class.is-invalid]="form.controlInvalid(form.controls.apellido)">
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label [class.input-filled]="form.controls.nombre.value !== ''">Apellido</label>
+          <div class="invalid-feedback">
+            <span
+              *ngIf="form.controls.apellido.errors?.maxlength">Solo puedes ingresar hasta {{ form.controls.apellido.errors?.maxlength.requiredLength }}
+              caracteres.</span>
+            <span *ngIf="form.controls.apellido.errors?.required">Por favor ingresa un apellido.</span>
+            <span *ngIf="form.controls.apellido.errors?.pattern">Por favor valida el formato</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="group-form-material">
+          <input type="text" class="w-100" formControlName="cedula"
+                 [class.is-invalid]="form.controlInvalid(form.controls.cedula)">
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label [class.input-filled]="form.controls.cedula.value !== ''">Cedula</label>
+          <div class="invalid-feedback">
+            <span
+              *ngIf="form.controls.cedula.errors?.maxlength || form.controls.cedula.errors?.minlength || form.controls.cedula.errors?.pattern">Minimo 3 digitos maximo 10 digitos.</span>
+            <span *ngIf="form.controls.cedula.errors?.required">Por favor ingresa una cedula.</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-12 col-sm-6">
+        <div class="group-form-material">
+          <input type="text" class="w-100" formControlName="usuario"
+                 [class.is-invalid]="form.controlInvalid(form.controls.usuario)" autocomplete="new-user">
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label [class.input-filled]="form.controls.usuario.value !== ''">Usuario</label>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.usuario.errors?.required">Por favor ingresa un valor.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6" *ngIf="mode === 'crear'">
+        <div class="row group-form-material d-flex justify-content-end">
+          <input [type]="showPassword ? 'text' : 'password'" class="w-100" formControlName="clave"
+                 [class.is-invalid]="form.controlInvalid(form.controls.clave)" autocomplete="new-password">
+          <span [class.view-password]="!showPassword"
+                [class.hide-password]="showPassword"
+                (click)="showPassword = !showPassword"></span>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label [class.input-filled]="form.controls.clave.value !== ''">Contraseña</label>
+          <div class="invalid-feedback">
+            Por favor ingresa tu contraseña
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6">
+        <div class="group-form-material">
+          <label for="empleadosFormRolField" [class.input-filled]="form.controls.rol.value !== ''">Rol</label>
+          <select id="empleadosFormRolField" class="w-100"
+                  [compareWith]="comparador"
+                  [class.is-invalid]="form.controls.rol.invalid"
+                  [class.form-control-plaintext]="form.disabled"
+                  [class.bg-white]="form.disabled"
+                  formControlName="rol">
+            <option *ngFor="let rol of roles" [ngValue]="rol">{{rol.rol}}</option>
+          </select>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.rol.errors?.required">Por favor selecciona un rol.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6">
+        <div class="group-form-material">
+          <input type="number" class="w-100" formControlName="codigoAsesor"
+                 [class.is-invalid]="form.controlInvalid(form.controls.codigoAsesor)">
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label [class.input-filled]="form.controls.codigoAsesor.value !== ''">C&oacute;digo asesor</label>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.codigoAsesor.errors?.required">Por favor ingresa un valor.</span>
+            <span *ngIf="form.controls.codigoAsesor.errors?.pattern">El campo debe tener el formato XXXX-XXXX, donde X es un d&iacute;gito.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6">
+        <div class="group-form-material">
+          <label for="empleadosFormSucursalField" [class.input-filled]="form.controls.sucursal.value !== ''">Sucursal</label>
+          <select id="empleadosFormSucursalField" class="w-100"
+                  [compareWith]="comparador"
+                  [class.is-invalid]="form.controls.sucursal.invalid"
+                  [class.form-control-plaintext]="form.disabled"
+                  [class.bg-white]="form.disabled"
+                  formControlName="sucursal">
+            <option *ngFor="let sucursal of sucursales" [ngValue]="sucursal">{{sucursal.nombre}}</option>
+          </select>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.sucursal.errors?.required">Por favor selecciona una sucursal.</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-12 col-sm-6">
+        <div class="group-form-material">
+          <label for="empleadosFormPerfilField" [class.input-filled]="form.controls.perfil.value !== ''">Perfil</label>
+          <select id="empleadosFormPerfilField" class="w-100"
+                  [compareWith]="comparador"
+                  [class.is-invalid]="form.controls.perfil.invalid"
+                  [class.form-control-plaintext]="form.disabled"
+                  [class.bg-white]="form.disabled"
+                  formControlName="perfil">
+            <option *ngFor="let perfil of perfiles" [ngValue]="perfil">{{perfil.perfil}}</option>
+          </select>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.perfil.errors?.required">Por favor selecciona un perfil.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <label class="form-group form-check">
+          <input id="empleadosFormLiderField" type="checkbox" class="form-check-input" formControlName="lider">
+          L&iacute;der de sucursal.
+          <span class="checkmark"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row justify-content-end align-items-center mt-5">
+      <button class="btn btn-primary">
+        GUARDAR
+      </button>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,117 @@
+<div class="p-3">
+  <a class="btn btn-link text-decoration-none px-0"
+     [routerLink]="'/renovacion'"
+     [queryParams]="route.snapshot.queryParams">
+    <img class="boton-back" src="../../../assets/images/arrow-left.svg">
+    <span class="label-sucur">Lista de renovaciones</span>
+  </a>
+
+  <div class="d-flex justify-content-between align-items-center py-3">
+    <span class="h4">Detalles de renovaci&oacute;n</span>
+  </div>
+
+
+  <div class="contenedor">
+
+    <div class="contenedor-header">
+      <span>Detalles del cr&eacute;dito</span>
+    </div>
+
+    <div class="detalle">
+      <!-- LIDER -->
+      <div class="row flex-grow-1 justify-content-between mx-0 detalle-group">
+        <div class="col-12 detalle-group-titulo">
+          <span>L&iacute;der del cr&eacute;dito</span>
+        </div>
+        <div class="col-6 py-3 d-flex align-items-center justify-content-start">
+          <span class="rounded-circle border-dark icon-cliente mr-3"
+                [class.icon-cliente-lider]="esIndividual"
+                [class.icon-cliente-experto]="esClienteExperto"
+                [class.icon-cliente-grupo]="esGrupal">
+          </span>
+          <div class="d-flex flex-column detalle-dato">
+            <div class="font-weight-bold">
+                <span>
+                  {{ sRenovacion.lider?.datosPersonalesCliente?.nombre1 || '' }}
+                  {{ sRenovacion.lider?.datosPersonalesCliente?.nombre2 || '' }}
+                </span>
+              <span>
+                  {{ sRenovacion.lider?.datosPersonalesCliente?.apellido1 || '' }}
+                {{ sRenovacion.lider?.datosPersonalesCliente?.apellido2 || '' }}
+                </span>
+            </div>
+            <span class="dato-label">Excelente comportamiento de pago</span>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="d-flex flex-column detalle-cliente-dato font-weight-bold">
+            <span>Contacto</span>
+            <span class="dato-valor text-primary">{{ sRenovacion.lider?.datosContactoCliente?.telefono || '' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DETALLE CREDITO ACTUAL -->
+      <div class="row flex-grow-1 mx-0 detalle-group">
+        <div class="col-12 detalle-group-titulo">
+          <span>Cr&eacute;dito actual</span>
+        </div>
+        <div class="col-12">
+          <div class="row py-3">
+            <div class="col-3">
+              <div class="d-flex flex-column detalle-dato">
+                <span class="titulo-seccion">Saldo por pagar</span>
+                <span
+                  class="dato-valor">{{ sRenovacion.solicitud.renovacion?.saldo || 0 | currency: '': 'symbol': '1.0-0'}}</span>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="d-flex flex-column detalle-dato">
+                <span class="titulo-seccion">Tasa actual</span>
+                <span
+                  class="dato-valor">{{ sRenovacion.solicitud.renovacion?.simulacion?.simulacion?.tasa || 0}}% Mensual</span>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="d-flex flex-column detalle-dato">
+                <span class="titulo-seccion">Cuota mensual</span>
+                <span
+                  class="dato-valor">{{ sRenovacion.solicitud.renovacion?.simulacion?.simulacion?.cuota || 0 | currency: '': 'symbol': '1.0-0' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DETALLE CREDITO NUEVO -->
+
+      <div class="row flex-grow-1 mx-0 detalle-group">
+        <div class="col-12 detalle-group-titulo">
+          <span>Nuevo cr&eacute;dito</span>
+        </div>
+        <div class="col-12">
+          <div class="row py-3">
+            <div class="col-3">
+              <div class="d-flex flex-column detalle-dato">
+                <span class="titulo-seccion">Monto preaprobado</span>
+                <span class="dato-valor">{{ sRenovacion.solicitud.renovacion?.montoPreaprobado || 0 | currency: '': 'symbol': '1.0-0'}}</span>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="d-flex flex-column detalle-dato">
+                <span class="titulo-seccion">Nueva tasa</span>
+                <span class="dato-valor">{{ sRenovacion.solicitud.renovacion?.porcentajeRenovacion || 0}}% Mensual</span>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="d-flex flex-column detalle-dato">
+                <span class="titulo-seccion">Cuota mensual</span>
+                <span class="dato-valor">{{ resultadoSimulador.cuota || 0 | currency: '': 'symbol': '1.0-0' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

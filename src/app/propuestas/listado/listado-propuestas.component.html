@@ -1,0 +1,211 @@
+<div class="px-3 py-3">
+  <div class="d-flex pt-4">
+    <span class="h4">Gesti&oacute;n de propuestas</span>
+  </div>
+
+  <form [formGroup]="form" class="row"> 
+
+    <div class="col-12 col-sm-3">
+      <div class="group-form-material">
+        <label for="filterPropuestasSucursalField" [class.input-filled]="form.controls._idSucursal.value !== ''">Sucursal</label>
+        <select id="filterPropuestasSucursalField" class="w-100"
+                [class.is-invalid]="form.controls._idSucursal.invalid"
+                [class.form-control-plaintext]="form.disabled"
+                [class.bg-white]="form.disabled"
+                formControlName="_idSucursal">
+          <option *ngFor="let sucursal of sucursales" [ngValue]="sucursal._id">{{sucursal.nombre}}</option>
+        </select>
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <div class="invalid-feedback">
+          <span *ngIf="form.controls._idSucursal.errors?.required">Por favor selecciona un valor.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-2">
+      <div class="group-form-material">
+        <label for="filterSucursalAniosField" [class.input-filled]="form.controls.ano.value !== ''">Año</label>
+        <select id="filterSucursalAniosField" class="w-100"
+                [class.is-invalid]="form.controls.ano.invalid"
+                [class.form-control-plaintext]="form.disabled"
+                [class.bg-white]="form.disabled"
+                formControlName="ano">
+          <option *ngFor="let anio of anios" [ngValue]="anio">{{anio}}</option>
+        </select>
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <div class="invalid-feedback">
+          <span *ngIf="form.controls.ano.errors?.required">Por favor selecciona un valor.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-2">
+      <div class="group-form-material">
+        <label for="filterSucursalMesField" [class.input-filled]="form.controls.mes.value !== ''">Mes</label>
+        <select id="filterSucursalMesField" class="w-100"
+                [class.is-invalid]="form.controls.mes.invalid"
+                [class.form-control-plaintext]="form.disabled"
+                [class.bg-white]="form.disabled"
+                formControlName="mes">
+          <option *ngFor="let mes of meses" [ngValue]="mes">{{mes}}</option>
+        </select>
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <div class="invalid-feedback">
+          <span *ngIf="form.controls.ano.errors?.required">Por favor selecciona un valor.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-2" style="padding-top: 40px">
+      <button class="btn btn-primary w-100" (click)="permisosModulos(12, 1)">
+        Filtrar
+      </button>
+    </div>
+  </form>
+
+  <div id="esperando-aprobacion">
+    <div class="propuestas-filter py-1">
+      <ul class="nav-pills filter-options overflow-auto" ngbNav #navPendientes="ngbNav"
+          [destroyOnHide]="false"
+          [(activeId)]="estado"
+          (activeIdChange)="activeIdChange()">
+        <li [ngbNavItem]="estados.Renovaciones">
+            <a ngbNavLink>Renovaciones <span>({{ listados[estados.Renovaciones]?.cantidad || 0 }})</span></a>
+            <ng-template ngbNavContent>
+              <app-lista-propuestas [listado]="listados[estados.Renovaciones]?.listado || []"
+                                    [cantidad]="listados[estados.Renovaciones]?.cantidad || 0"
+                                    [pagina]="listados[estados.Renovaciones]?.pagina || 1"
+                                    [cantidadPorPagina]="cantidadPorPagina"
+                                    (pageChange)="pageChange($event)"></app-lista-propuestas>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="estados.ValidacionAsistente">
+          <a ngbNavLink>Validaci&oacute;n <span>({{ listados[estados.ValidacionAsistente]?.cantidad || 0 }})</span></a>
+          <ng-template ngbNavContent>
+            <app-lista-propuestas [listado]="listados[estados.ValidacionAsistente]?.listado || []"
+                                  [cantidad]="listados[estados.ValidacionAsistente]?.cantidad || 0"
+                                  [pagina]="listados[estados.ValidacionAsistente]?.pagina || 1"
+                                  [cantidadPorPagina]="cantidadPorPagina"
+                                  (pageChange)="pageChange($event)"></app-lista-propuestas>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="estados.ValidacionGerente">
+          <a ngbNavLink>Aprobaci&oacute;n <span>({{ listados[estados.ValidacionGerente]?.cantidad || 0 }})</span></a>
+          <ng-template ngbNavContent>
+            <app-lista-propuestas [listado]="listados[estados.ValidacionGerente]?.listado || []"
+                                  [cantidad]="listados[estados.ValidacionGerente]?.cantidad || 0"
+                                  [cantidadPorPagina]="cantidadPorPagina"
+                                  [pagina]="listados[estados.ValidacionGerente]?.pagina || 1"
+                                  (pageChange)="pageChange($event)"></app-lista-propuestas>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="estados.Comite">
+          <a ngbNavLink>Comit&eacute; <span>({{ listados[estados.Comite]?.cantidad || 0 }})</span></a>
+          <ng-template ngbNavContent>
+            <app-lista-propuestas [listado]="listados[estados.Comite]?.listado || []"
+                                  [cantidad]="listados[estados.Comite]?.cantidad || 0"
+                                  [cantidadPorPagina]="cantidadPorPagina"
+                                  [pagina]="listados[estados.Comite]?.pagina || 1"
+                                  (cargarComite)="filtrar()"
+                                  (pageChange)="pageChange($event)"></app-lista-propuestas>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="estados.ValidacionIdentidad">
+          <a ngbNavLink>OTP <span>({{ listados[estados.ValidacionIdentidad]?.cantidad || 0 }})</span></a>
+          <ng-template ngbNavContent>
+            <app-lista-propuestas [listado]="listados[estados.ValidacionIdentidad]?.listado || []"
+                                  [cantidad]="listados[estados.ValidacionIdentidad]?.cantidad || 0"
+                                  [cantidadPorPagina]="cantidadPorPagina"
+                                  [pagina]="listados[estados.ValidacionIdentidad]?.pagina || 1"
+                                  (pageChange)="pageChange($event)"></app-lista-propuestas>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="estados.Devuelta">
+          <a ngbNavLink>Devueltas <span>({{ listados[estados.Devuelta]?.cantidad || 0 }})</span></a>
+          <ng-template ngbNavContent>
+            <app-lista-propuestas [listado]="listados[estados.Devuelta]?.listado || []"
+                                  [cantidad]="listados[estados.Devuelta]?.cantidad || 0"
+                                  [cantidadPorPagina]="cantidadPorPagina"
+                                  [pagina]="listados[estados.Devuelta]?.pagina || 1"
+                                  (pageChange)="pageChange($event)"></app-lista-propuestas>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="estados.Rechazada">
+          <a ngbNavLink>Rechazadas <span>({{ listados[estados.Rechazada]?.cantidad || 0 }})</span></a>
+          <ng-template ngbNavContent>
+            <app-lista-propuestas [listado]="listados[estados.Rechazada]?.listado || []"
+                                  [cantidad]="listados[estados.Rechazada]?.cantidad || 0"
+                                  [cantidadPorPagina]="cantidadPorPagina"
+                                  [pagina]="listados[estados.Rechazada]?.pagina || 1"
+                                  (pageChange)="pageChange($event)"></app-lista-propuestas>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="estados.AltaCliente">
+          <a ngbNavLink>Alta de Clientes <span>({{ listados[estados.AltaCliente]?.cantidad || 0 }})</span></a>
+          <ng-template ngbNavContent>
+            <app-lista-propuestas [listado]="listados[estados.AltaCliente]?.listado || []"
+                                  [cantidad]="listados[estados.AltaCliente]?.cantidad || 0"
+                                  [cantidadPorPagina]="cantidadPorPagina"
+                                  [pagina]="listados[estados.AltaCliente]?.pagina || 1"
+                                  (pageChange)="pageChange($event)"></app-lista-propuestas>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="estados.RegistrandoCredito">
+          <a ngbNavLink>Registrando cr&eacute;dito <span>({{ listados[estados.RegistrandoCredito]?.cantidad || 0 }})</span></a>
+          <ng-template ngbNavContent>
+            <app-lista-propuestas [listado]="listados[estados.RegistrandoCredito]?.listado || []"
+                                  [cantidad]="listados[estados.RegistrandoCredito]?.cantidad || 0"
+                                  [cantidadPorPagina]="cantidadPorPagina"
+                                  [pagina]="listados[estados.RegistrandoCredito]?.pagina || 1"
+                                  (pageChange)="pageChange($event)"></app-lista-propuestas>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="estados.AprobadaDesembolsada">
+          <a ngbNavLink>Cr&eacute;dito registrado <span>({{ listados[estados.AprobadaDesembolsada]?.cantidad || 0 }})</span></a>
+          <ng-template ngbNavContent>
+            <app-lista-propuestas [listado]="listados[estados.AprobadaDesembolsada]?.listado || []"
+                                  [cantidad]="listados[estados.AprobadaDesembolsada]?.cantidad || 0"
+                                  [cantidadPorPagina]="cantidadPorPagina"
+                                  [pagina]="listados[estados.AprobadaDesembolsada]?.pagina || 1"
+                                  (pageChange)="pageChange($event)"></app-lista-propuestas>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="estados.Dispersion">
+          <a ngbNavLink>Dispersi&oacute;n <span>({{ listados[estados.Dispersion]?.cantidad || 0 }})</span></a>
+          <ng-template ngbNavContent>
+            <app-lista-propuestas [listado]="listados[estados.Dispersion]?.listado || []"
+                                  [cantidad]="listados[estados.Dispersion]?.cantidad || 0"
+                                  [cantidadPorPagina]="cantidadPorPagina"
+                                  [pagina]="listados[estados.Dispersion]?.pagina || 1"
+                                  (pageChange)="pageChange($event)"></app-lista-propuestas>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="estados.Finalizada">
+          <a ngbNavLink>Finalizadas <span>({{ listados[estados.Finalizada]?.cantidad || 0 }})</span></a>
+          <ng-template ngbNavContent>
+            <app-lista-propuestas [listado]="listados[estados.Finalizada]?.listado || []"
+                                  [cantidad]="listados[estados.Finalizada]?.cantidad || 0"
+                                  [cantidadPorPagina]="cantidadPorPagina"
+                                  [pagina]="listados[estados.Finalizada]?.pagina || 1"
+                                  (pageChange)="pageChange($event)"></app-lista-propuestas>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="estados.Anulada">
+          <a ngbNavLink>Anuladas <span>({{ listados[estados.Anulada]?.cantidad || 0 }})</span></a>
+          <ng-template ngbNavContent>
+            <app-lista-propuestas [listado]="listados[estados.Anulada]?.listado || []"
+                                  [cantidad]="listados[estados.Anulada]?.cantidad || 0"
+                                  [cantidadPorPagina]="cantidadPorPagina"
+                                  [pagina]="listados[estados.Anulada]?.pagina || 1"
+                                  (pageChange)="pageChange($event)"></app-lista-propuestas>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+
+    <div [ngbNavOutlet]="navPendientes"></div>
+  </div>
+</div>

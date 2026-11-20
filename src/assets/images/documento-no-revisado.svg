@@ -1,0 +1,7 @@
+<svg id="Elements_Status_Feedback_Icons_Success" data-name="Elements/Status/Feedback Icons/Success" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <circle id="Circle" cx="16" cy="16" r="16" fill="#b7b7b7"/>
+  <g id="Icons_Filled_ic_filled_circle_check" data-name="Icons/Filled/ic_filled_circle_check" transform="translate(4 4)">
+    <rect id="Icons_Filled_ic_circle_check_background" data-name="Icons/Filled/ic_circle_check background" width="24" height="24" fill="none"/>
+    <path id="Icon" d="M10,20A10,10,0,1,1,20,10,10.011,10.011,0,0,1,10,20ZM6,10.3a.5.5,0,0,0-.354.854l3.2,3.2a.5.5,0,0,0,.783-.1l4.8-8A.5.5,0,0,0,14,5.5a.5.5,0,0,0-.43.243L9.1,13.194,6.354,10.446A.5.5,0,0,0,6,10.3Z" transform="translate(2 2)" fill="#fff"/>
+  </g>
+</svg>

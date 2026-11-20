@@ -1,0 +1,137 @@
+<div class="d-flex flex-column px-3 py-3">
+    <div class="d-flex pt-4">
+        <span class="h4">Proceso ciclos de dispersi&oacute;n</span>
+    </div>
+    <form [formGroup]="form" class="mr-4">
+        <div class="row">
+            <div class="col-4">
+                <div class="group-form-material">
+                    <label for="filterCanalField" [class.input-filled]="form.controls.canal.value !== ''">Canal</label>
+                    <select id="filterCanalField" class="w-100" [class.is-invalid]="form.controls.canal.invalid"
+                        [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                        formControlName="canal">
+                        <option *ngFor="let canal of canales" [ngValue]="canal.codigoCanal">{{canal.nombreCanal}}
+                        </option>
+                    </select>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <div class="invalid-feedback">
+                        <span *ngIf="form.controls.canal.errors?.required">Por favor selecciona un valor.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="group-form-material">
+                    <label for="filterFechaInicialField"
+                        [class.input-filled]="form.controls.fechaInicial.value !== ''">Desde (00:00 hrs)</label>
+                    <div class="input-group">
+                        <span class="input-uneditable">{{form.controls.fechaInicial.value}}</span>
+                        <input id="edicionCamposFechaFormField" class="d-none" ngbDatepicker #dpFecha="ngbDatepicker"
+                            [class.is-invalid]="form.controls.fechaInicial.invalid" [maxDate]="maxDate"
+                            format="yyyy-MM-dd" #startcontrol [class.form-control-plaintext]="form.disabled"
+                            formControlName="fechaInicial">
+                        <div class="input-group-append">
+                            <button class="btn px-0 icon-arrow-down" (click)="dpFecha.toggle()" type="button"></button>
+                        </div>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <div class="invalid-feedback">
+                            <span *ngIf="form.controls.fechaInicial.errors?.required">Por favor selecciona un
+                                valor.</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="group-form-material">
+                    <label for="filterFechaFinalField"
+                        [class.input-filled]="form.controls.fechaFinal.value !== ''">Hasta (23:59 hrs)</label>
+                    <div class="input-group">
+                        <span class="input-uneditable">{{form.controls.fechaFinal.value}}</span>
+                        <input id="edicionCamposFechaFormField" class="d-none" ngbDatepicker
+                            #dpFechaFinal="ngbDatepicker" [class.is-invalid]="form.controls.fechaFinal.invalid"
+                            [class.form-control-plaintext]="form.disabled" formControlName="fechaFinal">
+                        <div class="input-group-append">
+                            <button class="btn px-0 icon-arrow-down" (click)="dpFechaFinal.toggle()"
+                                type="button"></button>
+                        </div>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <div class="invalid-feedback">
+                            <span *ngIf="form.controls.fechaFinal.errors?.required">Por favor selecciona un
+                                valor.</span>
+                        </div>
+                        <div class="invalid-feedback">
+                            <span *ngIf="form.controls.fechaFinal.errors?.required">{{prueba}}</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-2 d-flex align-items-center">
+                <button class="btn btn-primary w-50" (click)="filtrar()">Ver</button>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex justify-content-center py-3" *ngIf="noHayDatos">
+        <span class="h4 align-self-center titulo-seccion">No hay datos para mostrar</span>
+    </div>
+    <div style="height: 450px;" class="my-4" *ngIf="mostrarTabla">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td class="col-2" style="text-align: center;">
+                        <span class="font-weight-bold">Fecha</span>
+                    </td>
+                    <td class="col-2" style="text-align: center;">
+                        <span class="font-weight-bold">Ciclo</span>
+                    </td>
+                    <td class="col-2" style="text-align: center;">
+                        <span class="font-weight-bold">Estado</span>
+                    </td>
+                    <td class="col-2" style="text-align: center;">
+                        <span class="font-weight-bold">N&uacute;mero de registros</span>
+                    </td>
+                    <td class="col-2" style="text-align: center;">
+                        <span class="font-weight-bold">Registros confirmados</span>
+                    </td>
+                    <td class="col-2" style="text-align: center;">
+                        <span class="font-weight-bold">Registros pendientes</span>
+                    </td>
+                    <td class="col-2">
+                        <span class="font-weight-bold">Opciones</span>
+                    </td>
+                </tr>
+                <tr *ngFor="let element of mostrarDatos">
+                    <td class="col-2">
+                        <span class="font-weight-light">{{element.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</span>
+                    </td>
+                    <td class="col-2" style="text-align: center;">
+                        <span class="font-weight-light">{{element.nombreLote}}</span>
+                    </td>
+                    <td class="col-2" style="text-align: center;">
+                        <span class="font-weight-light">{{element.estado}}</span>
+                    </td>
+                    <td class="col-2" style="text-align: center;">
+                        <span class="font-weight-light">{{element.numeroDeRegistros}}</span>
+                    </td>
+                    <td class="col-2" style="text-align: center;">
+                        <span class="font-weight-light">{{element.registrosConfirmados}} </span>
+                    </td>
+                    <td class="col-2" style="text-align: center;">
+                        <span class="font-weight-light">{{element.numeroDeRegistros -
+                            element.registrosConfirmados}}</span>
+                    </td>
+                    <td class="col-2">
+                        <a class="btn btn-link" (click)="detalle(element.id)">Detalles</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ngb-pagination class="align-self-center" *ngIf="mostrarTabla" [collectionSize]="paginador.cantidad"
+        [(page)]="paginador.pagina" [pageSize]="paginador.cantidadPagina" (pageChange)="filtrar()">
+    </ngb-pagination>
+
+</div>

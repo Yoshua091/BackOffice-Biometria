@@ -1,0 +1,1003 @@
+<div class="row">
+  <!-- INFORMACION BASICA -->
+  <div class="col-12 encuesta-socioeconomica">
+    <div class="titulo-seccion py-3 font-weight-bold border-bottom">INFORMACI&Oacute;N B&Aacute;SICA</div>
+    <table class="table table-striped">
+      <tbody>
+      <tr>
+        <td>
+          <span>Tipo Documento</span>
+          <span class="titulo-seccion">{{ infoBasica.tipoDocumento }}</span>
+        </td>
+        <td>
+          <span>N&uacute;mero</span>
+          <span class="titulo-seccion">{{ infoBasica.numeroDocumento }}</span>
+        </td>
+        <td>
+          <span>Estado</span>
+          <span class="titulo-seccion">{{ infoBasica.estadoDocumento }}</span>
+        </td>
+        <td colspan="2">
+          <span>Lugar Expedici&oacute;n</span>
+          <span class="titulo-seccion">{{ infoBasica.lugarExpedicionDocumento }}</span>
+        </td>
+        <td>
+          <span>Fecha Expedici&oacute;n</span>
+          <span class="titulo-seccion">{{ infoBasica.fechaExpedicionDocumento }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <span>Nombre</span>
+          <span class="titulo-seccion">{{ infoBasica.nombre }}</span>
+        </td>
+        <td>
+          <span>Rango Edad</span>
+          <span class="titulo-seccion">{{ infoBasica.rangoEdad }}</span>
+        </td>
+        <td>
+          <span>G&eacute;nero</span>
+          <span class="titulo-seccion">{{ infoBasica.genero }}</span>
+        </td>
+        <td>
+          <span>Tiene RUT</span>
+          <span class="titulo-seccion">{{ infoBasica.RUT }}</span>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- RESUMEN -->
+  <div class="col-12 encuesta-socioeconomica">
+    <div class="titulo-seccion py-3 font-weight-bold border-bottom">RESUMEN</div>
+
+    <!-- PERFIL GENERAL -->
+    <div class="titulo-seccion py-3 border-bottom">Perfil general</div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Sectores</th>
+        <th>Sector Financiero</th>
+        <th>Sector Cooperativo</th>
+        <th>Sector Real</th>
+        <th>Sector Telcos</th>
+        <th>Total Sectores</th>
+        <th>Total Como Principal</th>
+        <th>Total Como Codeudor y Otros</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <span>Cr&eacute;ditos Vigentes</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosVigentes.sectorFinanciero }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosVigentes.sectorCooperativo }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosVigentes.sectorReal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosVigentes.sectorTelcos}}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosVigentes.totalSectores }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosVigentes.totalComoPrincipal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosVigentes.totalComoCodeudorYOtros }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>Cr&eacute;ditos Cerrados</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosCerrados.sectorFinanciero }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosCerrados.sectorCooperativo }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosCerrados.sectorReal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosCerrados.sectorTelcos}}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosCerrados.totalSectores }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosCerrados.totalComoPrincipal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosCerrados.totalComoCodeudorYOtros }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>Cr&eacute;ditos Reestructurados</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosReestructurados.sectorFinanciero }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosReestructurados.sectorCooperativo }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosReestructurados.sectorReal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosReestructurados.sectorTelcos}}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosReestructurados.totalSectores }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosReestructurados.totalComoPrincipal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosReestructurados.totalComoCodeudorYOtros }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>Cr&eacute;ditos Refinanciados</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosRefinanciados.sectorFinanciero }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosRefinanciados.sectorCooperativo }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosRefinanciados.sectorReal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosRefinanciados.sectorTelcos}}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosRefinanciados.totalSectores }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosRefinanciados.totalComoPrincipal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.creditosRefinanciados.totalComoCodeudorYOtros }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>Consultas Ult. 6 Meses</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.consultaUlt6Meses.sectorFinanciero }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.consultaUlt6Meses.sectorCooperativo }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.consultaUlt6Meses.sectorReal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.consultaUlt6Meses.sectorTelcos}}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.consultaUlt6Meses.totalSectores }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.consultaUlt6Meses.totalComoPrincipal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.consultaUlt6Meses.totalComoCodeudorYOtros }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>Desacuerdos Vigentes a la Fecha</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.desacuerdos.sectorFinanciero }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.desacuerdos.sectorCooperativo }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.desacuerdos.sectorReal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.desacuerdos.sectorTelcos}}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.desacuerdos.totalSectores }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.desacuerdos.totalComoPrincipal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.desacuerdos.totalComoCodeudorYOtros }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>Antigüedad desde</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.antiguedadDesde.sectorFinanciero }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.antiguedadDesde.sectorCooperativo }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.antiguedadDesde.sectorReal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.antiguedadDesde.sectorTelcos}}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.antiguedadDesde.totalSectores }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.antiguedadDesde.totalComoPrincipal }}</span>
+        </td>
+        <td>
+          <span>{{ resumen.perfilGeneral.antiguedadDesde.totalComoCodeudorYOtros }}</span>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      </tfoot>
+    </table>
+
+    <!-- TENDENCIA ENDEUDAMIENTO -->
+    <div class="titulo-seccion py-3 border-bottom">Tendencia de endeudamiento</div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Saldos y Moras</th>
+        <th *ngFor="let fecha of resumen.saldosYmorasFechas">{{ fecha | date: 'MMM YY' }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <span>Saldo deuda total en mora (miles)</span>
+        </td>
+        <td *ngFor="let f of resumen.saldosYmorasFechas">
+          <span>{{ resumen.saldosYmoras[f].saldoDeudaTotalMora }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>Saldo deuda total (miles)</span>
+        </td>
+        <td *ngFor="let f of resumen.saldosYmorasFechas">
+          <span>{{ resumen.saldosYmoras[f].saldoDeudaTotal }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>Moras m&aacute;x sector financiero</span>
+        </td>
+        <td *ngFor="let f of resumen.saldosYmorasFechas">
+          <span>{{ resumen.saldosYmoras[f].morasMaxSectorFinanciero }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>Moras m&aacute;x sector cooperativo</span>
+        </td>
+        <td *ngFor="let f of resumen.saldosYmorasFechas">
+          <span>{{ resumen.saldosYmoras[f].morasMaxSectorCooperativo }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>Moras m&aacute;x sector real</span>
+        </td>
+        <td *ngFor="let f of resumen.saldosYmorasFechas">
+          <span>{{ resumen.saldosYmoras[f].morasMaxSectorReal }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>Moras m&aacute;x sector telcos</span>
+        </td>
+        <td *ngFor="let f of resumen.saldosYmorasFechas">
+          <span>{{ resumen.saldosYmoras[f].morasMaxSectorTelcos }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>Total moras m&aacute;ximas</span>
+        </td>
+        <td *ngFor="let f of resumen.saldosYmorasFechas">
+          <span>{{ resumen.saldosYmoras[f].morasMax }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>N&uacute;m cr&eacute;ditos con mora (=30)</span>
+        </td>
+        <td *ngFor="let f of resumen.saldosYmorasFechas">
+          <span>{{ resumen.saldosYmoras[f].numCreditos30 }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>N&uacute;m cr&eacute;ditos con mora (>=60)</span>
+        </td>
+        <td *ngFor="let f of resumen.saldosYmorasFechas">
+          <span>{{ resumen.saldosYmoras[f].numCreditosMayorIgual60 }}</span>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      </tfoot>
+    </table>
+
+    <!-- ENDEUDAMIENTO ACTUAL -->
+    <div class="titulo-seccion py-3 border-bottom">Endeudamiento actual</div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Carteras</th>
+        <th>Calidad</th>
+        <th>N&uacute;m</th>
+        <th>Estado actual</th>
+        <th>Calf</th>
+        <th>Vlr o cupo inicial</th>
+        <th>Saldo actual</th>
+        <th>Saldo en mora</th>
+        <th>Valor cuota</th>
+        <th>% part</th>
+        <th>% deuda</th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let sector of resumen.endeudamientoActual">
+      <tr>
+        <th colspan="11">{{ sector.descripcion }}</th>
+      </tr>
+      <tr *ngFor="let cuenta of sector.tipoCuenta.cuentas; let i = index">
+        <td [rowSpan]="sector.tipoCuenta.cuentas.length" class="align-middle" *ngIf="i === 0"><span>{{ sector.tipoCuenta.descripcion }}</span></td>
+        <td [rowSpan]="sector.tipoCuenta.cuentas.length" class="align-middle" *ngIf="i === 0"><span>{{ sector.tipoCuenta.tipoUsuario }}</span></td>
+        <td [rowSpan]="sector.tipoCuenta.cuentas.length" class="align-middle" *ngIf="i === 0"><span>{{ sector.tipoCuenta.cuentas.length }}</span></td>
+        <td>{{ cuenta.estadoActual }}</td>
+        <td>{{ cuenta.calificacion }}</td>
+        <td>{{ cuenta.valorInicial }}</td>
+        <td>{{ cuenta.saldoActual }}</td>
+        <td>{{ cuenta.saldoMora }}</td>
+        <td>{{ cuenta.valorCuota }}</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+      </tbody>
+      <tfoot>
+      </tfoot>
+    </table>
+  </div>
+
+  <!--HABITO DE PAGO DE OBLIGACIONES ABIERTAS/VIGENTES-->
+  <div class="col-12">
+    <div class="titulo-seccion py-3 font-weight-bold border-bottom">HABITO DE PAGO DE OBLIGACIONES ABIERTAS/VIGENTES</div>
+
+    <!--SECTOR FINANCIERO-->
+    <span *ngIf="habitoPagoObligaciones.vigentes.sectorFinanciero.length > 0" class="titulo-seccion py-3">Sector Financiero</span>
+    <div class="border rounded my-2" *ngFor="let habitoPago of habitoPagoObligaciones.vigentes.sectorFinanciero">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th class="text-center size-titulo-habito-pago">Entidad Informante</th>
+          <th class="text-center size-titulo-habito-pago">Tipo Cuenta</th>
+          <th class="text-center size-titulo-habito-pago">Num Cta 9 digitos</th>
+          <th class="text-center size-titulo-habito-pago">Calf</th>
+          <th class="text-center size-titulo-habito-pago">Estado de la Obligacion</th>
+          <th class="text-center size-titulo-habito-pago">Fecha Actualizacion</th>
+          <th class="text-center size-titulo-habito-pago">Adjetivo-fecha</th>
+          <th class="text-center size-titulo-habito-pago">Fecha Apertura</th>
+          <th class="text-center size-titulo-habito-pago">Fecha Vencimiento</th>
+          <th class="text-center size-titulo-habito-pago">Mora Maxima</th>
+          <th class="text-center size-titulo-habito-pago">47 Meses</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="text-center">{{ habitoPago.entidadInformante }}</td>
+          <td class="text-center">{{ habitoPago.tipoCuenta }}</td>
+          <td class="text-center">{{ habitoPago.numeroCuenta }}</td>
+          <td class="text-center">{{ habitoPago.calificacion }}</td>
+          <td class="text-center">{{ habitoPago.estadoObligacion }}</td>
+          <td class="text-center">{{ habitoPago.fechaActualizacion }}</td>
+          <td class="text-center">{{ habitoPago.adjetivoFecha }}</td>
+          <td class="text-center">{{ habitoPago.fechaApertura }}</td>
+          <td class="text-center">{{ habitoPago.fechaVencimiento }}</td>
+          <td class="text-center">{{ habitoPago.moraMaxima }}</td>
+          <td>{{ habitoPago.comportamiento }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <table class="table table-striped mb-0">
+        <thead>
+        <tr>
+          <th class="text-center size-titulo-habito-pago">Desacuerdo con la Inform.</th>
+          <th class="text-center size-titulo-habito-pago">Estado del Titular</th>
+          <th class="text-center size-titulo-habito-pago">Marca/Clase</th>
+          <th class="text-center size-titulo-habito-pago">Tipo Garantia</th>
+          <th class="text-center size-titulo-habito-pago">Vlr o cupo inicial</th>
+          <th class="text-center size-titulo-habito-pago">Saldo actual (Miles $)</th>
+          <th class="text-center size-titulo-habito-pago">Saldo en Mora</th>
+          <th class="text-center size-titulo-habito-pago">Valor Cuota (Miles $)</th>
+          <th class="text-center size-titulo-habito-pago">Fecha Limite Pago</th>
+          <th class="text-center size-titulo-habito-pago">Fecha del Pago</th>
+          <th class="text-center size-titulo-habito-pago">Perm.</th>
+          <th class="text-center size-titulo-habito-pago">No. Cheq Devueltos</th>
+          <th class="text-center size-titulo-habito-pago">Cuotas/M/Vigencia</th>
+          <th class="text-center size-titulo-habito-pago">% deuda</th>
+          <th class="text-center size-titulo-habito-pago">Oficina/ Deudor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="text-center">{{ habitoPago.desacuerdoInformacion }}</td>
+          <td class="text-center">{{ habitoPago.estadoTitular }}</td>
+          <td class="text-center">{{ habitoPago.clase }}</td>
+          <td class="text-center">{{ habitoPago.tipoGarantia }}</td>
+          <td class="text-center">{{ habitoPago.cupoInicial }}</td>
+          <td class="text-center">{{ habitoPago.saldoActual }}</td>
+          <td class="text-center">{{ habitoPago.saldoMora }}</td>
+          <td class="text-center">{{ habitoPago.valorCuota }}</td>
+          <td class="text-center">{{ habitoPago.fechaLimitePago }}</td>
+          <td class="text-center">{{ habitoPago.fechaPago }}</td>
+          <td class="text-center">{{ habitoPago.perm }}</td>
+          <td class="text-center">{{ habitoPago.numeroChequesDevueltos }}</td>
+          <td class="text-center">{{ habitoPago.cuotasMVigencia }}</td>
+          <td class="text-center">{{ habitoPago.deuda }}</td>
+          <td class="text-center">{{ habitoPago.oficinaDeudor }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!--SECTOR COOPERATIVO-->
+    <span *ngIf="habitoPagoObligaciones.vigentes.sectorCooperativo.length > 0" class="titulo-seccion py-3">Sector Cooperativo</span>
+    <div class="border rounded my-2" *ngFor="let habitoPago of habitoPagoObligaciones.vigentes.sectorCooperativo">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th class="text-center">Entidad Informante</th>
+          <th class="text-center">Tipo Cuenta</th>
+          <th class="text-center">Num Cta 9 digitos</th>
+          <th class="text-center">Calf</th>
+          <th class="text-center">Estado de la Obligacion</th>
+          <th class="text-center">Fecha Actualizacion</th>
+          <th class="text-center">Adjetivo-fecha</th>
+          <th class="text-center">Fecha Apertura</th>
+          <th class="text-center">Fecha Vencimiento</th>
+          <th class="text-center">Mora Maxima</th>
+          <th class="text-center">47 Meses</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="text-center">{{ habitoPago.entidadInformante }}</td>
+          <td class="text-center">{{ habitoPago.tipoCuenta }}</td>
+          <td class="text-center">{{ habitoPago.numeroCuenta }}</td>
+          <td class="text-center">{{ habitoPago.calificacion }}</td>
+          <td class="text-center">{{ habitoPago.estadoObligacion }}</td>
+          <td class="text-center">{{ habitoPago.fechaActualizacion }}</td>
+          <td class="text-center">{{ habitoPago.adjetivoFecha }}</td>
+          <td class="text-center">{{ habitoPago.fechaApertura }}</td>
+          <td class="text-center">{{ habitoPago.fechaVencimiento }}</td>
+          <td class="text-center">{{ habitoPago.moraMaxima }}</td>
+          <td>{{ habitoPago.comportamiento }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <table class="table table-striped mb-0">
+        <thead>
+        <tr>
+          <th class="text-center">Desacuerdo con la Inform.</th>
+          <th class="text-center">Estado del Titular</th>
+          <th class="text-center">Marca/Clase</th>
+          <th class="text-center">Tipo Garantia</th>
+          <th class="text-center">Vlr o cupo inicial</th>
+          <th class="text-center">Saldo actual (Miles $)</th>
+          <th class="text-center">Saldo en Mora</th>
+          <th class="text-center">Valor Cuota (Miles $)</th>
+          <th class="text-center">Fecha Limite Pago</th>
+          <th class="text-center">Fecha del Pago</th>
+          <th class="text-center">Perm.</th>
+          <th class="text-center">No. Cheq Devueltos</th>
+          <th class="text-center">Cuotas/M/Vigencia</th>
+          <th class="text-center">% deuda</th>
+          <th class="text-center">Oficina/ Deudor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="text-center">{{ habitoPago.desacuerdoInformacion }}</td>
+          <td class="text-center">{{ habitoPago.estadoTitular }}</td>
+          <td class="text-center">{{ habitoPago.clase }}</td>
+          <td class="text-center">{{ habitoPago.tipoGarantia }}</td>
+          <td class="text-center">{{ habitoPago.cupoInicial }}</td>
+          <td class="text-center">{{ habitoPago.saldoActual }}</td>
+          <td class="text-center">{{ habitoPago.saldoMora }}</td>
+          <td class="text-center">{{ habitoPago.valorCuota }}</td>
+          <td class="text-center">{{ habitoPago.fechaLimitePago }}</td>
+          <td class="text-center">{{ habitoPago.fechaPago }}</td>
+          <td class="text-center">{{ habitoPago.perm }}</td>
+          <td class="text-center">{{ habitoPago.numeroChequesDevueltos }}</td>
+          <td class="text-center">{{ habitoPago.cuotasMVigencia }}</td>
+          <td class="text-center">{{ habitoPago.deuda }}</td>
+          <td class="text-center">{{ habitoPago.oficinaDeudor }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!--SECTOR REAL-->
+    <span *ngIf="habitoPagoObligaciones.vigentes.sectorReal.length > 0" class="titulo-seccion py-3">Sector Real</span>
+    <div class="border rounded my-2" *ngFor="let habitoPago of habitoPagoObligaciones.vigentes.sectorReal">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th class="text-center">Entidad Informante</th>
+          <th class="text-center">Tipo Cuenta</th>
+          <th class="text-center">Num Cta 9 digitos</th>
+          <th class="text-center">Calf</th>
+          <th class="text-center">Estado de la Obligacion</th>
+          <th class="text-center">Fecha Actualizacion</th>
+          <th class="text-center">Adjetivo-fecha</th>
+          <th class="text-center">Fecha Apertura</th>
+          <th class="text-center">Fecha Vencimiento</th>
+          <th class="text-center">Mora Maxima</th>
+          <th class="text-center">47 Meses</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="text-center">{{ habitoPago.entidadInformante }}</td>
+          <td class="text-center">{{ habitoPago.tipoCuenta }}</td>
+          <td class="text-center">{{ habitoPago.numeroCuenta }}</td>
+          <td class="text-center">{{ habitoPago.calificacion }}</td>
+          <td class="text-center">{{ habitoPago.estadoObligacion }}</td>
+          <td class="text-center">{{ habitoPago.fechaActualizacion }}</td>
+          <td class="text-center">{{ habitoPago.adjetivoFecha }}</td>
+          <td class="text-center">{{ habitoPago.fechaApertura }}</td>
+          <td class="text-center">{{ habitoPago.fechaVencimiento }}</td>
+          <td class="text-center">{{ habitoPago.moraMaxima }}</td>
+          <td>{{ habitoPago.comportamiento }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <table class="table table-striped mb-0">
+        <thead>
+        <tr>
+          <th class="text-center">Desacuerdo con la Inform.</th>
+          <th class="text-center">Estado del Titular</th>
+          <th class="text-center">Marca/Clase</th>
+          <th class="text-center">Tipo Garantia</th>
+          <th class="text-center">Vlr o cupo inicial</th>
+          <th class="text-center">Saldo actual (Miles $)</th>
+          <th class="text-center">Saldo en Mora</th>
+          <th class="text-center">Valor Cuota (Miles $)</th>
+          <th class="text-center">Fecha Limite Pago</th>
+          <th class="text-center">Fecha del Pago</th>
+          <th class="text-center">Perm.</th>
+          <th class="text-center">No. Cheq Devueltos</th>
+          <th class="text-center">Cuotas/M/Vigencia</th>
+          <th class="text-center">% deuda</th>
+          <th class="text-center">Oficina/ Deudor</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="text-center">{{ habitoPago.desacuerdoInformacion }}</td>
+          <td class="text-center">{{ habitoPago.estadoTitular }}</td>
+          <td class="text-center">{{ habitoPago.clase }}</td>
+          <td class="text-center">{{ habitoPago.tipoGarantia }}</td>
+          <td class="text-center">{{ habitoPago.cupoInicial }}</td>
+          <td class="text-center">{{ habitoPago.saldoActual }}</td>
+          <td class="text-center">{{ habitoPago.saldoMora }}</td>
+          <td class="text-center">{{ habitoPago.valorCuota }}</td>
+          <td class="text-center">{{ habitoPago.fechaLimitePago }}</td>
+          <td class="text-center">{{ habitoPago.fechaPago }}</td>
+          <td class="text-center">{{ habitoPago.perm }}</td>
+          <td class="text-center">{{ habitoPago.numeroChequesDevueltos }}</td>
+          <td class="text-center">{{ habitoPago.cuotasMVigencia }}</td>
+          <td class="text-center">{{ habitoPago.deuda }}</td>
+          <td class="text-center">{{ habitoPago.oficinaDeudor }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!--SECTOR TELCOS-->
+    <span *ngIf="habitoPagoObligaciones.vigentes.sectorTelecomunicaciones.length > 0" class="titulo-seccion py-3">Sector Telcos</span>
+    <div class="border rounded my-2" *ngFor="let habitoPago of habitoPagoObligaciones.vigentes.sectorTelecomunicaciones">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th class="text-center">Entidad Informante</th>
+          <th class="text-center">Tipo Cuenta</th>
+          <th class="text-center">Num Cta 9 digitos</th>
+          <th class="text-center">Calf</th>
+          <th class="text-center">Estado de la Obligacion</th>
+          <th class="text-center">Fecha Actualizacion</th>
+          <th class="text-center">Adjetivo-fecha</th>
+          <th class="text-center">Fecha Apertura</th>
+          <th class="text-center">Fecha Vencimiento</th>
+          <th class="text-center">Mora Maxima</th>
+          <th class="text-center">47 Meses</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="text-center">{{ habitoPago.entidadInformante }}</td>
+          <td class="text-center">{{ habitoPago.tipoCuenta }}</td>
+          <td class="text-center">{{ habitoPago.numeroCuenta }}</td>
+          <td class="text-center">{{ habitoPago.calificacion }}</td>
+          <td class="text-center">{{ habitoPago.estadoObligacion }}</td>
+          <td class="text-center">{{ habitoPago.fechaActualizacion }}</td>
+          <td class="text-center">{{ habitoPago.adjetivoFecha }}</td>
+          <td class="text-center">{{ habitoPago.fechaApertura }}</td>
+          <td class="text-center">{{ habitoPago.fechaVencimiento }}</td>
+          <td class="text-center">{{ habitoPago.moraMaxima }}</td>
+          <td>{{ habitoPago.comportamiento }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <table class="table table-striped mb-0">
+        <thead>
+        <tr>
+          <th class="text-center">Desacuerdo con la Inform.</th>
+          <th class="text-center">Estado del Titular</th>
+          <th class="text-center">Marca/Clase</th>
+          <th class="text-center">Tipo Garantia</th>
+          <th class="text-center">Vlr o cupo inicial</th>
+          <th class="text-center">Saldo actual (Miles $)</th>
+          <th class="text-center">Saldo en Mora</th>
+          <th class="text-center">Valor Cuota (Miles $)</th>
+          <th class="text-center">Fecha Limite Pago</th>
+          <th class="text-center">Fecha del Pago</th>
+          <th class="text-center">Perm.</th>
+          <th class="text-center">No. Cheq Devueltos</th>
+          <th class="text-center">Cuotas/M/Vigencia</th>
+          <th class="text-center">% deuda</th>
+          <th class="text-center">Oficina/ Deudor</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center">{{ habitoPago.desacuerdoInformacion }}</td>
+            <td class="text-center">{{ habitoPago.estadoTitular }}</td>
+            <td class="text-center">{{ habitoPago.clase }}</td>
+            <td class="text-center">{{ habitoPago.tipoGarantia }}</td>
+            <td class="text-center">{{ habitoPago.cupoInicial }}</td>
+            <td class="text-center">{{ habitoPago.saldoActual }}</td>
+            <td class="text-center">{{ habitoPago.saldoMora }}</td>
+            <td class="text-center">{{ habitoPago.valorCuota }}</td>
+            <td class="text-center">{{ habitoPago.fechaLimitePago }}</td>
+            <td class="text-center">{{ habitoPago.fechaPago }}</td>
+            <td class="text-center">{{ habitoPago.perm }}</td>
+            <td class="text-center">{{ habitoPago.numeroChequesDevueltos }}</td>
+            <td class="text-center">{{ habitoPago.cuotasMVigencia }}</td>
+            <td class="text-center">{{ habitoPago.deuda }}</td>
+            <td class="text-center">{{ habitoPago.oficinaDeudor }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!--HABITO DE PAGO DE OBLIGACIONES CERRADAS/INACTIVAS-->
+  <div class="col-12">
+    <div class="titulo-seccion py-3 font-weight-bold border-bottom">HABITO DE PAGO DE OBLIGACIONES CERRADAS/INACTIVAS</div>
+
+    <div *ngIf="habitoPagoObligaciones.cerradas.sectorFinanciero.length > 0">
+      <span class="titulo-seccion py-3">Sector Financiero</span>
+      <table class="table table-striped border rounded">
+        <thead>
+        <tr>
+          <th class="text-center">Entidad Informante</th>
+          <th class="text-center">Tipo Cuenta</th>
+          <th class="text-center">Estado de la Obligacion</th>
+          <th class="text-center">Calf</th>
+          <th class="text-center">Adjetivo-fecha</th>
+          <th class="text-center">Num Cta 9 digitos</th>
+          <th class="text-center">Fecha Apertura</th>
+          <th class="text-center">Fecha Cierre</th>
+          <th class="text-center">Vlr o cupo inicial</th>
+          <th class="text-center">Ciudad/ Fecha Vencimiento</th>
+          <th class="text-center">Oficina/ Deudor</th>
+          <th class="text-center">Desacuerdo con la Inform.</th>
+          <th class="text-center">47 meses</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let habitoPago of habitoPagoObligaciones.cerradas.sectorFinanciero">
+          <td class="text-center">{{ habitoPago.entidadInformante }}</td>
+          <td class="text-center">{{ habitoPago.tipoCuenta }}</td>
+          <td class="text-center">{{ habitoPago.estadoObligacion }}</td>
+          <td class="text-center">{{ habitoPago.calificacion }}</td>
+          <td class="text-center">{{ habitoPago.adjetivoFecha }}</td>
+          <td class="text-center">{{ habitoPago.numeroCuenta }}</td>
+          <td class="text-center">{{ habitoPago.fechaApertura }}</td>
+          <td class="text-center">{{ habitoPago.fechaActualizacion }}</td>
+          <td class="text-center">{{ habitoPago.cupoInicial }}</td>
+          <td class="text-center">{{ habitoPago.fechaVencimiento }}</td>
+          <td class="text-center">{{ habitoPago.oficinaDeudor }}</td>
+          <td class="text-center">{{ habitoPago.desacuerdoInformacion }}</td>
+          <td>{{ habitoPago.comportamiento }}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
+    </div>
+    <div *ngIf="habitoPagoObligaciones.cerradas.sectorCooperativo.length > 0">
+      <span class="titulo-seccion py-3">Sector Cooperativo</span>
+      <table class="table table-striped border rounded">
+        <thead>
+        <tr>
+          <th class="text-center">Entidad Informante</th>
+          <th class="text-center">Tipo Cuenta</th>
+          <th class="text-center">Estado de la Obligacion</th>
+          <th class="text-center">Calf</th>
+          <th class="text-center">Adjetivo-fecha</th>
+          <th class="text-center">Num Cta 9 digitos</th>
+          <th class="text-center">Fecha Apertura</th>
+          <th class="text-center">Fecha Cierre</th>
+          <th class="text-center">Vlr o cupo inicial</th>
+          <th class="text-center">Ciudad/ Fecha Vencimiento</th>
+          <th class="text-center">Oficina/ Deudor</th>
+          <th class="text-center">Desacuerdo con la Inform.</th>
+          <th class="text-center">47 meses</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let habitoPago of habitoPagoObligaciones.cerradas.sectorCooperativo">
+          <td class="text-center">{{ habitoPago.entidadInformante }}</td>
+          <td class="text-center">{{ habitoPago.tipoCuenta }}</td>
+          <td class="text-center">{{ habitoPago.estadoObligacion }}</td>
+          <td class="text-center">{{ habitoPago.calificacion }}</td>
+          <td class="text-center">{{ habitoPago.adjetivoFecha }}</td>
+          <td class="text-center">{{ habitoPago.numeroCuenta }}</td>
+          <td class="text-center">{{ habitoPago.fechaApertura }}</td>
+          <td class="text-center">{{ habitoPago.fechaActualizacion }}</td>
+          <td class="text-center">{{ habitoPago.cupoInicial }}</td>
+          <td class="text-center">{{ habitoPago.fechaVencimiento }}</td>
+          <td class="text-center">{{ habitoPago.oficinaDeudor }}</td>
+          <td class="text-center">{{ habitoPago.desacuerdoInformacion }}</td>
+          <td>{{ habitoPago.comportamiento }}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
+    </div>
+    <div *ngIf="habitoPagoObligaciones.cerradas.sectorReal.length > 0" >
+      <span class="titulo-seccion py-3">Sector Real</span>
+      <table class="table table-striped border rounded">
+        <thead>
+        <tr>
+          <th class="text-center">Entidad Informante</th>
+          <th class="text-center">Tipo Cuenta</th>
+          <th class="text-center">Estado de la Obligacion</th>
+          <th class="text-center">Calf</th>
+          <th class="text-center">Adjetivo-fecha</th>
+          <th class="text-center">Num Cta 9 digitos</th>
+          <th class="text-center">Fecha Apertura</th>
+          <th class="text-center">Fecha Cierre</th>
+          <th class="text-center">Vlr o cupo inicial</th>
+          <th class="text-center">Ciudad/ Fecha Vencimiento</th>
+          <th class="text-center">Oficina/ Deudor</th>
+          <th class="text-center">Desacuerdo con la Inform.</th>
+          <th class="text-center">47 meses</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let habitoPago of habitoPagoObligaciones.cerradas.sectorReal">
+          <td class="text-center">{{ habitoPago.entidadInformante }}</td>
+          <td class="text-center">{{ habitoPago.tipoCuenta }}</td>
+          <td class="text-center">{{ habitoPago.estadoObligacion }}</td>
+          <td class="text-center">{{ habitoPago.calificacion }}</td>
+          <td class="text-center">{{ habitoPago.adjetivoFecha }}</td>
+          <td class="text-center">{{ habitoPago.numeroCuenta }}</td>
+          <td class="text-center">{{ habitoPago.fechaApertura }}</td>
+          <td class="text-center">{{ habitoPago.fechaActualizacion }}</td>
+          <td class="text-center">{{ habitoPago.cupoInicial }}</td>
+          <td class="text-center">{{ habitoPago.fechaVencimiento }}</td>
+          <td class="text-center">{{ habitoPago.oficinaDeudor }}</td>
+          <td class="text-center">{{ habitoPago.desacuerdoInformacion }}</td>
+          <td>{{ habitoPago.comportamiento }}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
+    </div>
+    <div *ngIf="habitoPagoObligaciones.cerradas.sectorTelecomunicaciones.length > 0">
+      <span class="titulo-seccion py-3">Sector Telcos</span>
+      <table class="table table-striped border rounded">
+        <thead>
+        <tr>
+          <th class="text-center">Entidad Informante</th>
+          <th class="text-center">Tipo Cuenta</th>
+          <th class="text-center">Estado de la Obligacion</th>
+          <th class="text-center">Calf</th>
+          <th class="text-center">Adjetivo-fecha</th>
+          <th class="text-center">Num Cta 9 digitos</th>
+          <th class="text-center">Fecha Apertura</th>
+          <th class="text-center">Fecha Cierre</th>
+          <th class="text-center">Vlr o cupo inicial</th>
+          <th class="text-center">Ciudad/ Fecha Vencimiento</th>
+          <th class="text-center">Oficina/ Deudor</th>
+          <th class="text-center">Desacuerdo con la Inform.</th>
+          <th class="text-center">47 meses</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let habitoPago of habitoPagoObligaciones.cerradas.sectorTelecomunicaciones">
+          <td class="text-center">{{ habitoPago.entidadInformante }}</td>
+          <td class="text-center">{{ habitoPago.tipoCuenta }}</td>
+          <td class="text-center">{{ habitoPago.estadoObligacion }}</td>
+          <td class="text-center">{{ habitoPago.calificacion }}</td>
+          <td class="text-center">{{ habitoPago.adjetivoFecha }}</td>
+          <td class="text-center">{{ habitoPago.numeroCuenta }}</td>
+          <td class="text-center">{{ habitoPago.fechaApertura }}</td>
+          <td class="text-center">{{ habitoPago.fechaActualizacion }}</td>
+          <td class="text-center">{{ habitoPago.cupoInicial }}</td>
+          <td class="text-center">{{ habitoPago.fechaVencimiento }}</td>
+          <td class="text-center">{{ habitoPago.oficinaDeudor }}</td>
+          <td class="text-center">{{ habitoPago.desacuerdoInformacion }}</td>
+          <td>{{ habitoPago.comportamiento }}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!--ANALISIS DE VECTORES-->
+  <div class="col-12">
+    <span class="titulo-seccion py-3 font-weight-bold">ANALISIS DE VECTORES</span>
+    <div class="table-responsive border">
+      <table *ngIf="analisisVectores.sectores.length > 0" class="table">
+        <thead>
+          <tr>
+            <th>Entidad</th>
+            <th>Num Cta 9 digitos</th>
+            <th>Tipo Cuenta</th>
+            <th>Estado</th>
+            <th *ngFor="let comportamiento of analisisVectores.sectores[0].comportamiento">
+              {{ comportamiento.mesDia }}
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let sector of analisisVectores.sectores">
+          <tr class="bg-light">
+            <th colspan="28">{{ sector.nombreSector }}</th>
+          </tr>
+          <tr *ngFor="let cuenta of sector.cuentas">
+            <td>{{ cuenta.entidad }}</td>
+            <td>{{ cuenta.numeroCuenta }}</td>
+            <td>{{ cuenta.tipoCuenta }}</td>
+            <td>{{ cuenta.estado }}</td>
+            <td *ngFor="let comportamiento of cuenta.comportamiento">
+              {{ comportamiento.reporte }}
+            </td>
+          </tr>
+          <tr class="bg-light">
+            <td colspan="4" >Moras Maximas Sector Financiero</td>
+            <td *ngFor="let comportamiento of sector.comportamiento">
+              {{ comportamiento.reporte }}
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr class="bg-light">
+            <th colspan="28">Total Sectores</th>
+          </tr>
+          <tr class="bg-light">
+            <td colspan="28" >Moras Maximas Obligaciones</td>
+          </tr>
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!--EVOLUCION DE LA DEUDA-->
+  <div class="col-12">
+    <span class="titulo-seccion py-3 font-weight-bold">EVOLUCION DE LA DEUDA</span>
+    <div class="border rounded">
+      <table *ngIf="evolucionDeuda.sectores.length > 0" class="table">
+        <thead>
+        <tr>
+          <th class="text-center">Tipo Cuenta</th>
+          <th class="text-center">Valores</th>
+          <th class="text-center" *ngFor="let trimestre of evolucionDeuda.trimestres">
+            Trimestre {{trimestre}}
+          </th>
+        </tr>
+        </thead>
+        <ng-container *ngFor="let sector of evolucionDeuda.sectores">
+          <tr class="bg-light">
+            <th colspan="12">{{ sector.nombreSector }}</th>
+          </tr>
+          <tbody *ngFor="let cuenta of sector.cuentas">
+            <tr>
+              <td class="align-middle" rowspan="7">{{ cuenta.tipoCuenta }}</td>
+              <td class="text-center">Num</td>
+              <td class="text-center" *ngFor="let trim of cuenta.num">{{ trim }}</td>
+            </tr>
+            <tr>
+              <td class="text-center">Vlr o Cupo Inicial</td>
+              <td class="text-center" *ngFor="let trim of cuenta.cupoInicial">{{ trim }}</td>
+            </tr>
+            <tr>
+              <td class="text-center">Saldo</td>
+              <td class="text-center" *ngFor="let trim of cuenta.saldo">{{ trim }}</td>
+            </tr>
+            <tr>
+              <td class="text-center">Saldo en Mora</td>
+              <td class="text-center" *ngFor="let trim of cuenta.saldoMora">{{ trim }}</td>
+            </tr>
+            <tr>
+              <td class="text-center">Valor Cuota</td>
+              <td class="text-center" *ngFor="let trim of cuenta.valorCuota">{{ trim }}</td>
+            </tr>
+            <tr>
+              <td class="text-center">% Deuda</td>
+              <td class="text-center" *ngFor="let trim of cuenta.porcDeuda">{{ trim }}</td>
+            </tr>
+            <tr>
+              <td class="text-center">< Calificacion</td>
+              <td class="text-center" *ngFor="let trim of cuenta.calificacion">{{ trim }}</td>
+            </tr>
+          </tbody>
+        </ng-container>
+        <tfoot>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+
+  <!--HISTORICO DE CONSULTAS-->
+  <div class="col-12 my-2">
+    <span class="titulo-seccion py-3font-weight-bold">HISTORICO DE CONSULTAS</span>
+
+    <div class="border rounded my-2" >
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th class="text-center ">Fecha Ult. Consulta</th>
+          <th class="text-center ">Consultante</th>
+          <th class="text-center ">No. de Consultas mes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let consulta of historicoConsultas.consultas">
+          <td class="text-center">{{ consulta.fecha }}</td>
+          <td class="text-center">{{ consulta.entidad }}</td>
+          <td class="text-center">{{ consulta.cantidad }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

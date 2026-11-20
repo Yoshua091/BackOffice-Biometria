@@ -1,0 +1,52 @@
+<div id="modal-rechazar-docs" class="px-2">
+
+    <div class="modal-header">
+        <h4 class="modal-title">
+            Coincidencias encontradas
+        </h4>
+
+        <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')">
+        </a>
+    </div>
+
+    <div class="modal-body p-2">
+        <div *ngFor="let solicitud of coincidencias" class="mb-3">
+            <div class="border rounded p-2">
+                <h5 class="solicitud">
+                    Solicitud {{ solicitud.idSolicitud }}
+                </h5>
+                <div *ngFor="let miembro of solicitud.miembrosCoincidentes" class="border-top pt-2 mt-2">
+                    <div class="nombre">
+                        {{ miembro.nombre }}
+                    </div>
+                    <div class="mb-2">
+                        <span class="label">
+                            Porcentaje de coincidencia:
+                        </span>
+                        <span class="badge" [ngClass]="{
+                            'badge-100': miembro.porcentaje === 100,
+                            'badge-67': miembro.porcentaje === 67,
+                            'badge-33': miembro.porcentaje === 33
+                        }">
+                            {{ miembro.porcentaje }}%
+                        </span>
+                    </div>
+                    <small class="text-muted">
+                        Coincide en:
+                    </small>
+                    <div class="mt-1">
+                        <span *ngIf="miembro.coincidencias?.cedula" class="badge badge-light mr-2">
+                            ✓ Cédula
+                        </span>
+                        <span *ngIf="miembro.coincidencias?.telefono" class="badge badge-light mr-2">
+                            ✓ Teléfono
+                        </span>
+                        <span *ngIf="miembro.coincidencias?.direccion" class="badge badge-light">
+                            ✓ Dirección
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

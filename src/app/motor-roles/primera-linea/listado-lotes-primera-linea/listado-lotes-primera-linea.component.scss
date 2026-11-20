@@ -1,0 +1,24 @@
+.motor-filter {
+
+    .filter-title {
+      width: 202px;
+      color: #CC0000;
+      padding: .5rem 1rem .5rem 0;
+    }
+  
+    .nav-pills {
+      .nav-link {
+        color: #545454;
+      }
+  
+      .nav-link.active,
+      .show > .nav-link {
+        color: #545454;
+        font-weight: 600;
+        background-color: transparent;
+      }
+    }
+  }
+
+
+  

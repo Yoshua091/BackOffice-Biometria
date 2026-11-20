@@ -1,0 +1,91 @@
+<div class="px-3 py-3">
+  <div class="d-flex pt-4">
+    <span class="h4">Desembolsos</span>
+  </div>
+
+  <form [formGroup]="form" class="row d-flex justify-content-start">
+
+    <div class="col-3">
+      <div class="group-form-material">
+        <label for="filterSucursalAniosField" [class.input-filled]="form.controls.ano.value !== ''">Año</label>
+        <select id="filterSucursalAniosField" class="w-100"
+                [class.is-invalid]="form.controls.ano.invalid"
+                [class.form-control-plaintext]="form.disabled"
+                [class.bg-white]="form.disabled"
+                formControlName="ano">
+          <option *ngFor="let anio of anios" [ngValue]="anio">{{anio}}</option>
+        </select>
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <div class="invalid-feedback">
+          <span *ngIf="form.controls.ano.errors?.required">Por favor selecciona un valor.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <div class="group-form-material">
+        <label for="filterSucursalMesField" [class.input-filled]="form.controls.mes.value !== ''">Mes</label>
+        <select id="filterSucursalMesField" class="w-100"
+                [class.is-invalid]="form.controls.mes.invalid"
+                [class.form-control-plaintext]="form.disabled"
+                [class.bg-white]="form.disabled"
+                formControlName="mes">
+          <option *ngFor="let mes of meses" [ngValue]="mes">{{mes}}</option>
+        </select>
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <div class="invalid-feedback">
+          <span *ngIf="form.controls.ano.errors?.required">Por favor selecciona un valor.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-2" style="padding-top: 40px">
+      <button class="btn btn-primary w-100" (click)="filtrar()">
+        Filtrar
+      </button>
+    </div>
+  </form>
+
+  <div id="esperando-aprobacion">
+      <div class="propuestas-filter py-1">
+        <ul class="nav-pills filter-options overflow-auto" ngbNav #navPendientes="ngbNav"
+            [destroyOnHide]="false"
+            [(activeId)]="estado"
+            (activeIdChange)="activeIdChange()">
+          <li [ngbNavItem]="estados.CreacionCreditoFallida">
+            <a ngbNavLink>Creaci&oacute;n de cr&eacute;dito fallido<span>({{ listados[estados.CreacionCreditoFallida]?.cantidad || 0 }})</span></a>
+            <ng-template ngbNavContent>
+              <app-lista-solicitudes [listado]="listados[estados.CreacionCreditoFallida]?.listado || []"
+                                    [cantidad]="listados[estados.CreacionCreditoFallida]?.cantidad || 0"
+                                    [pagina]="listados[estados.CreacionCreditoFallida]?.pagina || 1"
+                                    [cantidadPorPagina]="cantidadPorPagina"
+                                    (pageChange)="pageChange($event)"></app-lista-solicitudes>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="estados.DesembolsoFallido">
+            <a ngbNavLink>Desembolso fallido<span>({{ listados[estados.DesembolsoFallido]?.cantidad || 0 }})</span></a>
+            <ng-template ngbNavContent>
+              <app-lista-solicitudes [listado]="listados[estados.DesembolsoFallido]?.listado || []"
+                                    [cantidad]="listados[estados.DesembolsoFallido]?.cantidad || 0"
+                                    [cantidadPorPagina]="cantidadPorPagina"
+                                    [pagina]="listados[estados.DesembolsoFallido]?.pagina || 1"
+                                    (pageChange)="pageChange($event)"></app-lista-solicitudes>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="estados.AltaDeClientes">
+            <a ngbNavLink>Alta de clientes<span>({{ listados[estados.AltaDeClientes]?.cantidad || 0 }})</span></a>
+            <ng-template ngbNavContent>
+              <app-lista-solicitudes [listado]="listados[estados.AltaDeClientes]?.listado || []"
+                                    [cantidad]="listados[estados.AltaDeClientes]?.cantidad || 0"
+                                    [cantidadPorPagina]="cantidadPorPagina"
+                                    [pagina]="listados[estados.AltaDeClientes]?.pagina || 1"
+                                    (pageChange)="pageChange($event)"></app-lista-solicitudes>
+            </ng-template>
+          </li>
+        </ul>
+      </div>
+      <div [ngbNavOutlet]="navPendientes"></div>
+  </div>
+</div>

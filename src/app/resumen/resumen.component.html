@@ -1,0 +1,94 @@
+<div class="px-3">
+  <div class="d-flex flex-row justify-content-between mt-5">
+    <div>
+      <span class="h5 titulo-seccion">Res&uacute;men hasta {{ form.controls.fechaFin?.value }}</span>
+    </div>
+  </div>
+
+  <div class="row mx-0 py-4 justify-content-between detalle-cliente-group border-bottom">
+    <div class="col-12 encuesta-socioeconomica" *ngFor="let k of keys">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>{{ k }} ({{ solicitudes[k].length }})</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngIf="sincronizando(k).length > 0">
+          <td class="d-flex justify-content-between">
+            <span>Sincronizando ({{ sincronizando(k).length }}):</span>
+            <span class="titulo-seccion">
+              {{ montoTotal(sincronizando(k)) | currency: '$': 'symbol': '1.0-0' }}
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="validacion(k).length > 0">
+          <td class="d-flex justify-content-between">
+            <span>Validación asistente ({{ validacion(k).length }}):</span>
+            <span class="titulo-seccion">
+              {{ montoTotal(validacion(k)) | currency: '$': 'symbol': '1.0-0' }}
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="aprobacion(k).length > 0">
+          <td class="d-flex justify-content-between">
+            <span>Validación gerente ({{ aprobacion(k).length }}):</span>
+            <span class="titulo-seccion">
+              {{ montoTotal(aprobacion(k)) | currency: '$': 'symbol': '1.0-0' }}
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="comite(k).length > 0">
+          <td class="d-flex justify-content-between">
+            <span>Validación comité ({{ comite(k).length }}):</span>
+            <span class="titulo-seccion">
+              {{ montoTotal(comite(k)) | currency: '$': 'symbol': '1.0-0' }}
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="otp(k).length > 0">
+          <td class="d-flex justify-content-between">
+            <span>Validación OTP ({{ otp(k).length }}):</span>
+            <span class="titulo-seccion">
+              {{ montoTotal(otp(k)) | currency: '$': 'symbol': '1.0-0' }}
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="desembolsadas(k).length > 0">
+          <td class="d-flex justify-content-between">
+            <span>Desembolsadas ({{ desembolsadas(k).length }}):</span>
+            <span class="titulo-seccion">
+              {{ montoTotal(desembolsadas(k)) | currency: '$': 'symbol': '1.0-0' }}
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="devueltas(k).length > 0">
+          <td class="d-flex justify-content-between">
+            <span>Devueltas ({{ devueltas(k).length }}):</span>
+            <span class="titulo-seccion">
+              {{ montoTotal(devueltas(k)) | currency: '$': 'symbol': '1.0-0' }}
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="rechazadas(k).length > 0">
+          <td class="d-flex justify-content-between">
+            <span>Rechazadas ({{ rechazadas(k).length }}):</span>
+            <span class="titulo-seccion">
+              {{ montoTotal(rechazadas(k)) | currency: '$': 'symbol': '1.0-0' }}
+            </span>
+          </td>
+        </tr>
+        <tr *ngIf="desembolsosFallidos(k).length > 0">
+          <td class="d-flex justify-content-between">
+            <span>Desembolsos fallidos ({{ desembolsosFallidos(k).length }}):</span>
+            <span class="titulo-seccion">
+              {{ montoTotal(desembolsosFallidos(k)) | currency: '$': 'symbol': '1.0-0' }}
+            </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

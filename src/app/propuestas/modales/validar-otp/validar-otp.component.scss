@@ -1,0 +1,28 @@
+.grupo-pregunta {
+
+  font-size: 13px;
+  color: #545454;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+
+  .pregunta-enunciado {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .pregunta-opcion {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+}
+
+.guion {
+  display: flex;
+  flex-flow: column;
+
+  span {
+    background-color: #87D883;
+    padding-top: 0.5rem;
+  }
+
+}

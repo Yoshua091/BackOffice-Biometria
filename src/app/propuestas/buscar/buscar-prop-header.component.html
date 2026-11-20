@@ -1,0 +1,49 @@
+<div class="pb-3">
+  <form [formGroup]="form" class="row" style="box-shadow: 0 3px 6px #00000029;">
+
+    <div class="col-12 col-sm-6">
+      <div class="group-form-material">
+        <label for="buscarPropHeaderValueField" [class.input-filled]="form.controls.valor.value !== ''">Buscar una solicitud de cr&eacute;dito:</label>
+        <input id="buscarPropHeaderValueField" type="text" class="w-100" formControlName="valor"
+               [class.is-invalid]="form.controlInvalid(form.controls.valor)">
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <div class="invalid-feedback">
+          <span *ngIf="form.controls.valor.errors?.required">Por favor selecciona un valor.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-3">
+      <div class="group-form-material">
+        <label for="buscarPropHeaderKeyField" [class.input-filled]="form.controls.clave.value !== ''">Filtrar por:</label>
+        <select id="buscarPropHeaderKeyField" class="w-100"
+                [class.is-invalid]="form.controlInvalid(form.controls.clave)"
+                [class.form-control-plaintext]="form.disabled"
+                [class.bg-white]="form.disabled"
+                formControlName="clave">
+          <option *ngFor="let atributo of atributos" [ngValue]="atributo.clave">{{atributo.nombre}}</option>
+        </select>
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <div class="invalid-feedback">
+          <span *ngIf="form.controls.clave.errors?.required">Por favor selecciona un valor.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-3" style="padding-top: 40px">
+      <a class="btn btn-primary w-100" (click)="buscar()">
+        Buscar solicitud
+      </a>
+    </div>
+  </form>
+</div>
+
+<app-lista-propuestas [listado]="solicitudes || []"
+                      [cantidad]="solicitudes?.length || 0"
+                      [cantidadPorPagina]="cantidadPorPagina"
+                      (pageChange)="pageChange($event)"></app-lista-propuestas>
+
+<app-lista-propuestas [listado]="solicitudes"></app-lista-propuestas>
+

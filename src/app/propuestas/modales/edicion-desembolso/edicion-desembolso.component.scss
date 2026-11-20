@@ -1,0 +1,69 @@
+.dato-valor-negrita {
+    font-weight: bold;
+}
+
+.valor-anterior {
+    margin-top: 21px;
+}
+
+.nuevo-valor {
+    margin-top: 2px;
+}
+
+.modal-body-size {
+    padding: 2rem;
+}
+
+.detalle-cliente-dato {
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0px;
+    .dato-label-detalle {
+      font: normal normal normal 12px/20px Roboto;
+      color: #545454;
+      opacity: 0.5;
+    }
+
+    .dato-valor-detalle {
+      font: normal normal normal 14px/20px Roboto;
+      color: #545454;
+
+    }
+
+    .hover:hover{
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .text-danger {
+      font-size: 12px;
+    }
+
+  }
+
+.dato-label {
+    margin-left: 0.25rem;
+    color: #767676;
+    opacity: 100%;
+    font: normal normal 12px Roboto;
+}
+
+
+
+textarea {
+    border: 1px solid #70707088;
+    border-radius: 4px;
+
+    &:focus {
+        border: 1px solid #707070;
+        box-shadow: 0 0 0 0.2rem #70707055;
+    }
+}
+
+.textarea-top{
+    margin-top: 12px;
+}
+
+.boton{
+    padding-top: 6px;
+}

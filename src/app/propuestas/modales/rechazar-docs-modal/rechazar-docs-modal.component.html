@@ -1,0 +1,49 @@
+<div id="modal-rechazar-docs" class="px-2">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Verificaci&oacute;n de documentos</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31">
+        <g id="_5Close" data-name="5Close" transform="translate(-1323 -2129)">
+          <path id="Trazado_23" data-name="Trazado 23" d="M15.5,13.513l-4.636-4.65A1.4,1.4,0,1,0,8.877,10.85l4.636,4.65L8.877,20.136a1.4,1.4,0,1,0,1.987,1.987L15.5,17.487l4.636,4.636a1.4,1.4,0,0,0,1.987-1.987L17.487,15.5l4.636-4.636a1.4,1.4,0,1,0-1.987-1.987ZM31,15.5A15.5,15.5,0,1,1,15.5,0,15.491,15.491,0,0,1,31,15.5Z" transform="translate(1323 2129)" fill="#e00303"/>
+        </g>
+      </svg>
+    </button>
+  </div>
+  <div class="modal-body row">
+    <div class="d-flex justify-content-start align-items-center">
+      <div class="imagen px-3">
+        <img width="100%" [src]="img" alt="documento">
+      </div>
+      <div class="detalle d-flex flex-column justify-content-start pl-3">
+        <span class="titulo-seccion font-weight-bold">{{ nombres }}</span>
+        <span><span class="titulo-seccion font-weight-bold pr-3"># Solicitud</span><span>{{ idSolicitud }}</span></span>
+      </div>
+    </div>
+
+    <div class="form-group w-100 py-3 px-3">
+      <textarea id="rechazarMensajeField" rows="6" class="form-control"
+                [formControl]="mensajeCtrl"
+                [class.is-invalid]="mensajeCtrl.invalid"></textarea>
+      <div class="invalid-feedback">
+        <div *ngIf="mensajeCtrl.errors?.required">
+          <span>Debes dejar un comentario sobre el rechazo</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer border-0">
+    <div class="row w-100 justify-content-end">
+      <div class="col-12 col-sm-7">
+        <div class="row">
+          <div class="col-6">
+            <a class="btn btn-outline-primary w-100" (click)="modal.dismiss()">Volver</a>
+          </div>
+          <div class="col-6">
+            <a class="btn btn-primary w-100" (click)="confirmar()">Rechazar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="px-3">
+  <div class="d-flex flex-row justify-content-between mt-5">
+    <div><span class="h4">Sucursales</span></div>
+    <div><a class="btn btn-primary" style="min-width: 136px;" (click)="registrar()">Nueva</a></div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="group-form-material">
+        <input type="text" #nombre class="w-100" [formControl]="filter">
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label [class.input-filled]="nombre.value !== ''">Buscar</label>
+        <div class="invalid-feedback">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="py-4" style="overflow-x: hidden;">
+    <table class="table w-100" style="table-layout: fixed;" *ngIf="!aviso">
+      <tbody>
+      <tr *ngFor="let sucursal of sucursales$ | async; index as i">
+        <td>
+  <strong>ID: {{ sucursal.idSucursal }}</strong>
+</td>
+
+<td>
+  {{ sucursal.nombre | titlecase }}
+</td>
+
+<td>
+  {{ sucursal?.region?.nombre | titlecase }}
+</td>
+
+<td class="text-end pe-3">
+  <div class="d-flex justify-content-end">
+    <a class="btn btn-outline-secondary btn-sm me-2" (click)="zonas(sucursal)">Zonas</a>
+    <a class="btn btn-outline-secondary btn-sm" (click)="modificar(sucursal)">Editar</a>
+  </div>
+</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-center py-3" *ngIf="aviso">
+    <span class="h4 align-self-center titulo-seccion">No hay resultados para esta b&uacute;squeda</span>
+  </div>
+</div>

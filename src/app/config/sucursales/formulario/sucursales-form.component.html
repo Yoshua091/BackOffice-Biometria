@@ -1,0 +1,105 @@
+<div class="p-3">
+  <a class="btn btn-link text-decoration-none px-0" [routerLink]="['/', 'config', 'sucursales']">
+    <img class="boton-back" src="../../../../assets/images/arrow-left.svg">
+    <span class="label-sucur">Lista de sucursales</span>
+  </a>
+
+  <div class="d-flex pt-4">
+    <span class="h4">{{ mode.charAt(0).toUpperCase() + mode.substring(1) }} sucursal</span>
+  </div>
+
+  <form class="pt-3" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-12 col-sm-12">
+        <div class="group-form-material">
+          <input type="text" class="w-100" formControlName="nombre"
+            [class.is-invalid]="form.controlInvalid(form.controls.nombre)">
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label [class.input-filled]="form.controls.nombre.value !== ''">Nombre</label>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.nombre.errors?.maxlength">Solo puedes ingresar hasta {{
+              form.controls.nombre.errors?.maxlength.requiredLength }} caracteres.</span>
+            <span *ngIf="form.controls.nombre.errors?.required">Por favor ingresa un nombre.</span>
+            <span *ngIf="form.controls.nombre.errors?.pattern">Por favor valida el formato</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="group-form-material">
+          <input type="text" class="w-100" formControlName="direccion"
+            [class.is-invalid]="form.controlInvalid(form.controls.direccion)">
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label [class.input-filled]="form.controls.direccion.value !== ''">Direcci&oacute;n</label>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.direccion.errors?.required">Por favor ingresa una direcci&oacute;n.</span>
+            <span *ngIf="form.controls.direccion.errors?.pattern">Por favor valida el formato</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="group-form-material">
+          <input type="text" class="w-100" formControlName="telefono"
+            [class.is-invalid]="form.controlInvalid(form.controls.telefono)">
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label [class.input-filled]="form.controls.telefono.value !== ''">Tel&eacute;fono</label>
+          <div class="invalid-feedback">
+            <span
+              *ngIf="form.controls.telefono.errors?.maxlength || form.controls.telefono.errors?.minlength || form.controls.telefono.errors?.pattern">Por
+              favor ingresa un n&uacute;mero v&aacute;lido.</span>
+            <span *ngIf="form.controls.telefono.errors?.required">Por favor ingresa un valor.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="group-form-material">
+          <input type="text" class="w-100" formControlName="idSucursal"
+            [class.is-invalid]="form.controlInvalid(form.controls.idSucursal)">
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label [class.input-filled]="form.controls.idSucursal.value !== ''">C&oacute;digo sucursal</label>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.idSucursal.errors?.required">Por favor ingresa un valor.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="group-form-material">
+          <input type="text" class="w-100" formControlName="agencia"
+            [class.is-invalid]="form.controlInvalid(form.controls.agencia)">
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label [class.input-filled]="form.controls.agencia.value !== ''">Agencia</label>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.agencia.errors?.required">Por favor ingresa un valor.</span>
+            <span *ngIf="form.controls.agencia.errors?.maxlength || form.controls.agencia.errors?.minlength">El campo
+              deb&eacute; tener 4 caracteres.</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6">
+        <div class="group-form-material">
+          <label for="regionalFormGerenteField" [class.input-filled]="form.controls.region.value !== ''">Regional</label>
+          <select id="regionalFormGerenteField" class="w-100" [class.is-invalid]="form.controls.region.invalid"
+            [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+            formControlName="region">
+            <option *ngFor="let regional of regionales" [ngValue]="regional">{{ regional.nombre}}</option>
+          </select>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.region.errors?.required">Por favor selecciona una Regional.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-row justify-content-end align-items-center mt-5">
+      <button class="btn btn-primary">
+        GUARDAR
+      </button>
+    </div>
+
+  </form>
+</div>

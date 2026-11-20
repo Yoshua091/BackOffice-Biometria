@@ -1,0 +1,135 @@
+<div class="p-3">
+  <a class="btn btn-link text-decoration-none px-0"
+     [routerLink]="'/cartera/gestionar-cartera'"
+     [queryParams]="route.snapshot.queryParams">
+    <img class="boton-back" src="../../../assets/images/arrow-left.svg"/>
+    <span class="label-sucur">Gesti&oacute;n de cobranza</span>
+  </a>
+  <div class="d-flex pt-4 py-3">
+    <span class="h4">Crear acuerdo de pago</span>
+  </div>
+  <div class="container contenedor">
+
+    <div class="detalle-cliente py-2 border-bottom">
+      <div class="row flex-grow-1 mx-0 detalle-cliente-group" *ngIf="!cliente">
+        <div class="col-9 d-flex align-items-center justify-content-start">
+          <div class="d-flex flex-column detalle-cliente-dato">
+            <span class="titulo-seccion">Selecciona un cliente con quien realizar&aacute;s el acuerdo</span>
+          </div>
+        </div>
+        <div class="col-3 d-flex justify-content-end align-items-center w-100">
+          <button class="btn btn-outline-primary" (click)="seleccionarCliente()">Seleccionar cliente</button>
+        </div>
+      </div>
+      <div class="row flex-grow-1 mx-0 detalle-cliente-group" *ngIf="!!cliente">
+        <div class="col-6 d-flex align-items-center justify-content-start">
+          <span class="rounded-circle border-dark icon-cliente mr-3"
+                [class.icon-cliente-lider]="esIndividual"
+                [class.icon-cliente-experto]="esClienteExperto"
+                [class.icon-cliente-grupo]="esGrupal">
+          </span>
+          <div class="d-flex flex-column detalle-cliente-dato">
+            <div class="titulo-seccion">
+                <span>
+                  {{ cliente?.datosPersonalesCliente?.nombre1 || '' }}
+                  {{ cliente?.datosPersonalesCliente?.nombre2 || '' }}
+                </span>
+              <span>
+                  {{ cliente?.datosPersonalesCliente?.apellido1 || '' }}
+                {{ cliente?.datosPersonalesCliente?.apellido2 || '' }}
+                </span>
+            </div>
+            <span class="dato-label">#{{ cobranzasService.cobranza?.idSolicitud}}</span>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="d-flex flex-column detalle-cliente-dato">
+            <span class="titulo-seccion">Contacto</span>
+            <span class="dato-valor">{{ cliente?.datosContactoCliente?.telefono || '' }}</span>
+          </div>
+        </div>
+        <div class="col-3 d-flex justify-content-end align-items-center w-100">
+          <button class="btn btn-outline-primary" (click)="seleccionarCliente()">Cambiar cliente</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="py-4">
+      <form [formGroup]="form" class="row">
+
+        <div class="col-12 col-sm-6">
+          <div class="group-form-material">
+            <label for="acuerdoFechaAcuerdoFormField"
+                   [class.input-filled]="form.controls.fechaAcuerdo.value !== ''">
+              Fecha de acuerdo de pago
+            </label>
+            <div class="input-group">
+              <input id="acuerdoFechaAcuerdoFormField"
+                     ngbDatepicker
+                     #dpFechaAcuerdo="ngbDatepicker"
+                     [minDate]="minFechaAcuerdo"
+                     [maxDate]="maxFechaAcuerdo"
+                     [class.is-invalid]="form.controlInvalid(form.controls.fechaAcuerdo)"
+                     [class.form-control-plaintext]="form.disabled"
+                     formControlName="fechaAcuerdo">
+              <div class="input-group-append">
+                <button class="btn px-0 icon-arrow-down" (click)="dpFechaAcuerdo.toggle()"
+                        type="button"></button>
+              </div>
+
+              <div class="invalid-feedback">
+                <span *ngIf="form.controls.fechaAcuerdo.errors?.required">Por favor selecciona un valor.</span>
+              </div>
+            </div>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="group-form-material">
+            <label for="acuerdoMotivoMoraFormField"
+                   [class.input-filled]="form.controls.motivoMora.value !== ''">Motivo de la mora</label>
+            <select id="acuerdoMotivoMoraFormField" class="w-100"
+                    [class.is-invalid]="form.controlInvalid(form.controls.motivoMora)"
+                    [class.form-control-plaintext]="form.disabled"
+                    [class.bg-white]="form.disabled"
+                    formControlName="motivoMora">
+              <option *ngFor="let motivo of motivosMora" [ngValue]="motivo">{{motivo.motivo}}</option>
+            </select>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <div class="invalid-feedback">
+              <span *ngIf="form.controls.motivoMora.errors?.required">Por favor selecciona un valor.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 py-2">
+          <span class="dato-label-comentario">Agregar un nuevo comentario</span>
+        </div>
+        <div class="col-12 py-2">
+          <textarea id="acuerdoComentarioFormField" rows="3" class="w-100"
+                    formControlName="comentario"
+                    [class.is-invalid]="form.controlInvalid(form.controls.comentario)"></textarea>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <div class="invalid-feedback">
+            <span *ngIf="form.controls.comentario.errors?.required">Por favor ingresa un valor.</span>
+          </div>
+        </div>
+
+        <!-- CANCELAR/CREAR ACUERDO) -->
+        <div class="col-12 py-5">
+          <div class="row w-100 justify-content-center">
+            <div class="col-4">
+              <a class="btn btn-dark w-100 boton" (click)="cancelar()">Cancelar</a>
+            </div>
+            <div class="col-4">
+              <a class="btn btn-primary w-100 boton" (click)="crearAcuerdo(3, 1)">Crear acuerdo</a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

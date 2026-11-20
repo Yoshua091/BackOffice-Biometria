@@ -1,0 +1,32 @@
+<div id="modal-rechazar-docs" class="px-2">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Historial cambios de monto</h4>
+    <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></a>
+  </div>
+  <div class="modal-body">
+    <div class="historial-monto__listado">
+      <div class="historial-monto__listado-item" *ngFor="let item of historialMontos">
+        <span class="historial-monto__listado-item-encabezado">{{item.fecha | date: 'dd/MM/yyyy'}}</span>
+        <div class="historial-monto__listado-item-detalle">
+          <div class="dato">
+            <span class="dato-valor">Monto anterior:</span>
+            <span class="dato-label">{{item.montoAnterior | currency: '$' : 'symbol' : '1.0-0'}}</span>
+          </div>
+          <span class="px-1">/</span>
+          <div class="dato">
+            <span class="dato-valor">Monto nuevo:</span>
+            <span class="dato-label">{{item.montoNuevo | currency: '$' : 'symbol' : '1.0-0'}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer border-0">
+    <!-- BOTON ENTENDIDO -->
+    <div class="row w-100 justify-content-center">
+      <div class="col-8">
+        <button class="btn btn-dark w-100" (click)="modal.dismiss()">Entendido</button>
+      </div>
+    </div>
+  </div>
+</div>

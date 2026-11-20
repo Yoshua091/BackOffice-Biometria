@@ -1,0 +1,49 @@
+<div class="container mt-4">
+    <h4 class="mb-4">Atribuciones</h4>
+  
+    <div class="row" *ngFor="let sucursal of sucursales">
+      <ng-container [formGroup]="getFormGroup(sucursal)">
+        <div class="card w-100 mb-3 shadow-sm border-0">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <!-- ID + Nombre -->
+              <div class="col-md-3 mb-2">
+                <div><strong>ID: {{ sucursal.idSucursal }}</strong></div>
+                <div>{{ sucursal.nombre | titlecase }}</div>
+              </div>
+  
+              <!-- Monto -->
+              <div class="col-md-3 mb-2">
+                <label class="form-label">Monto</label>
+                <input type="text" class="form-control" formControlName="monto"
+                       [class.is-invalid]="getFormGroup(sucursal).controls.monto.invalid && getFormGroup(sucursal).controls.monto.touched">
+                <div class="invalid-feedback" *ngIf="getFormGroup(sucursal).controls.monto.errors">
+                  <span *ngIf="getFormGroup(sucursal).controls.monto.errors?.required">Por favor ingresa un valor.</span>
+                  <span *ngIf="getFormGroup(sucursal).controls.monto.errors?.pattern">Número inválido.</span>
+                </div>
+              </div>
+  
+              <!-- Plazo -->
+              <div class="col-md-3 mb-2">
+                <label class="form-label">Plazo</label>
+                <input type="text" class="form-control" formControlName="plazo"
+                       [class.is-invalid]="getFormGroup(sucursal).controls.plazo.invalid && getFormGroup(sucursal).controls.plazo.touched">
+                <div class="invalid-feedback" *ngIf="getFormGroup(sucursal).controls.plazo.errors">
+                  <span *ngIf="getFormGroup(sucursal).controls.plazo.errors?.required">Por favor ingresa un valor.</span>
+                  <span *ngIf="getFormGroup(sucursal).controls.plazo.errors?.pattern">Número inválido.</span>
+                </div>
+              </div>
+  
+              <!-- Botón Editar -->
+              <div class="col-md-3 text-end">
+                <button class="btn btn-outline-primary w-100 mt-3 mt-md-0" (click)="enviarFormulario(sucursal)">
+                  Guardar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  

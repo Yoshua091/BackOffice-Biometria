@@ -1,0 +1,89 @@
+.boton-back {
+    margin-right: 20px;
+}
+
+.label-sucur {
+    text-align: left;
+    font-size: 16px;
+    font-weight: 400;
+    color: #CC0000;
+}
+
+/* Create a custom checkbox */
+
+.form-group {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  color: #878787;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.form-group input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  background-color: #fff;
+  border: 2px solid #CC0000;
+  border-radius: 5px;
+}
+
+/* On mouse-over, add a grey background color */
+.form-group:hover inputinput[type='checkbox'] ~ .checkmark {
+  background-color: #CC000011;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.form-group input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.form-group .checkmark:after {
+  left: 2px;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: #CC0000;
+  border-radius: 3px;
+}
+
+.group-form-material {
+
+  input[type="text"] + span, input[type="password"] + span {
+    position: absolute;
+    bottom: -28px;
+
+    &.view-password {
+      content: url("../../../../assets/images/eye_on.svg");
+    }
+
+    &.hide-password {
+      content: url("../../../../assets/images/eye_off.svg");
+      bottom: -30px;
+    }
+  }
+}

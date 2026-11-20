@@ -1,0 +1,66 @@
+.opciones-comentario {
+  max-height: 300px;
+  overflow: auto;
+  flex-wrap: nowrap;
+  padding-left: 17px;
+}
+
+.horizontal-line {
+  height: 1px;
+  border-top: solid #707070 1px;
+  opacity: 0.3;
+}
+
+.leyenda {
+  color: #222222;
+  font-size: 14px;
+}
+
+.dato-label {
+  color: #222222;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.dato-pago {
+  font-weight: bold;
+  font-size: 14px;
+  color: #cc0000;
+  margin-left: 11px;
+}
+
+.detalle-cliente {
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  border-radius: 5px;
+
+  .detalle-cliente-group {
+    &.border-bottom {
+      border-bottom: 1px solid #47474733;
+    }
+  }
+
+  .titulo-seccion {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font: normal normal bold 15px Roboto;
+    color: #222222;
+  }
+
+  .detalle-cliente-dato {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    .dato-label {
+      font-size: 12px;
+      color: #767676;
+      opacity: 1.2;
+    }
+
+    .dato-valor {
+      font-weight: bold;
+      font-size: 14px;
+      color: #cc0000;
+    }
+  }
+}

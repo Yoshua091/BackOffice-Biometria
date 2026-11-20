@@ -1,0 +1,131 @@
+<div id="modal-edicion-campos" class="px-2">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Modificar Solicitud</h4>
+    <button type="button" class="close icon-close text-primary" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body row modal-body-size">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-12">
+          <span class="titulo-seccion">
+            Estas modificando: <span class="dato-valor dato-valor-negrita">{{label}}</span>
+          </span>
+        </div>
+        <div class="col-12 valor-anterior">
+          <span class="titulo-seccion">
+            Valor Actual: <span class="dato-valor dato-valor-negrita">{{valorActualLabel}}</span>
+          </span>
+        </div>
+        <div class="col-12 col-sm-8 nuevo-valor">
+          <div class="group-form-material" *ngIf="propiedades.tipo === TIPOS_CAMPOS.fecha">
+            <label for="edicionCamposFechaFormField"
+                   [class.input-filled]="form.controls.valor.value !== ''"
+                   [class.is-invalid]="form.controlInvalid(form.controls.valor)">
+              Nuevo Valor
+            </label>
+            <div class="input-group">
+              <span class="input-uneditable">{{form.controls.valor.value}}</span>
+              <input id="edicionCamposFechaFormField" class="d-none"
+                     ngbDatepicker
+                     #dpFecha="ngbDatepicker"
+                     [class.is-invalid]="form.controlInvalid(form.controls.valor)"
+                     [class.form-control-plaintext]="form.disabled"
+                     formControlName="valor">
+              <div class="input-group-append">
+                <button class="btn px-0 icon-arrow-down" (click)="dpFecha.toggle()" type="button"></button>
+              </div>
+
+              <div class="invalid-feedback">
+                <span *ngIf="form.controls.valor.errors?.required">Por favor ingresa un valor.</span>
+
+                <span *ngIf="form.controls.valor.errors?.pattern">{{form.controls.valor.errors?.pattern}}</span>
+
+                <span *ngIf="form.controls.valor.errors?.maxlength">
+                  Campo debe tener m&aacute;ximo
+                  {{form.controls.valor.errors?.maxlength.requiredLength}} d&iacute;gitos.
+                </span>
+
+                <span *ngIf="form.controls.valor.errors?.minlength">
+                  Campo debe tener m&iacute;nimo
+                  {{form.controls.valor.errors?.minlength.requiredLength}} d&iacute;gitos.
+                </span>
+              </div>
+
+            </div>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+          </div>
+
+          <div class="group-form-material" *ngIf="propiedades.tipo === TIPOS_CAMPOS.selector">
+            <label for="filterPropuestasSucursalField" [class.input-filled]="form.controls.valor.value !== ''">Nuevo valor</label>
+            <select id="filterPropuestasSucursalField" class="w-100"
+                    [class.is-invalid]="form.controls.valor.invalid"
+                    [class.form-control-plaintext]="form.disabled"
+                    [class.bg-white]="form.disabled"
+                    formControlName="valor">
+              <option *ngFor="let opcion of propiedades.opciones?.listado" [ngValue]="opcion">{{opcion[propiedades.opciones?.etiqueta]}}</option>
+            </select>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <div class="invalid-feedback">
+              <span *ngIf="form.controls.valor.errors?.required">Por favor selecciona un valor.</span>
+            </div>
+          </div>
+
+          <div class="group-form-material" *ngIf="[TIPOS_CAMPOS.numero, TIPOS_CAMPOS.texto].includes(propiedades.tipo)">
+            <input type="text" class="w-100" formControlName="valor">
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label [class.input-filled]="form.controls.valor.value !== ''"
+                   [class.is-invalid]="form.controlInvalid(form.controls.valor)">Nuevo Valor</label>
+            <div class="invalid-feedback">
+
+              <span *ngIf="form.controls.valor.errors?.required">
+                Por favor ingresa un valor.
+              </span>
+
+              <span *ngIf="form.controls.valor.errors?.pattern">
+                {{form.controls.valor.errors?.pattern}}
+              </span>
+
+              <span *ngIf="form.controls.valor.errors?.maxlength">
+                Campo debe tener m&aacute;ximo
+                {{form.controls.valor.errors?.maxlength.requiredLength}} d&iacute;gitos.
+              </span>
+
+              <span *ngIf="form.controls.valor.errors?.minlength">
+                Campo debe tener m&iacute;nimo
+                {{form.controls.valor.errors?.minlength.requiredLength}} d&iacute;gitos.
+              </span>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 comentario">
+          <span class="dato-label">Agregar un nuevo comentario sobre este cambio</span>
+        </div>
+        <div class="col-12 textarea-top">
+          <div class="group-form-material">
+            <textarea id="textarea" name="textarea" rows="5" cols="75" formControlName="motivo"
+                      [class.is-invalid]="form.controlInvalid(form.controls.motivo)"></textarea>
+            <div class="invalid-feedback">
+              <span *ngIf="form.controls.motivo.errors?.required">Por favor ingresa un motivo.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer border-0">
+    <div class="row w-100 justify-content-center">
+      <div class="col-4">
+        <a class="btn btn-dark w-100 boton" (click)="modal.dismiss()">Cancelar</a>
+      </div>
+      <div class="col-4">
+        <a class="btn btn-primary w-100 boton" (click)="submit()">Modificar solicitud</a>
+      </div>
+    </div>
+  </div>
+</div>

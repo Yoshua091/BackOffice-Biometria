@@ -1,0 +1,79 @@
+<div class="d-flex flex-column px-3">
+    <app-registrar-comunicado (subirArchivo)="onSubirArchivos($event)"></app-registrar-comunicado>
+    <div style="height: 843px;" class="my-4">
+        <table class="table my-4">
+            <tbody>
+                <tr>
+
+                    <td class="col-2">
+                        <span class="font-weight-bold">T&iacute;tulo</span>
+                    </td>
+                    <td class="col-2">
+                        <span class="font-weight-bold">Categor&iacute;a</span>
+                    </td>
+                    <td class="col-2">
+                        <span class="font-weight-bold">Vigencia</span>
+                    </td>
+                    <td class="col-3">
+                        <span class="font-weight-bold">Comunicado</span>
+                    </td>
+                    <td class="col-2">
+                        <span class="font-weight-bold">Archivo PDF</span>
+                    </td>
+                    <td class="col-1">
+                        <span class="font-weight-bold">Opciones</span>
+                    </td>
+                </tr>
+                <tr *ngFor="let lista of comunicados">
+                    <td class="col-2">
+                        <span class="font-weight-light">{{lista.comunicado?.titulo}}</span>
+                    </td>
+                    <td class="col-2">
+                        <span class="font-weight-light">{{lista.comunicado?.seccion?.nombre}}</span>
+                    </td>
+                    <td class="col-2">
+                        <span class="font-weight-light">{{lista.comunicado?.vigencia | date:'dd/MM/yyyy'}}</span>
+                    </td>
+                    <td class="col-3">
+                        <span class="font-weight-light">{{lista.comunicado?.comunicado}}</span>
+                    </td>
+                    <td class="col-2">
+                        <span class="font-weight-light"></span>
+                    </td>
+                    <td class="col-1">
+                        <a class="btn accion d-flex flex-column justify-content-center" style="margin-right: 30px;" (click)="borrar(lista)">
+                            <i>
+                                <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                                    viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+                                    <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                        fill="#000000" stroke="none">
+                                        <path d="M1753 4832 c-119 -42 -198 -125 -236 -250 -13 -42 -52 -191 -87 -329
+                                            l-62 -252 -498 -3 c-488 -3 -499 -3 -527 -24 -98 -73 -98 -195 0 -268 26 -19
+                                            45 -21 187 -24 l159 -3 3 -1367 3 -1367 22 -77 c76 -269 262 -466 532 -562
+                                            l86 -31 1220 0 1220 0 75 23 c269 85 472 293 552 567 l23 80 3 1367 3 1367
+                                            159 3 c142 3 161 5 187 24 98 73 98 195 0 268 -28 21 -39 21 -527 24 l-498 3
+                                            -76 306 c-49 194 -87 325 -103 356 -34 62 -100 122 -171 155 l-57 27 -770 2
+                                            c-719 2 -773 1 -822 -15z m1530 -316 c11 -11 137 -482 137 -511 0 -3 -387 -5
+                                            -860 -5 -473 0 -860 2 -860 5 0 29 126 500 137 511 22 21 1424 21 1446 0z
+                                            m825 -2188 l-3 -1353 -23 -59 c-60 -160 -193 -281 -345 -316 -57 -13 -2297
+                                            -13 -2354 0 -178 41 -333 207 -362 390 -7 43 -11 508 -11 1378 l0 1312 1550 0
+                                            1551 0 -3 -1352z" />
+                                        <path d="M1840 2908 c-18 -13 -43 -36 -54 -51 -21 -28 -21 -36 -24 -713 -2
+                                            -666 -2 -685 17 -723 58 -113 224 -113 282 0 19 38 19 57 17 723 -3 677 -3
+                                            685 -24 713 -35 48 -82 73 -134 73 -32 0 -57 -7 -80 -22z" />
+                                        <path d="M3120 2908 c-18 -13 -43 -36 -54 -51 -21 -28 -21 -36 -24 -713 -2
+                                            -666 -2 -685 17 -723 58 -113 224 -113 282 0 19 38 19 57 17 723 -3 677 -3
+                                            685 -24 713 -35 48 -82 73 -134 73 -32 0 -57 -7 -80 -22z" />
+                                    </g>
+                                </svg>
+                            </i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- <ngb-pagination class="align-self-center" [collectionSize]="paginador.cantidad" [(page)]="paginador.pagina"
+        [pageSize]="paginador.cantidadPagina" (pageChange)="cargarTodos()">
+    </ngb-pagination> -->
+</div>

@@ -1,0 +1,25 @@
+<div id="modal-detalle-archivo" class="px-2">
+    <div class="modal-header py-3">
+        <h4 class="modal-title" id="modal-basic-title">Subir Archivo de Valores</h4>
+        <button type="button" class="close icon-close text-primary" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="d-flex mt-3">
+            <span class="titulo-seccion">Sube al sistema el archivo de valores y salidas correspondientes.</span>
+        </div>
+
+        <div class="d-flex py-3">
+            <form [formGroup]="form" class="mr-4">
+                <input #file class="d-none" type="file" (change)="seleccionarArchivo(file)" />
+                <button class="btn btn-outline-primary mr-2" (click)="file.click()">Seleccionar archivo</button>
+                <span class="text-secondary" style="min-width: 200px">{{ form.get('ValidarReglas').value?.name ||
+                    'Ningún
+                    archivo seleccionado' }}</span>
+            </form>
+            <button class="btn btn-primary" (click)="onSubirArchivos()">Realizar Simulación</button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,81 @@
+.nav-pills {
+
+  .nav-item {
+
+    .nav-link {
+      position: relative;
+      color: #545454;
+      font-size: 14px;
+    }
+
+    .nav-link.active,
+    .show > .nav-link {
+      color: #545454;
+      font-weight: 700;
+      background-color: transparent;
+      border-bottom: solid 4px #CC0000;
+    }
+
+    &:not(:last-child) {
+      .nav-link:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background-color: #F4F4F6;
+      }
+    }
+  }
+}
+
+.contenedor-detalle {
+
+  table {
+
+    th, td {
+      border: none;
+      color: #545454;
+      text-align: left;
+    }
+
+    tr {
+
+      > th {
+        padding-bottom: 0.25rem;
+        padding-top: 0.25rem;
+        font-size: 16px;
+      }
+
+      > td {
+        padding-bottom: 0.25rem;
+        padding-top: 0.25rem;
+        font-size: 14px;
+
+        span:nth-child(2) {
+          margin-left: 0.5rem;
+          font-weight: bold;
+        }
+      }
+    }
+
+    tbody {
+      &:after, &:before {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1rem;
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    tfoot {
+      tr {
+        background-color: #D5D5D5;
+      }
+    }
+  }
+}
+

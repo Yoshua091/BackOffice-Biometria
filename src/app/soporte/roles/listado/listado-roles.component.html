@@ -1,0 +1,22 @@
+<div class="p-4">
+
+  <div class="d-flex pt-3">
+    <span class="h4">Roles</span>
+  </div>
+
+  <div class="d-flex py-4">
+    <table class="table">
+      <tbody>
+      <tr class="d-flex" *ngFor="let rol of roles">
+        <td class="text-left col-8">
+          <span>{{ rol.rol }}</span>
+        </td>
+        <td class="d-flex justify-content-end align-items-center col-4">
+          <a class="btn btn-outline-secondary" style="min-width: 125px" (click)="modificar(rol)">Editar permisos</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

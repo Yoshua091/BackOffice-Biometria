@@ -1,0 +1,433 @@
+<div class="modal-content px-2">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Datos del Mipyme a Asegurar</h4>
+        <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></a>
+    </div>
+
+    <div class="modal-body">
+        <form class="pt-3" [formGroup]="MipymeForm" (ngSubmit)="agregarSeguroMipyme()">
+            <!-- Pregunta: ¿Es comercial? -->
+            <div class="form-group">
+                <label style="margin-right: 12px;">¿Es comercial?</label>
+                <div class="col-12">
+                    <div class="form-check form-check-inline mt-2">
+                        <input class="form-check-input" type="radio" name="habilitarComercial" [value]="false"
+                            (change)="onChangeEsComercial(false)" formControlName="habilitarComercial">
+                        <label class="form-check-label">NO</label>
+                    </div>
+                    <div class="form-check form-check-inline mt-2">
+                        <input class="form-check-input" type="radio" name="habilitarComercial" [value]="true"
+                            (change)="onChangeEsComercial(true)" formControlName="habilitarComercial">
+                        <label class="form-check-label">SÍ</label>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Mostrar el formulario comercial si esComercial es verdadero -->
+            <div *ngIf="MipymeForm.get('habilitarComercial')?.value" class="mt-3">
+                <div class="row modal-info">
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <input type="text" class="w-100" formControlName="razonSocial"
+                                [class.is-invalid]="MipymeForm.controlInvalid(MipymeForm.controls.razonSocial)">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label [class.input-filled]="MipymeForm.controls.razonSocial.value !== ''">Razón
+                                social</label>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.razonSocial.errors?.required">Por favor ingresa un
+                                    valor.</span>
+                                <span *ngIf="MipymeForm.controls.razonSocial.errors?.pattern">Por favor valida el
+                                    formato</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <input type="text" class="w-100" formControlName="actividadMipyme"
+                                [class.is-invalid]="MipymeForm.controlInvalid(MipymeForm.controls.actividadMipyme)">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label [class.input-filled]="MipymeForm.controls.actividadMipyme.value !== ''">Actividad de
+                                la Mipyme</label>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.actividadMipyme.errors?.required">Por favor ingresa un
+                                    valor.</span>
+                                <span *ngIf="MipymeForm.controls.actividadMipyme.errors?.pattern">Por favor valida el
+                                    formato</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <input type="text" class="w-100" formControlName="documentoIdentidad"
+                                [class.is-invalid]="MipymeForm.controlInvalid(MipymeForm.controls.documentoIdentidad)">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label
+                                [class.input-filled]="MipymeForm.controls.documentoIdentidad.value !== ''">C.C/NIT/RUT</label>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.documentoIdentidad.errors?.maxlength">Solo puedes
+                                    ingresar hasta
+                                    {{ MipymeForm.controls.documentoIdentidad.errors?.maxlength.requiredLength }}
+                                    caracteres.</span>
+                                <span *ngIf="MipymeForm.controls.documentoIdentidad.errors?.required">Por favor ingresa
+                                    un
+                                    valor.</span>
+                                <span *ngIf="MipymeForm.controls.documentoIdentidad.errors?.pattern">Por favor valida el
+                                    formato</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <input type="text" class="w-100" formControlName="direccion"
+                                [class.is-invalid]="MipymeForm.controlInvalid(MipymeForm.controls.direccion)">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label [class.input-filled]="MipymeForm.controls.direccion.value !== ''">Dirección del bien
+                                a asegurar</label>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.direccion.errors?.maxlength">Solo puedes ingresar hasta
+                                    {{ MipymeForm.controls.direccion.errors?.maxlength.requiredLength }}
+                                    caracteres.</span>
+                                <span *ngIf="MipymeForm.controls.direccion.errors?.required">Por favor ingresa un
+                                    valor.</span>
+                                <span *ngIf="MipymeForm.controls.direccion.errors?.pattern">Por favor valida el
+                                    formato</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <input type="text" class="w-100" formControlName="objetosDeValor"
+                                [class.is-invalid]="MipymeForm.controlInvalid(MipymeForm.controls.objetosDeValor)">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label [class.input-filled]="MipymeForm.controls.objetosDeValor.value !== ''">Valor objetos
+                                de valor</label>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.objetosDeValor.errors?.maxlength">Solo puedes ingresar
+                                    hasta
+                                    {{ MipymeForm.controls.objetosDeValor.errors?.maxlength.requiredLength }}
+                                    caracteres.</span>
+                                <span *ngIf="MipymeForm.controls.objetosDeValor.errors?.minlength">Campo debe tener
+                                    m&iacute;nimo
+                                    {{ MipymeForm.controls.objetosDeValor.errors?.minlength.requiredLength }}
+                                    caracteres.</span>
+                                <span *ngIf="MipymeForm.controls.objetosDeValor.errors?.required">Por favor ingresa un
+                                    valor.</span>
+                                <span *ngIf="MipymeForm.controls.objetosDeValor.errors?.pattern">Por favor valida el
+                                    formato</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <input type="text" class="w-100" formControlName="aniosConstruccion"
+                                [class.is-invalid]="MipymeForm.controlInvalid(MipymeForm.controls.aniosConstruccion)">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label [class.input-filled]="MipymeForm.controls.aniosConstruccion.value !== ''">Años de
+                                construcción</label>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.aniosConstruccion.errors?.maxlength">Solo puedes
+                                    ingresar
+                                    hasta
+                                    {{ MipymeForm.controls.aniosConstruccion.errors?.maxlength.requiredLength }}
+                                    caracteres.</span>
+                                <span *ngIf="MipymeForm.controls.aniosConstruccion.errors?.minlength">Campo debe tener
+                                    m&iacute;nimo
+                                    {{ MipymeForm.controls.aniosConstruccion.errors?.minlength.requiredLength }}
+                                    caracteres.</span>
+                                <span *ngIf="MipymeForm.controls.aniosConstruccion.errors?.required">Por favor ingresa
+                                    un
+                                    valor.</span>
+                                <span *ngIf="MipymeForm.controls.aniosConstruccion.errors?.pattern">Por favor valida el
+                                    formato</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <input type="text" class="w-100" formControlName="numeroSotanos"
+                                [class.is-invalid]="MipymeForm.controlInvalid(MipymeForm.controls.numeroSotanos)">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label [class.input-filled]="MipymeForm.controls.numeroSotanos.value !== ''">Número de
+                                sótanos</label>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.numeroSotanos.errors?.maxlength">Solo puedes ingresar
+                                    hasta
+                                    {{ MipymeForm.controls.numeroSotanos.errors?.maxlength.requiredLength }}
+                                    caracteres.</span>
+                                <span *ngIf="MipymeForm.controls.numeroSotanos.errors?.minlength">Campo debe tener
+                                    m&iacute;nimo
+                                    {{ MipymeForm.controls.numeroSotanos.errors?.minlength.requiredLength }}
+                                    caracteres.</span>
+                                <span *ngIf="MipymeForm.controls.numeroSotanos.errors?.required">Por favor ingresa un
+                                    valor.</span>
+                                <span *ngIf="MipymeForm.controls.numeroSotanos.errors?.pattern">Por favor valida el
+                                    formato</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <input type="text" class="w-100" formControlName="numeroPisos"
+                                [class.is-invalid]="MipymeForm.controlInvalid(MipymeForm.controls.numeroPisos)">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label [class.input-filled]="MipymeForm.controls.numeroPisos.value !== ''">Número de
+                                pisos</label>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.numeroPisos.errors?.maxlength">Solo puedes ingresar
+                                    hasta
+                                    {{ MipymeForm.controls.numeroPisos.errors?.maxlength.requiredLength }}
+                                    caracteres.</span>
+                                <span *ngIf="MipymeForm.controls.numeroPisos.errors?.minlength">Campo debe tener
+                                    m&iacute;nimo
+                                    {{ MipymeForm.controls.numeroPisos.errors?.minlength.requiredLength }}
+                                    caracteres.</span>
+                                <span *ngIf="MipymeForm.controls.numeroPisos.errors?.required">Por favor ingresa un
+                                    valor.</span>
+                                <span *ngIf="MipymeForm.controls.numeroPisos.errors?.pattern">Por favor valida el
+                                    formato</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <label for="filterListaSegurosField"
+                                [class.input-filled]="MipymeForm.controls.departamento.value !== ''">Departamento</label>
+                            <select id="filterListaSegurosField" class="w-100"
+                                [class.is-invalid]="MipymeForm.controls.departamento.invalid"
+                                [class.form-control-plaintext]="MipymeForm.disabled"
+                                [class.bg-white]="MipymeForm.disabled" formControlName="departamento"
+                                (change)="actualizarMunicipios($event.target.value, 'comercial')">
+                                <option *ngFor="let tipo of departamentos" [value]="tipo.divipolad">{{ tipo.departamento
+                                    }}
+                                </option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.departamento.errors?.required">Por favor
+                                    ingresa un valor.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <label for="filterListaSegurosField"
+                                [class.input-filled]="MipymeForm.controls.municipio.value !== ''">Ciudad/Municipio</label>
+                            <select id="filterListaSegurosField" class="w-100"
+                                [class.is-invalid]="MipymeForm.controls.municipio.invalid"
+                                [class.form-control-plaintext]="MipymeForm.disabled"
+                                [class.bg-white]="MipymeForm.disabled" formControlName="municipio">
+                                <option *ngFor="let tipo of municipiosDisponibles" [value]="tipo.divipolam">{{
+                                    tipo.municipio }}
+                                </option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.municipio.errors?.required">Por favor
+                                    ingresa un valor.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Pregunta: ¿Es comercial? -->
+            <div class="form-group">
+                <label style="margin-right: 12px;">¿Es residencial?</label>
+                <div class="col-12">
+                    <div class="form-check form-check-inline mt-2">
+                        <input class="form-check-input" type="radio" name="habilitarResidencial" [value]="false"
+                            (change)="onChangeEsResidencial(false)" formControlName="habilitarResidencial">
+                        <label class="form-check-label">NO</label>
+                    </div>
+                    <div class="form-check form-check-inline mt-2">
+                        <input class="form-check-input" type="radio" name="habilitarResidencial" [value]="true"
+                            (change)="onChangeEsResidencial(true)" formControlName="habilitarResidencial">
+                        <label class="form-check-label">SÍ</label>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="MipymeForm.get('habilitarResidencial')?.value" class="mt-3">
+                <div class="row modal-info">
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <input type="text" class="w-100" formControlName="direccionResidencial"
+                                [class.is-invalid]="MipymeForm.controlInvalid(MipymeForm.controls.direccionResidencial)">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label
+                                [class.input-filled]="MipymeForm.controls.direccionResidencial.value !== ''">Dirección
+                                del bien
+                                a asegurar</label>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.direccionResidencial.errors?.maxlength">Solo puedes
+                                    ingresar hasta
+                                    {{ MipymeForm.controls.direccionResidencial.errors?.maxlength.requiredLength }}
+                                    caracteres.</span>
+                                <span *ngIf="MipymeForm.controls.direccionResidencial.errors?.required">Por favor
+                                    ingresa un
+                                    valor.</span>
+                                <span *ngIf="MipymeForm.controls.direccionResidencial.errors?.pattern">Por favor valida
+                                    el
+                                    formato</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <label for="filterListaSegurosField"
+                                [class.input-filled]="MipymeForm.controls.tipoDeViviendaResid.value !== ''">Tipo de
+                                vivienda</label>
+                            <select id="filterListaSegurosField" class="w-100"
+                                [class.is-invalid]="MipymeForm.controls.tipoDeViviendaResid.invalid"
+                                [class.form-control-plaintext]="MipymeForm.disabled"
+                                [class.bg-white]="MipymeForm.disabled" formControlName="tipoDeViviendaResid">
+                                <option *ngFor="let tipo of tipoViviendaLista" [ngValue]="tipo">{{ tipo.tipo }}
+                                </option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.tipoDeViviendaResid.errors?.required">Por favor
+                                    ingresa un valor.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <label for="filterListaSegurosField"
+                                [class.input-filled]="MipymeForm.controls.proteccionDeAlarma.value !== ''">Protección
+                                alarma</label>
+                            <select id="filterListaSegurosField" class="w-100"
+                                [class.is-invalid]="MipymeForm.controls.proteccionDeAlarma.invalid"
+                                [class.form-control-plaintext]="MipymeForm.disabled"
+                                [class.bg-white]="MipymeForm.disabled" formControlName="proteccionDeAlarma">
+                                <option *ngFor="let tipo of proteccionAlarmaLista" [ngValue]="tipo">{{ tipo.tipo }}
+                                </option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.proteccionDeAlarma.errors?.required">Por favor
+                                    ingresa un valor.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <label for="filterListaSegurosField"
+                                [class.input-filled]="MipymeForm.controls.proteccionDeVigilancia.value !== ''">Protección
+                                vigilancia</label>
+                            <select id="filterListaSegurosField" class="w-100"
+                                [class.is-invalid]="MipymeForm.controls.proteccionDeVigilancia.invalid"
+                                [class.form-control-plaintext]="MipymeForm.disabled"
+                                [class.bg-white]="MipymeForm.disabled" formControlName="proteccionDeVigilancia">
+                                <option *ngFor="let tipo of proteccionVigilanciaLista" [ngValue]="tipo">{{ tipo.tipo }}
+                                </option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.proteccionDeVigilancia.errors?.required">Por favor
+                                    ingresa un valor.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <label for="filterListaSegurosField"
+                                [class.input-filled]="MipymeForm.controls.departamentoResidencial.value !== ''">Departamento</label>
+                            <select id="filterListaSegurosField" class="w-100"
+                                [class.is-invalid]="MipymeForm.controls.departamentoResidencial.invalid"
+                                [class.form-control-plaintext]="MipymeForm.disabled"
+                                [class.bg-white]="MipymeForm.disabled" formControlName="departamentoResidencial"
+                                (change)="actualizarMunicipios($event.target.value, 'residencial')">
+                                <option *ngFor="let tipo of departamentos" [value]="tipo.divipolad">{{ tipo.departamento
+                                    }}
+                                </option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.departamentoResidencial.errors?.required">Por favor
+                                    ingresa un valor.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="group-form-material mt-2">
+                            <label for="filterListaSegurosField"
+                                [class.input-filled]="MipymeForm.controls.municipioResid.value !== ''">Ciudad/Municipio</label>
+                            <select id="filterListaSegurosField" class="w-100"
+                                [class.is-invalid]="MipymeForm.controls.municipioResid.invalid"
+                                [class.form-control-plaintext]="MipymeForm.disabled"
+                                [class.bg-white]="MipymeForm.disabled" formControlName="municipioResid">
+                                <option *ngFor="let tipo of municipiosDisponiblesResidencial" [value]="tipo.divipolam">
+                                    {{ tipo.municipio }}
+                                </option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <div class="invalid-feedback">
+                                <span *ngIf="MipymeForm.controls.municipioResid.errors?.required">Por favor
+                                    ingresa un valor.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4" style="margin-right: 12px;">
+                <div class="col-12 col-sm-12">
+                    <div class="group-form-material mt-2">
+                        <label for="filterListaSegurosField"
+                            [class.input-filled]="MipymeForm.controls.tipoConstruccion.value !== ''">Tipo de
+                            construcción</label>
+                        <select id="filterListaSegurosField" class="w-100"
+                            [class.is-invalid]="MipymeForm.controls.tipoConstruccion.invalid"
+                            [class.form-control-plaintext]="MipymeForm.disabled"
+                            [class.bg-white]="MipymeForm.disabled" formControlName="tipoConstruccion">
+                            <option *ngFor="let tipo of tipoConstruccion" [ngValue]="tipo">{{ tipo.tipo }}
+                            </option>
+                        </select>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <div class="invalid-feedback">
+                            <span *ngIf="MipymeForm.controls.tipoConstruccion.errors?.required">Por favor
+                                ingresa un valor.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 mensaje" *ngIf="MipymeForm.errors?.alMenosUnoRequerido && MipymeForm.touched">
+                Por favor, seleccione "Sí" en alguna de las dos preguntas.
+              </div>
+              
+        </form>
+
+
+    </div>
+
+    <div class="modal-footer border-0">
+        <div class="d-flex w-100 justify-content-center">
+            <div class="mx-2">
+                <a class="btn btn-primary" (click)="agregarSeguroMipyme()">Guardar Cambios</a>
+            </div>
+            <div class="mx-2">
+                <a class="btn btn-outline-danger" (click)="borrarDatos()">Borrar Datos</a>
+            </div>
+        </div>
+    </div>
+</div>

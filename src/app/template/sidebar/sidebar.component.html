@@ -1,0 +1,54 @@
+<div class="sidebar-user-wrap">
+  <div class="sidebar-user-info-wrap d-flex">
+    <div class="user-info">
+      <span class="user-name">{{ session.user.nombre }} {{ session.user.apellido }}</span>
+      <!--<span
+        class="user-connection">&Uacute;ltima conexión: {{ session.user.ultimaConexion | date: 'dd/MM/yyyy hh:mm' }}</span>-->
+      <span class="user-connection">Bienvenido a Prospera</span>
+    </div>
+  </div>
+</div>
+<nav menuToggleDirective class="navigation">
+  <ul>
+    <li class="nav-item drop-indicator" menuToggleLink *ngFor="let menuitem of menu">
+      <a menuToggle [routerLink]="['/', menuitem.state]" routerLinkActive="active-link"
+         *ngIf="menuitem.type === 'link'">
+        <i appSvg [content]="menuitem.icon"></i>
+        <p class="text-nowrap mb-0">
+          <span>{{ menuitem.name }}</span>
+        </p>
+      </a>
+      <a menuToggle href="javascript:void(0)" *ngIf="menuitem.type === 'sub'">
+        <i appSvg [content]="menuitem.icon">
+        </i>
+        <p class="text-nowrap mb-0">
+          <span>{{ menuitem.name }}</span>
+          <i class="drop-indicator" aria-hidden="true"></i>
+        </p>
+      </a>
+      <ul class="sub-menu" *ngIf="menuitem.type === 'sub'">
+        <li class="nav-item" *ngFor="let childitem of menuitem.children" routerLinkActive="open">
+          <a [routerLink]="['/', menuitem.state, childitem.state ]" routerLinkActive="active-link">
+            <i class="icon icon-arrows-right-double"></i>
+            <p class="text-nowrap mb-0"><span>{{ childitem.name }}</span></p>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item drop-indicator" menuToggleLink>
+      <a menuToggle href="javascript:void(0)" (click)="logout()">
+        <i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20.81" height="20.75" viewBox="0 0 20.81 20.75">
+            <path id="Trazado_12" data-name="Trazado 12"
+                  d="M36.3,510.5H24.01a.5.5,0,1,1,0-1H36.3l-3.15-3.15a.5.5,0,0,1,0-.71c.2-.2.71,0,.71,0l4,4a.5.5,0,0,1,0,.71l-4,4a.5.5,0,1,1-.71-.71ZM27.51,501H20.52A1.509,1.509,0,0,0,19,502.5v15a1.509,1.509,0,0,0,1.52,1.5H27.5a.5.5,0,0,1,0,1H20.52A2.512,2.512,0,0,1,18,517.5v-15a2.512,2.512,0,0,1,2.52-2.5H27.5a.5.5,0,0,1,.01,1Z"
+                  transform="translate(-17.625 -499.625)" fill="#fff" stroke="#fff" stroke-miterlimit="10"
+                  stroke-width="0.75"/>
+          </svg>
+        </i>
+        <p class="text-nowrap mb-0">
+          <span>Cerrar sesi&oacute;n</span>
+        </p>
+      </a>
+    </li>
+  </ul>
+</nav>

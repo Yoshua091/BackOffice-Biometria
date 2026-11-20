@@ -1,0 +1,167 @@
+<div id="modal-venta-seguros" class="px-2">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Venta de seguros</h4>
+        <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></a>
+    </div>
+
+    <div class="modal-body px-2">
+        <form [formGroup]="form" class="row justify-content-center">
+            <div class="col-6 ">
+                <div class="group-form-material">
+                    <label for="filterListaSegurosField"
+                        [class.input-filled]="form.controls.idSeguro.value !== ''">Seleccione un seguro
+                        opcional</label>
+                    <select id="filterListaSegurosField" class="w-100"
+                        [class.is-invalid]="form.controls.idSeguro.invalid"
+                        [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                        formControlName="idSeguro" (change)="onSelectSeguro()">
+                        <option *ngFor="let seguro of listaSeguros" [ngValue]="seguro.seguroId">{{ seguro.nombre }}
+                        </option>
+                    </select>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                </div>
+            </div>
+        </form>
+
+        <div class="modal-content" *ngIf="selectedSeguro">
+            <!-- Seguro accidente personales  -->
+            <div *ngIf="selectedSeguro">
+                <div class="row">
+                    <div class="col-6">
+                        <span class="titulo-seccion-nombre">{{ getSelectedSeguroName() }}</span>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span class="dato-valor">Valor del seguro: {{ selectedSeguro?.valorMensual | currency: '$':
+                            'symbol': '1.0-0' }}</span>
+                    </div>
+                </div>
+                <div class="col-12 detalle-cliente-dato" style="padding-top: 21px;">
+                    <span class="dato-valor">Detalle del seguro</span>
+                </div>
+                <div class="col-12 d-flex flex-column detalle-cliente-dato">
+                    <span class="dato-label">Cobertura</span>
+                </div>
+                <ng-container *ngFor="let detalle of selectedSeguro.detalles">
+                    <div class="col-12 detalle-cliente-dato d-flex justify-content-between">
+                        <span class="dato-valor">{{ detalle.clave }}</span>
+                        <span class="dato-valor">{{ detalle.valor }}</span>
+                    </div>
+                </ng-container>
+
+                <!-- Periodo de Carencia -->
+                <div class="col-12 mt-4" *ngIf="selectedSeguro.seguroId === 2 || selectedSeguro.seguroId === 3">
+                    <div class="d-flex justify-content-center">
+                        <div class="content-wrapper d-flex justify-content-center">
+                            <ul class="list-unstyled dato-valor">
+                                <li class="list-item">
+                                    <span class="viñeta"></span>
+                                    <span class="titulo-seccion-periodo">Periodos de Carencia:</span>
+                                </li>
+                                <li class="list-item ">
+                                    <span class="viñeta">•</span>
+                                    <span class="texto tex">A partir de las 24 horas siguientes a la fecha de reporte de
+                                        la afiliación a la Compañía de Seguros si el fallecimiento sobreviniere por
+                                        causa de un accidente u homicidio.</span>
+                                </li>
+                                <li class="list-item">
+                                    <span class="viñeta">•</span>
+                                    <span class="texto">A partir del día cuarenta y seis (46), contados desde la fecha
+                                        de iniciación de su vigencia, por causa de cualquier enfermedad excepto cáncer,
+                                        SIDA y enfermedades graves.</span>
+                                </li>
+                                <li class="list-item">
+                                    <span class="viñeta">•</span>
+                                    <span class="texto">A partir del día noventa (90), contados desde la fecha de
+                                        iniciación de su vigencia, por cualquier enfermedad grave.</span>
+                                </li>
+                                <li class="list-item">
+                                    <span class="viñeta">•</span>
+                                    <span class="texto">A partir del día ciento ochenta y uno (181), contados desde la
+                                        fecha de iniciación de su vigencia, por cualquier causa, incluyendo cáncer o
+                                        SIDA.</span>
+                                </li>
+                                <li class="list-item">
+                                    <span class="viñeta">•</span>
+                                    <span class="texto">A partir del día trescientos sesenta y seis (366), contados
+                                        desde la fecha de iniciación de su vigencia, por suicidio.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-footer border-0">
+        <div class="row w-100 justify-content-center">
+            <div class="col-6" *ngIf="selectedSeguro?.seguroId === 1 || selectedSeguro?.seguroId === 6">
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-primary custom-width" (click)="listaBeneficiariosAccidentesPersonales()">Lista
+                        Beneficiarios ({{ beneficiariosAccidentesPersonalesCount }})</a>
+                </div>
+            </div>
+            <div class="col-12 mensaje-validaciones mt-4">
+                <span *ngIf="errorMessage && selectedSeguro?.seguroId === 1 || selectedSeguro?.seguroId === 6">
+                    {{ errorMessage }}
+                </span>
+            </div>
+        </div>
+        <div class="row w-100 justify-content-center" *ngIf="beneficiariosAccidentesPersonalesCount > 0">
+            <div class="col-6">
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-primary custom-width" (click)="guardarSeguroAccidestesPersonales()">Guardar
+                        Seguro</a>
+                </div>
+            </div>
+        </div>
+        <!-- Contenedor de los botones (solo si la edad es válida) -->
+        <div class="d-flex w-100 justify-content-center" *ngIf="esEdadValida">
+            <div class="mx-2" *ngIf="selectedSeguro?.seguroId === 2 || selectedSeguro?.seguroId === 3">
+                <a class="btn btn-primary" (click)="listaBeneficiarios()">Lista Beneficiarios ({{ beneficiariosCount
+                    }})</a>
+            </div>
+            <div class="mx-2" *ngIf="selectedSeguro?.seguroId === 2 || selectedSeguro?.seguroId === 3">
+                <a class="btn btn-primary" (click)="listaAsegurados()">Lista Asegurados ({{ aseguradosCount }})</a>
+            </div>
+        </div>
+
+
+        <!-- Seguro Mipyme -->
+        <div class="row w-100 justify-content-center">
+            <div class="col-12 text-center" *ngIf="selectedSeguro?.seguroId === 4 || selectedSeguro?.seguroId === 5">
+                <a class="btn btn-primary mb-3" (click)="listaMipyme()">
+                    Datos del Mipyme a Asegurar ({{ mipymeCount }})
+                </a>
+            </div>
+            <div class="col-12 text-center" *ngIf="mipymeCount > 0">
+                <a class="btn btn-primary custom-width" (click)="guardarSeguroMipyme()">Guardar Seguro</a>
+            </div>
+            <div class="col-12 mensaje-validaciones text-center mt-2">
+                <span *ngIf="(errorCodigoCIIU && (selectedSeguro?.seguroId === 4 || selectedSeguro?.seguroId === 5))">
+                    {{ errorCodigoCIIU }}
+                </span>
+            </div>
+        </div>
+
+
+
+        <div class="col-12 mensaje-validaciones">
+            <span *ngIf="!esEdadValida && (selectedSeguro?.seguroId === 2 || selectedSeguro?.seguroId === 3)">
+                {{ errorMessageExequias }}
+            </span>
+        </div>
+
+        <div class="row w-100 justify-content-center"
+            *ngIf="(beneficiariosCount > 0 && aseguradosCount > 0) || selectedSeguro?.seguroId === 7">
+            <div class="col-6">
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-primary custom-width" (click)="guardarSeguro()">Guardar Seguro</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,417 @@
+<div id="modal-rechazar-docs" class="px-2">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ titulosModal[navMetodos.activeId] }}</h4>
+    <a class="close icon-close text-primary" (click)="modal.dismiss('Cross click')"></a>
+  </div>
+  <div class="modal-body">
+    <ul class="nav-pills" ngbNav #navMetodos="ngbNav">
+      <li [ngbNavItem]="montoVentasKeys.REGISTROS_VENTAS"
+          *ngIf="(montoVentas | mostrarDetalleMetodos: montoVentasKeys.REGISTROS_VENTAS)">
+        <a ngbNavLink>Registros de ventas</a>
+        <ng-template ngbNavContent>
+          <div class="row py-3">
+
+            <!-- INGRESOS SEMANA ANTERIOR -->
+            <div class="col-12 col-sm-6 contenedor-detalle">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>Ingresos semana anterior</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>
+                    <span>Lunes:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaAnterior?.lunes | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Martes:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaAnterior?.martes | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Mi&eacute;rcoles:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaAnterior?.miercoles | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Jueves:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaAnterior?.jueves | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Viernes:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaAnterior?.viernes | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>S&aacute;bado:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaAnterior?.sabado | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Domingo:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaAnterior?.domingo | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <td class="d-flex justify-content-center align-items-center">
+                    <span>Total semana anterior:</span>
+                    <span>{{ (montoVentas | detalleMetodos: montoVentasKeys.REGISTROS_VENTAS)?.totalSemanaAnterior  | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <!-- INGRESOS SEMANA ACTUAL -->
+            <div class="col-12 col-sm-6 contenedor-detalle">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>Ingresos semana actual</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>
+                    <span>Lunes:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaActual?.lunes | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Martes:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaActual?.martes | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Mi&eacute;rcoles:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaActual?.miercoles | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Jueves:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaActual?.jueves | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Viernes:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaActual?.viernes | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>S&aacute;bado:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaActual?.sabado | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Domingo:</span>
+                    <span>{{ montoVentas.registroDeVentas?.semanaActual?.domingo | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <td class="d-flex justify-content-center align-items-center">
+                    <span>Total semana actual:</span>
+                    <span>{{ (montoVentas | detalleMetodos: montoVentasKeys.REGISTROS_VENTAS)?.totalSemanaActual  | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <!-- TOTAL INGRESOS -->
+            <div class="col-12 contenedor-detalle">
+              <table class="table">
+                <tfoot>
+                <tr>
+                  <td class="d-flex justify-content-center align-items-center">
+                    <span>Ventas mensuales totales:</span>
+                    <span>{{ (montoVentas | detalleMetodos: montoVentasKeys.REGISTROS_VENTAS)?.totalMensual  | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="montoVentasKeys.BUENOS_MALOS" *ngIf="(montoVentas | mostrarDetalleMetodos: montoVentasKeys.BUENOS_MALOS)">
+        <a ngbNavLink>D&iacute;as buenos y malos</a>
+        <ng-template ngbNavContent>
+          <div class="row py-3">
+
+            <!-- NUM DIAS BUENOS Y MALOS -->
+            <div class="col-12 col-sm-6 contenedor-detalle">
+              <table class="table">
+                <tbody>
+                <tr>
+                  <td>
+                    <span>N&uacute;mero de d&iacute;as buenos:</span>
+                    <span>{{ montoVentas.diasBuenosMalos?.numeroDiasBuenos }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>N&uacute;mero de d&iacute;as regulares:</span>
+                    <span>{{ montoVentas.diasBuenosMalos?.numeroDiasRegulares }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>N&uacute;mero de d&iacute;as malos:</span>
+                    <span>{{ montoVentas.diasBuenosMalos?.numeroDiasMalos }}</span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- VENTAS DIAS BUENOS Y MALOS -->
+            <div class="col-12 col-sm-6 contenedor-detalle">
+              <table class="table">
+                <tbody>
+                <tr>
+                  <td>
+                    <span>Ventas en un d&iacute;a bueno:</span>
+                    <span>{{ montoVentas.diasBuenosMalos?.ventasEnUnDiaBueno | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Ventas en un d&iacute;a regular:</span>
+                    <span>{{ montoVentas.diasBuenosMalos?.ventasEnUnDiaRegular | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Ventas en un d&iacute;a malo:</span>
+                    <span>{{ montoVentas.diasBuenosMalos?.ventasEnUnDiaMalo | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- TOTAL INGRESOS -->
+            <div class="col-12 contenedor-detalle">
+              <table class="table">
+                <tfoot>
+                <tr class="d-flex justify-content-center">
+                  <td class="d-flex justify-content-center align-items-center">
+                    <span>Ventas semanales totales:</span>
+                    <span>{{ (montoVentas | detalleMetodos: montoVentasKeys.BUENOS_MALOS)?.totalmensual / 4 | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                  <td class="d-flex justify-content-center align-items-center">
+                    <span>Ventas mensuales totales:</span>
+                    <span>{{ (montoVentas | detalleMetodos: montoVentasKeys.BUENOS_MALOS)?.totalmensual | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="montoVentasKeys.POR_PERIODO" *ngIf="(montoVentas | mostrarDetalleMetodos: montoVentasKeys.POR_PERIODO)">
+        <a ngbNavLink>Ventas por periodo</a>
+        <ng-template ngbNavContent>
+          <div class="row py-3">
+            <!-- VENTAS POR PERIODO -->
+            <div class="col-12 col-sm-6 contenedor-detalle">
+              <table class="table">
+                <tbody>
+                <tr>
+                  <td>
+                    <span>Ventas:</span>
+                    <span>{{ montoVentas.ventasPorPeriodo?.periodicidadVentasPeriodo.periodo }}</span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- PERIODICIDAD -->
+            <div class="col-12 col-sm-6 contenedor-detalle">
+              <table class="table">
+                <tbody>
+                <tr>
+                  <td>
+                    <span>Periodicidad:</span>
+                    <span>{{ montoVentas.ventasPorPeriodo?.ventas | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- TOTAL -->
+            <div class="col-12 contenedor-detalle">
+              <table class="table">
+                <tfoot>
+                <tr>
+                  <td class="d-flex justify-content-center align-items-center">
+                    <span>Ventas mensuales totales:</span>
+                    <span>{{ (montoVentas | detalleMetodos: montoVentasKeys.POR_PERIODO)  | currency: '$' : 'symbol' : '1.0-0'  }}</span>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="montoVentasKeys.COMPRAS_PROVEEDORES" *ngIf="(montoVentas | mostrarDetalleMetodos: montoVentasKeys.COMPRAS_PROVEEDORES : ciiu)">
+        <a ngbNavLink>Relaci&oacute;n compras proveedores</a>
+        <ng-template ngbNavContent>
+          <div class="row py-3">
+
+            <!-- PROVEEDOR 1 -->
+            <div class="col-12 contenedor-detalle">
+              <table class="table">
+                <tbody>
+                <tr>
+                  <td class="d-flex justify-content-between align-items-center">
+                    <span>Veces al mes Proveedor 1:</span>
+                    <span>{{ montoVentas.relacionComprasProveedores?.vecesAlMesProveedor1 }} veces</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="d-flex justify-content-between align-items-center">
+                    <span>Valor promedio de cada compra Proveedor 1:</span>
+                    <span>{{ montoVentas.relacionComprasProveedores?.valorPromCompraProveedor1 | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <td class="d-flex justify-content-end align-items-center">
+                    <span>Total proveedor 1:</span>
+                    <span>{{ (montoVentas | detalleMetodos: montoVentasKeys.COMPRAS_PROVEEDORES : ciiu)?.totalproveedor1 | currency: '$' : 'symbol' : '1.0-0'  }}</span>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <!-- PROVEEDOR 2 -->
+            <div class="col-12 contenedor-detalle">
+              <table class="table">
+                <tbody>
+                <tr>
+                  <td class="d-flex justify-content-between align-items-center">
+                    <span>Veces al mes Proveedor 2:</span>
+                    <span>{{ montoVentas.relacionComprasProveedores?.vecesAlMesProveedor2 }} veces</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="d-flex justify-content-between align-items-center">
+                    <span>Valor promedio de cada compra Proveedor 2:</span>
+                    <span>{{ montoVentas.relacionComprasProveedores?.valorPromCompraProveedor2 | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <td class="d-flex justify-content-end align-items-center">
+                    <span>Total proveedor 2:</span>
+                    <span>{{ (montoVentas | detalleMetodos: montoVentasKeys.COMPRAS_PROVEEDORES : ciiu)?.totalproveedor2 | currency: '$' : 'symbol' : '1.0-0'  }}</span>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <!-- PROVEEDOR 3 -->
+            <div class="col-12 contenedor-detalle">
+              <table class="table">
+                <tbody>
+                <tr>
+                  <td class="d-flex justify-content-between align-items-center">
+                    <span>Veces al mes Proveedor 3:</span>
+                    <span>{{ montoVentas.relacionComprasProveedores?.vecesAlMesProveedor3 }} veces</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="d-flex justify-content-between align-items-center">
+                    <span>Valor promedio de cada compra Proveedor 3:</span>
+                    <span>{{ montoVentas.relacionComprasProveedores?.valorPromCompraProveedor3 | currency: '$' : 'symbol' : '1.0-0' }}</span>
+                  </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                  <td class="d-flex justify-content-end align-items-center">
+                    <span>Total proveedor 3:</span>
+                    <span>{{ (montoVentas | detalleMetodos: montoVentasKeys.COMPRAS_PROVEEDORES : ciiu)?.totalproveedor3 | currency: '$' : 'symbol' : '1.0-0'  }}</span>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            <!-- CIIU DETALLE -->
+            <div class="col-12 contenedor-detalle">
+              <table class="table">
+                <tbody>
+                <tr class="d-flex justify-content-between">
+                  <td class="d-flex justify-content-between align-items-center">
+                    <span>Limite m&iacute;nimo por actividad:</span>
+                    <span>{{ ciiu.limiteMinimo }}%</span>
+                  </td>
+
+                  <td class="d-flex justify-content-between align-items-center">
+                    <span>Limite m&aacute;ximo por actividad:</span>
+                    <span>{{ ciiu.limiteMaximo }}%</span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- TOTAL INGRESOS -->
+            <div class="col-12 contenedor-detalle">
+              <table class="table">
+                <tfoot>
+                <tr>
+                  <td class="d-flex justify-content-center align-items-center">
+                    <span>Total ventas mensuales:</span>
+                    <span>{{ (montoVentas | detalleMetodos: montoVentasKeys.COMPRAS_PROVEEDORES : ciiu)?.totalproveedores | currency: '$' : 'symbol' : '1.0-0'  }}</span>
+                  </td>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div [ngbNavOutlet]="navMetodos"></div>
+  </div>
+  <div class="modal-footer border-0">
+    <!-- BOTON ENTENDIDO -->
+    <div class="row w-100 justify-content-center">
+      <div class="col-8">
+        <button class="btn btn-dark w-100" (click)="modal.dismiss()">Entendido</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+.detalle {
+    &-archivo {
+      padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
+      border-bottom: 1px solid #dee2e6;
+  
+      &__dato {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+        font-size: 16px;
+  
+        .dato-label {
+          color: #222222;
+        }
+  
+        .dato-valor {
+          font-weight: bold;
+          color: #cc0000;
+        }
+      }
+    }
+  
+    &-procesados {
+      padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
+      border-radius: 5px;
+      max-height: 250px;
+      overflow-y: auto;
+  
+      &__item {
+        display: flex;
+        align-items: center;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #dee2e6;
+  
+        &-group {
+          display: flex;
+          align-items: center;
+  
+          > i {
+            padding-right: 0.5rem;
+  
+            &.no-completado {
+              content: url("../../../../assets/images/documento-rechazado.svg");
+            }
+  
+            &.completado {
+              content: url("../../../../assets/images/documento-aprobado.svg");
+            }
+          }
+          &-dato {
+            display: flex;
+            flex-flow: column;
+  
+  
+            .dato-label {
+              font-size: 14px;
+            }
+  
+            .dato-valor {
+              font-weight: bold;
+              font-size: 16px;
+            }
+          }
+        }
+  
+  
+      }
+    }
+  
+    &-errores {
+      padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
+      border-radius: 5px;
+      max-height: 250px;
+      overflow-y: auto;
+  
+      &__item {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #dee2e6;
+  
+        .dato-label {
+          font-weight: bold;
+          font-size: 16px;
+        }
+  
+        .dato-valor {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  
+  .nav-pills {
+    .nav-link {
+      color: #545454;
+    }
+  
+    .nav-link.active,
+    .show > .nav-link {
+      color: #545454;
+      font-weight: 700;
+      background-color: transparent;
+    }
+  }
+  

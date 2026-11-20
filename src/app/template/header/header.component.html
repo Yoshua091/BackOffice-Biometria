@@ -1,0 +1,29 @@
+<header
+  class="main-header d-flex  justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 fixed-top">
+  <div class="d-flex align-items-center">
+    <a class="icon-hamburger" (click)="toggleSideBar()"></a>
+    <a class="navbar-brand mr-0 mr-md-2" [routerLink]="session.defaulURL()" aria-label="Prospera">
+      <img src="../../../assets/images/brand.svg" alt="prospera santander brand">
+    </a>
+    <a class="navbar-brand mr-4 mr-md-4 col-2" style="height: 25px; padding-left:0px;">
+      <span style="color: #fff; font-size: 12px;">v2.9</span>
+    </a>
+  </div>
+  <ul class="d-none d-md-flex flex-row mb-2 mb-md-0 nav" style="position: relative; right: 20px">
+    <li class="nav-item">
+      <a class="btn btn-outline-primary" [routerLink]="['/propuestas/buscar']">
+        <span><img src="../../../assets/images/Trazado10.png" alt="Buscar"></span> BUSCAR
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="btn btn-outline-primary" [routerLink]="['/propuestas/filtrar']">
+        <span><img src="../../../assets/images/Trazado11.png" alt="Filtrar"></span> FILTRAR
+      </a>
+    </li>
+    <li class="rounded-circle header-avatar nav-item">
+      <span class="avatar">
+        {{ session.user.nombre.substring(0, 1).toUpperCase()}} {{ session.user.apellido.substring(0, 1).toUpperCase() }}
+      </span>
+    </li>
+  </ul>
+</header>

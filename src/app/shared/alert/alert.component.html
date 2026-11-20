@@ -1,0 +1,28 @@
+<div class="px-2">
+  <div class="modal-header">
+    <div class="d-flex align-items-center">
+      <svg *ngIf="level === 2 && type === 2" width="20" height="20" viewBox="0 0 20 20">
+        <g id="_3negado" data-name="3negado" transform="translate(-1319 -2289)">
+          <path id="Trazado_21" data-name="Trazado 21" d="M20,10A10,10,0,1,1,10,0,10,10,0,0,1,20,10ZM13.9,6.63,8.182,12.351,6.1,10.266a.909.909,0,0,0-1.286,1.286l2.727,2.727a.909.909,0,0,0,1.286,0l6.364-6.364A.909.909,0,0,0,13.9,6.63Z" transform="translate(1319 2289)" fill="#429321"/>
+        </g>
+      </svg>
+      <svg *ngIf="level === 4 && type === 2" width="20" height="20" viewBox="0 0 20 20">
+        <g id="_4aprobado" data-name="4aprobado" transform="translate(-1319 -2334)">
+          <path id="Trazado_22" data-name="Trazado 22" d="M250,8.714l-2.994-2.994a.909.909,0,0,0-1.285,1.286L248.715,10l-2.994,2.994a.909.909,0,0,0,1.285,1.286L250,11.286l2.994,2.994a.909.909,0,1,0,1.285-1.286L251.285,10l2.994-2.994a.909.909,0,1,0-1.285-1.286ZM260,10A10,10,0,1,1,250,0,10,10,0,0,1,260,10Z" transform="translate(1079 2334)" fill="#f14c4c"/>
+        </g>
+      </svg>
+      <h4 class="modal-title" [class.pl-3]="(level === 2 && type === 2) || (level === 4 && type === 2)">{{ title }}</h4>
+    </div>
+  </div>
+  <div class="modal-body" [innerHTML]="description">
+    <span class="pt-3 text-left">{{description}}</span>
+  </div>
+  <div class="modal-footer border-0">
+    <button *ngIf="buttons === 1" (click)="active.close(true)" class="btn btn-primary">Cerrar</button>
+
+    <div class="d-flex justify-content-center align-content-center mt-3 w-100" *ngIf="buttons === 2">
+      <button (click)="active.close(false)" class="btn btn-dark w-25 mx-2">No</button>
+      <button (click)="active.close(true)" class="btn btn-primary w-25 mx-2" [class.btn-success]="level === 2" [class.btn-danger]="level === 4">Sí</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,134 @@
+<div id="modal-verificar-docs" class="px-2">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Verificaci&oacute;n de documentos</h4>
+    <button type="button" class="close icon-close text-primary" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body row">
+
+    <div class="col-12 col-sm-5">
+      <div class="card">
+        <div class="card-header bg-white">
+          <span class="card-title">Lista de documentos</span>
+        </div>
+        <div class="card-body">
+          <ul class="nav-pills" ngbNav #navDocs="ngbNav" [(activeId)]="seleccionado"
+            (navChange)="_documentoChange($event)" [orientation]="'vertical'">
+            <li *ngFor="let key of keys" [ngbNavItem]="key">
+              <a ngbNavLink class="text-left d-flex align-items-center"
+                *ngIf="modo === 1 && !key.toLowerCase().includes('documentoanverso')">
+                <i class="icono-estado" [class.no-revisado]="aprobarImgForms[key].controls.aprobada.value === 0"
+                  [class.aprobado]="aprobarImgForms[key].controls.aprobada.value === 1"
+                  [class.rechazado]="aprobarImgForms[key].controls.aprobada.value === 2"></i>
+                <span class="pl-2">{{ aprobarImgForms[key].controls.titulo.value }}</span>
+              </a>
+              <ng-template ngbNavContent *ngIf="modo === 1 && !key.toLowerCase().includes('documentoanverso')">
+                <div class="d-flex flex-column">
+
+
+                  <!-- DETALLE DOCUMENTO - EVALUAR FIRMAS -->
+                  <div class="h-100 py-3" *ngIf="modo === 1">
+                    <div class="d-flex justify-content-between border-bottom py-2">
+                      <span>Firma</span>
+                    </div>
+                    <div class="row py-3">
+                      <div class="col-12 col-sm-6">
+                        <img width="100%"
+                          [src]="obtenerImagen(aprobarImgForms.fotoDocumentoAnverso.controls.nombre.value)"
+                          alt="Imagen del documento anverso">
+                      </div>
+                      <div class="col-12 col-sm-6 declaracion">
+                        <span class="titulo-seccion py-2"> Declaración de origen de fondos</span>
+                        <p class="py-2">{{ declaracionFondos }}</p>
+                      </div>
+                    </div>
+
+
+                    <!-- Si no se cumple con las condiciones de OTP -->
+                    <div class="d-flex justify-content-between border-bottom py-2 mb-3">
+                      <span>Firma</span>
+                    </div>
+                    <!-- Si hay al menos un documento que cumple con las condiciones -->
+                    <!-- Mostrar mensaje de OTP solo para documentos que cumplen con las condiciones -->
+                    <div *ngIf="documentosOtpInfo[seleccionado] as otpInfo"
+                      class="h-25 d-flex align-items-center justify-content-center">
+                      <p class="mensaje-otp">
+                        Firmado mediante OTP
+                        <span class="otp-codigo">{{ otpInfo?.codigo }}</span>
+                        en fecha
+                        <span class="otp-fecha">{{ otpInfo?.fechaEnvio | date:'dd/MM/yyyy' }}</span>
+                        por
+                        {{ cliente?.nombre1 || '' | uppercase }}
+                        {{ cliente?.nombre2 || '' |uppercase }}
+                        {{ cliente?.apellido1 || ''| uppercase }}
+                        {{ cliente?.apellido2 || '' | uppercase }}
+                      </p>
+
+
+                    </div>
+
+                    <!-- Mostrar imagen si no fue firmado por OTP -->
+                    <div [ngStyle]="{ 'visibility': !documentosOtpInfo[seleccionado] ? 'visible' : 'hidden' }"
+                      class="h-25 d-flex align-items-center justify-content-center border border-secondary">
+                      <img width="50%" [src]="obtenerSeguro(aprobarImgForms[key].controls.nombre.value)"
+                        alt="Imagen del documento {{ aprobarImgForms[key].controls.nombre.value }}">
+                    </div>
+
+
+
+                  </div>
+
+                  <div *ngIf="modo === 0">
+                    <form [formGroup]="aprobarImgForms[key]">
+                      <label class="form-group form-check">
+                        <input id="confirm{{ aprobarImgForms[key].controls.idImagen.value }}" type="checkbox"
+                          class="form-check-input" formControlName="estado"
+                          [class.is-invalid]="aprobarImgForms[key].controlInvalid(aprobarImgForms[key].controls.estado)">
+                        Confirmo que he evaluado la foto de la propuesta y estoy de acuerdo con las validaciones mínimas
+                        requeridas.
+                        <span class="checkmark"></span>
+                        <div class="invalid-feedback">
+                          <span *ngIf="aprobarImgForms[key].controls.estado.errors?.required">Debes confirmar la
+                            evaluaci&oacute;n</span>
+                        </div>
+                      </label>
+                    </form>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-sm-7" [ngbNavOutlet]="navDocs"></div>
+
+  </div>
+  <div class="modal-footer border-0">
+    <div class="row w-100 justify-content-end">
+      <div class="col-12 col-sm-7" *ngIf="session.user.rol.id !== 9 && !isFirmadoPorVista()">
+        <div class="row" *ngIf="!habilitarBoton">
+          <div class="col-6">
+            <a class="btn w-100 btn-outline-secondary" (click)="permisosModulos(2, 4)"
+              *ngIf="!currentForm?.controls.estado.value || modo === 1">Rechazar</a>
+          </div>
+          <div class="col-6">
+            <a class="btn w-100" [class.btn-secondary]="modo === 0" [class.btn-primary]="modo === 1"
+              (click)="permisosModulos(1, 3)">Aprobar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modalZoom>
+  <div class="modal-header border-bottom-0">
+    <button type="button" class="close icon-close text-primary" (click)="modalZoom.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body">
+    <img width="100%" [src]="obtenerImagen(aprobarImgForms[seleccionado].controls.nombre.value)" alt="">
+  </div>
+</ng-template>

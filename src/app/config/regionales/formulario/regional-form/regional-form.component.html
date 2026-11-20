@@ -1,0 +1,69 @@
+<div class="p-3">
+    <a class="btn btn-link text-decoration-none px-0" [routerLink]="['/', 'config', 'regionales']">
+        <img class="boton-back" src="../../../../assets/images/arrow-left.svg">
+        <span class="label-sucur">Lista de regionales</span>
+      </a>
+
+      <div class="d-flex pt-4">
+        <span class="h4">{{ mode.charAt(0).toUpperCase() + mode.substring(1) }} regional</span>
+      </div>
+
+      <form *ngIf="form" class="pt-3" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <div class="group-form-material">
+              <input type="text" class="w-100" formControlName="nombre"
+                     [class.is-invalid]="form.controlInvalid(form.controls.nombre)">
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label [class.input-filled]="form.controls.nombre.value !== ''">Nombre</label>
+              <div class="invalid-feedback">
+                <span *ngIf="form.controls.nombre.errors?.maxlength">Solo puedes ingresar hasta {{ form.controls.nombre.errors?.maxlength.requiredLength }} caracteres.</span>
+                <span *ngIf="form.controls.nombre.errors?.required">Por favor ingresa un nombre.</span>
+                <span *ngIf="form.controls.nombre.errors?.pattern">Por favor valida el formato</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="group-form-material">
+              <label for="regionalFormGerenteField" [class.input-filled]="form.controls.usuarioGerente.value !== ''">Gerente Regional Asignado</label>
+              <select id="regionalFormGerenteField" class="w-100"
+                      [class.is-invalid]="form.controls.usuarioGerente.invalid"
+                      [class.form-control-plaintext]="form.disabled"
+                      [class.bg-white]="form.disabled"
+                      formControlName="usuarioGerente">
+                <option *ngFor="let gerenteRegional of gerentesRegionales" [ngValue]="gerenteRegional">{{ gerenteRegional.nombre | titlecase }} {{ gerenteRegional.apellido | titlecase }}</option>
+              </select>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <div class="invalid-feedback">
+                <span *ngIf="form.controls.usuarioGerente.errors?.required">Por favor selecciona un Gerente Regional.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="group-form-material">
+              <input type="text" class="w-100" formControlName="idRegion"
+                     [class.is-invalid]="form.controlInvalid(form.controls.idRegion)">
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <label [class.input-filled]="form.controls.idRegion.value !== ''">Código Agencia</label>
+              <div class="invalid-feedback">
+                  <span *ngIf="form.controls.idRegion.errors?.required">Por favor ingresa un valor.</span>
+                  <span *ngIf="form.controls.idRegion.errors?.minlength">Campo debe tener m&iacute;nimo {{
+                      form.controls.idRegion.errors?.minlength.requiredLength }} d&iacute;gitos</span>
+                  <span *ngIf="form.controls.idRegion.errors?.maxlength">Campo debe tener m&aacute;ximo {{
+                      form.controls.idRegion.errors?.maxlength.requiredLength }} d&iacute;gitos</span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-row justify-content-end align-items-center mt-5">
+          <button class="btn btn-primary">
+            GUARDAR
+          </button>
+        </div>
+    
+      </form>
+</div>

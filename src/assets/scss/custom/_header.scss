@@ -1,0 +1,64 @@
+/*========== Header Components ============*/
+
+.main-header {
+  align-items: center;
+  background: $header-bg;
+  border-bottom: $header-bottom-border;
+  height: $header-height;
+  display: flex;
+  padding: 0 $header-pad-left-right;
+  z-index: 99;
+  opacity: 1;
+}
+
+/*========== Ham Icon ============*/
+a.icon-hamburger {
+  font-size: 2rem;
+  color: #ffffff;
+  transition: all 0.3s ease-in-out 0s;
+  cursor: pointer;
+}
+
+.navbar-brand {
+  padding-left: 32px;
+  font-size: $page-title-font-size;
+  color: $page-title-color;
+  img {
+    height: 46px;
+  }
+}
+
+.main-header ul li > a.btn {
+  color: $white;
+
+  span {
+    padding-right: 13px;
+  }
+}
+
+.main-header ul li:first-child:after {
+  content: "";
+  border: 1px solid #000000;
+  opacity: 0.37;
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+
+.avatar {
+  font: normal normal bold 14px/15px Roboto;
+  color: #CC0000;
+  opacity: 1;
+  letter-spacing: -1px;
+}
+
+.header-avatar {
+  height: 34px;
+  width: 34px;
+  margin-top: 2px;
+  margin-left: 30px;
+  margin-right: -8px;
+  padding-top: 3px;
+  padding-left: 7px;
+  background: #FFF;
+  border: 1px solid #707070;
+}

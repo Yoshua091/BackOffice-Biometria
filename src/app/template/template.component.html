@@ -1,0 +1,36 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)"
+             size="medium" color="#fff"
+             type="ball-pulse"
+             [fullScreen]="true" [template]="spinnerTemplate"></ngx-spinner>
+
+<app-header (toggleSideBarForMe)="sideBarToggler()"></app-header>
+
+<ng-sidebar-container>
+
+  <div ng-sidebar-content>
+
+    <ng-sidebar [(opened)]="sideBarOpen"
+                [mode]="_mode"
+                [keyClose]="_keyClose"
+                [position]="_position"
+                [dock]="_dock"
+                [dockedSize]="'50px'"
+                [autoCollapseHeight]="_autoCollapseHeight"
+                [autoCollapseWidth]="_autoCollapseWidth"
+                [animate]="_animate">
+      <div class="sidebar-panel">
+        <div class="sidebar-container">
+          <div class="sidenav-scrollbar-container">
+            <app-sidebar></app-sidebar>
+          </div>
+        </div>
+      </div>
+    </ng-sidebar>
+
+    <section class="container-fluid" #scrollContainer>
+      <router-outlet (activate)="onActivate($event, scrollContainer)"></router-outlet>
+    </section>
+
+  </div>
+
+</ng-sidebar-container>

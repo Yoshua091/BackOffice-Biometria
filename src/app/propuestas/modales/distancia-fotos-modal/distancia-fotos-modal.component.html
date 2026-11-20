@@ -1,0 +1,106 @@
+<div id="modal-edicion-campos" class="px-2">
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Posici&oacute;n geogr&aacute;fica y distancia entre miembros del
+      cr&eacute;dito</h5>
+    <button type="button" class="close icon-close text-primary" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body row modal-body-size">
+    <div class="py-2 m-4">
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="col-5">
+            <div class="group-form-material">
+              <label for="DistanciaFotosMiembroUnoField"
+                [class.input-filled]="form.controls.miembroUno.value !== ''">Miembro 1</label>
+              <select id="DistanciaFotosMiembroUnoField" class="w-100"
+                [class.is-invalid]="form.controlInvalid(form.controls.miembroUno)"
+                [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                formControlName="miembroUno">
+                <option *ngFor="let mimebro of solicitud.miembros; let i=index" [ngValue]="i">
+                  {{ mimebro.datosPersonalesCliente?.nombre1 || '' }}
+                  {{ mimebro.datosPersonalesCliente?.nombre2 || '' }}
+                  {{ mimebro.datosPersonalesCliente?.apellido1 || '' }}
+                  {{ mimebro.datosPersonalesCliente?.apellido2 || '' }}
+              </select>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <div class="invalid-feedback">
+                <span *ngIf="form.controls.miembroUno.errors?.required">Por favor
+                  seleccione un
+                  miembro.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-5">
+            <div class="group-form-material">
+              <label for="DistanciaFotosMiembroDosField"
+                [class.input-filled]="form.controls.miembroDos.value !== ''">Miembro 2</label>
+              <select id="DistanciaFotosMiembroDosField" class="w-100"
+                [class.is-invalid]="form.controlInvalid(form.controls.miembroDos)"
+                [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                formControlName="miembroDos">
+                <option *ngFor="let mimebro of solicitud.miembros let i=index" [ngValue]="i">
+                  {{ mimebro.datosPersonalesCliente?.nombre1 || '' }}
+                  {{ mimebro.datosPersonalesCliente?.nombre2 || '' }}
+                  {{ mimebro.datosPersonalesCliente?.apellido1 || '' }}
+                  {{ mimebro.datosPersonalesCliente?.apellido2 || '' }}
+              </select>
+              <span class="highlight"></span>
+              <span class="bar"></span>
+              <div class="invalid-feedback">
+                <span *ngIf="form.controls.miembroDos.errors?.required">Por favor
+                  seleccione un
+                  miembro.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-2  d-flex align-items-center">
+            <button class="btn btn-primary mr-2" style="min-width: 125px" (click)="listarPosicion()">
+              Calcular
+            </button>
+          </div>
+        </div>
+      </form>
+      <div *ngIf="mostarTabla">
+        <table class="table my-4">
+          <thead>
+            <tr>
+              <th class="col-2 font-weight-bold">Foto
+              </th>
+              <th class="col-3 font-weight-bold" style="text-align: center">
+                Posici&oacute;n Miembro1
+              </th>
+              <th class="col-3 font-weight-bold" style="text-align: center">
+                Posici&oacute;n Miembro2</th>
+              <th class="col-2 font-weight-bold" style="text-align: center">
+                Distancia
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dato of mostrarDatos">
+              <td class="col-2 titulo-seccion">
+                {{dato.keyFoto}}
+              </td>
+              <td class="col-3 titulo-seccion" style="text-align: right">
+                {{dato.longitudMiembroUno || 'No existe'}}
+                {{dato.latitudMiembroUno}}
+              </td>
+              <td class="col-3 titulo-seccion" style="text-align: right">
+                {{dato.longitudMiembroDos || 'No existe'}}
+                {{dato.latitudMiembroDos}}
+              </td>
+              <td class="col-3 titulo-seccion" style="text-align: right">{{dato.distanciaFotos || 'No existe'}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-center py-3" *ngIf="noHayDatos">
+        <span class="h4 align-self-center titulo-seccion">No hay datos para mostrar</span>
+      </div>
+      <!-- <google-map></google-map> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+<div id="modal-sin-acuerdo-pago" class="px-2">
+  <div class="modal-header py-3">
+    <h4 class="modal-title" id="modal-basic-title">Crear acuerdo de pago - Seleccionar cliente</h4>
+    <button type="button" class="close icon-close text-primary" (click)="modal.dismiss('Cross click')">
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div class="mb-2">
+      <span class="leyenda">Selecciona con quien deseas realizar un acuerdo de pago</span>
+    </div>
+
+    <form [formGroup]="form">
+
+      <div class="opciones-comentario">
+
+        <!-- LIDER / CODEUDOR -->
+        <div class="detalle-cliente py-3">
+          <div class="mb-1">
+            <span class="dato-label">L&iacute;der del cr&eacute;dito</span>
+          </div>
+          <div class="row mx-0 detalle-cliente-group">
+            <div class="col-9 d-flex align-items-center justify-content-start">
+              <input class="mr-4" type="radio" formControlName="identificacion"
+                     [value]="lider?.datosIdentificacionCliente?.numeroIdentificacion || ''"/>
+              <div class="d-flex">
+                <div class="d-flex flex-column detalle-cliente-dato">
+                  <div>
+                  <span class="titulo-seccion">
+                    {{ lider?.datosPersonalesCliente?.nombre1 || '' }} {{ lider?.datosPersonalesCliente?.nombre2 || '' }}
+                  </span>
+                    <span class="titulo-seccion">
+                    {{ lider?.datosPersonalesCliente?.apellido1 || '' }} {{ lider?.datosPersonalesCliente?.apellido2 || '' }}
+                  </span>
+                  </div>
+                  <div>
+                    <span class="dato-label"
+                          [class.text-primary]="[1, 3].includes(estadoAcuerdoPorCliente(lider.datosIdentificacionCliente.numeroIdentificacion))"
+                          [class.text-warning]="estadoAcuerdoPorCliente(lider.datosIdentificacionCliente.numeroIdentificacion) === 2">
+                      {{
+                      (estadoAcuerdoPorCliente(lider.datosIdentificacionCliente.numeroIdentificacion) === 1 && 'No ha realizado acuerdos') ||
+                      (estadoAcuerdoPorCliente(lider.datosIdentificacionCliente.numeroIdentificacion) === 2 && 'Tiene acuerdo vigente') ||
+                      (estadoAcuerdoPorCliente(lider.datosIdentificacionCliente.numeroIdentificacion) === 3 && 'Tiene acuerdo vencido')
+                      }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="d-flex flex-column detalle-cliente-dato">
+                <span class="titulo-seccion">Contacto</span>
+                <span class="dato-valor">{{ lider?.datosContactoCliente?.telefono || '' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CODEUDORES -->
+        <div class="detalle-cliente" *ngIf="codeudores.length > 0">
+          <div class="mb-3">
+            <span class="dato-label">Codeudores</span>
+          </div>
+          <div class="row mx-0 detalle-cliente-group" *ngFor="let cliente of codeudores">
+            <div class="col-9 d-flex align-items-center justify-content-start">
+              <input class="mr-4" type="radio" formControlName="identificacion"
+                     [value]="cliente?.datosIdentificacionCliente?.numeroIdentificacion"/>
+              <div class="d-flex flex-column detalle-cliente-dato">
+                <div>
+                        <span class="titulo-seccion">
+                          {{ cliente?.datosPersonalesCliente?.nombre1 || '' }} {{ cliente?.datosPersonalesCliente?.nombre2 || '' }}
+                        </span>
+                  <span class="titulo-seccion">
+                          {{ cliente?.datosPersonalesCliente?.apellido1 || '' }} {{ cliente?.datosPersonalesCliente?.apellido2 || '' }}
+                        </span>
+                </div>
+                <div>
+                  <span class="dato-label"
+                        [class.text-primary]="[1, 3].includes(estadoAcuerdoPorCliente(cliente.datosIdentificacionCliente.numeroIdentificacion))"
+                        [class.text-warning]="estadoAcuerdoPorCliente(cliente.datosIdentificacionCliente.numeroIdentificacion) === 2">
+                      {{
+                    (estadoAcuerdoPorCliente(cliente.datosIdentificacionCliente.numeroIdentificacion) === 1 && 'No ha realizado acuerdos') ||
+                    (estadoAcuerdoPorCliente(cliente.datosIdentificacionCliente.numeroIdentificacion) === 2 && 'Tiene acuerdo vigente') ||
+                    (estadoAcuerdoPorCliente(cliente.datosIdentificacionCliente.numeroIdentificacion) === 3 && 'Tiene acuerdo vencido')
+                    }}
+                    </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-3 d-flex flex-column detalle-cliente-dato">
+              <span class="titulo-seccion">Contacto</span>
+              <span class="dato-valor">{{ cliente?.datosContactoCliente?.telefono || '' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer border-0">
+    <div class="row w-100 justify-content-center">
+      <div class="col-12">
+        <a class="btn btn-primary w-100 boton" (click)="submit()">Continuar</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,182 @@
+<div id="modal-edicion-campos" class="px-2">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Modificar Solicitud</h4>
+        <button type="button" class="close icon-close text-primary" (click)="modal.dismiss('Cross click')">
+        </button>
+    </div>
+    <div class="modal-body row modal-body-size">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    <span class="titulo-seccion">
+                        Estás modificando: <span class="dato-valor dato-valor-negrita">Desembolso</span>
+                    </span>
+                </div>
+                <div class="col-12 valor-anterior">
+                    <span class="titulo-seccion">
+                        Valor Actual: <span class="dato-valor dato-valor-negrita"></span>
+                    </span>
+                </div>
+                <div class="col-12 valor-anterior">
+                    <span class="dato-valor dato-valor-negrita">
+                        Cr&eacute;dito de la cuenta: <span
+                            class="dato-label">({{desembolso.tipoDesembolso.tipo}})</span>
+                    </span>
+                </div>
+            </div>
+            <!-- Fila para banco, número de cuenta y tipo de cuenta -->
+
+            <div class="col-12">
+                <div class="row">
+                    <!-- Columna para el banco -->
+                    <div class="col-4 d-flex flex-column detalle-cliente-dato"
+                        *ngIf="desembolso.tipoDesembolso.id === 2">
+                        <span class="dato-label-detalle">Banco</span>
+                        <span class="dato-valor-detalle">{{ desembolso?.banco?.banco }}</span>
+                    </div>
+                    <!-- Columna para el tipo de cuenta -->
+                    <div class="col-4 d-flex flex-column detalle-cliente-dato"
+                        *ngIf="desembolso.tipoDesembolso.id === 2">
+                        <span class="dato-label-detalle">Tipo de cuenta</span>
+                        <span class="dato-valor-detalle">{{ desembolso?.tipoCuenta?.tipo }}</span>
+                    </div>
+                    <!-- Columna para el número de cuenta -->
+                    <div class="col-4 d-flex flex-column detalle-cliente-dato">
+                        <span class="dato-label-detalle"># cuenta</span>
+                        <span class="dato-valor-detalle">{{ desembolso?.numeroCuenta }}</span>
+                    </div>
+                </div>
+            </div>
+            <form [formGroup]="form">
+                <div class="col-12" style="padding-left: 0px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="group-form-material">
+                                <label for="filterTipoTransferenciaField"
+                                    [class.input-filled]="form.controls.tipoTransferencia.value !== ''">Selecciona el
+                                    tipo de transferencia</label>
+                                <select id="filterTipoTransferenciaField" class="w-100"
+                                    [class.is-invalid]="form.controls.tipoTransferencia.invalid"
+                                    [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                                    formControlName="tipoTransferencia" (change)="seleccionarTipoTransferencia($event)">
+                                    <option *ngFor="let tipotransferencia of tranferencia"
+                                        [ngValue]="tipotransferencia">
+                                        {{tipotransferencia?.tipo}}</option>
+                                </select>
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="form.controls.tipoTransferencia.errors?.required">Por favor selecciona
+                                        un valor.</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="mostraCampos">
+                    <!-- Columna para el banco -->
+                    <div class="col-4">
+                        <div class="group-form-material">
+                            <label for="selectBanco"
+                                [class.input-filled]="form.controls.banco.value !== ''">Banco</label>
+                            <select id="selectBanco" class="w-100" [class.is-invalid]="form.controls.banco.invalid"
+                                [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                                formControlName="banco">
+                                <option *ngFor="let banco of bancos" [ngValue]="banco">
+                                    {{ banco.banco }}
+                                </option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <div class="invalid-feedback">
+                                <span *ngIf="form.controls.banco.errors?.required">Por favor selecciona
+                                    un valor.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Columna para el tipo de cuenta -->
+                    <div class="col-4">
+                        <div class="group-form-material">
+                            <label for="selectTipoCuenta"
+                                [class.input-filled]="form.controls.tipoCuenta.value !== ''">Tipo de cuenta</label>
+                            <select id="selectTipoCuenta" class="w-100"
+                                [class.is-invalid]="form.controls.tipoCuenta.invalid"
+                                [class.form-control-plaintext]="form.disabled" [class.bg-white]="form.disabled"
+                                formControlName="tipoCuenta">
+                                <option *ngFor="let tipoCuentaObjeto of tipoCuenta" [ngValue]="tipoCuentaObjeto">
+                                    {{ tipoCuentaObjeto.tipo }}
+                                </option>
+                            </select>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <div class="invalid-feedback">
+                                <span *ngIf="form.controls.tipoCuenta.errors?.required">Por favor selecciona
+                                    un valor.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Columna para el tipo de transferencia -->
+                    <div class="col-4">
+                        <div class="group-form-material">
+                            <input type="text" class="w-100" formControlName="numeroCuenta">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label [class.input-filled]="form.controls.numeroCuenta.value !== ''"
+                                [class.is-invalid]="form.controlInvalid(form.controls.numeroCuenta)">Número de
+                                cuenta</label>
+                            <div class="invalid-feedback">
+                                <span *ngIf="form.controls.numeroCuenta.errors?.required">
+                                    Por favor ingresa un valor.
+                                </span>
+
+                                <span *ngIf="form.controls.numeroCuenta.errors?.maxlength">
+                                    Campo debe tener m&aacute;ximo
+                                    {{form.controls.numeroCuenta.errors?.maxlength.requiredLength}} d&iacute;gitos.
+                                </span>
+
+                                <span *ngIf="form.controls.numeroCuenta.errors?.minlength">
+                                    Campo debe tener m&iacute;nimo
+                                    {{form.controls.numeroCuenta.errors?.minlength.requiredLength}} d&iacute;gitos.
+                                </span>
+
+                                <span *ngIf="form.controls.numeroCuenta.errors?.pattern">
+                                    Por favor ingresa solo números
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-12" style="padding-left: 0px;">
+                    <span class="dato-label">Agregar un nuevo comentario sobre este cambio</span>
+                </div>
+                <div class="col-12 textarea-top" style="padding-left: 0px;">
+                    <div class="group-form-material">
+                        <textarea id="textarea" name="textarea" rows="5" cols="84" formControlName="motivo"
+                            [class.is-invalid]="form.controlInvalid(form.controls.motivo)"></textarea>
+                        <div class="invalid-feedback">
+                            <span *ngIf="form.controls.motivo.errors?.required">Por favor ingresa un motivo.</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="modal-footer border-0">
+        <div class="row w-100 justify-content-center">
+            <div class="col-4">
+                <a class="btn btn-dark w-100 boton" (click)="modal.dismiss()">Cancelar</a>
+            </div>
+            <div class="col-4">
+                <a class="btn btn-primary w-100 boton" (click)="submit()">Modificar solicitud</a>
+            </div>
+        </div>
+    </div>
+</div>

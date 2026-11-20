@@ -1,0 +1,68 @@
+<div class="p-3">
+    <a class="btn btn-link text-decoration-none px-0" [routerLink]="['/', 'config', 'sucursales']">
+        <img class="boton-back" src="../../../../assets/images/arrow-left.svg">
+        <span class="label-sucur">Lista de sucursales</span>
+    </a>
+    <div class="d-flex pt-4 flex-row justify-content-between">
+        <div><span class="h4">Zonas - {{nombreSucursal}}</span></div>
+        <div><a class="btn btn-primary" style="min-width: 150px;" (click)="registrar()">Nueva Zona</a></div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="group-form-material">
+                <input type="text" #nombre class="w-100" [formControl]="filter">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label [class.input-filled]="nombre.value !== ''">Buscar</label>
+                <div class="invalid-feedback">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex py-4">
+        <table class="table" *ngIf="!aviso">
+            <tbody>
+                <tr class="d-flex" *ngFor="let zona of zonas$ | async; index as i">
+
+  <td class="text-left col-3">
+    <span>{{ zona.nombre | titlecase }}</span>
+  </td>
+
+  <td class="text-left col-4">
+    <span>
+      {{ empleado(zona)?.nombre || 'Zona huerfana' | titlecase }}
+      {{ empleado(zona)?.apellido | titlecase }}
+    </span>
+  </td>
+
+  
+
+  
+  <td class="d-flex align-items-center justify-content-end col-5">
+
+    <a class="btn btn-outline-secondary btn-sm me-2"
+       *ngIf="zona?.usuario_id !== undefined"
+       (click)="quitarAsesor(zona)">
+      Quitar asesor
+    </a>
+
+    <a class="btn btn-outline-secondary btn-sm me-2"
+       (click)="modificar(zona)">
+      Editar
+    </a>
+
+    
+
+  </td>
+
+</tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-center py-3" *ngIf="aviso">
+        <span class="h4 align-self-center titulo-seccion">No hay resultados para esta b&uacute;squeda</span>
+    </div>
+</div>

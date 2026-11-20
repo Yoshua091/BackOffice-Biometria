@@ -1,0 +1,19 @@
+<div class="d-flex flex-column py-4" *ngIf="cantidad > 0">
+  <table class="table">
+    <tbody>
+      <tr class="detalle-cliente" *ngFor="let propuesta of listado">
+        <td class="px-0">
+          <app-card-propuesta [propuesta]="propuesta" (cargarComite)="cargarComite.emit()"
+            (ver)="detalleSolicitud(propuesta._id, 13, 1)"></app-card-propuesta>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ngb-pagination class="align-self-center" [collectionSize]="cantidad" [(page)]="pagina" [maxSize]="5" [rotate]="true"
+    [pageSize]="cantidadPorPagina" (pageChange)="pageChange.emit($event)">
+  </ngb-pagination>
+</div>
+
+<div class="d-flex justify-content-center py-3" *ngIf="cantidad === 0">
+  <span class="h4 align-self-center titulo-seccion">No hay solicitudes para mostrar</span>
+</div>

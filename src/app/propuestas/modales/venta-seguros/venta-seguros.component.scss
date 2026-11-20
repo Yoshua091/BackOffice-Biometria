@@ -1,0 +1,93 @@
+.detalle-cliente-dato {
+    padding-bottom: 0.5rem;
+}
+
+.mensaje-validaciones {
+    color: #dc3545;
+    font: normal normal bold 1rem/20px Roboto;
+    text-align: center;
+  }
+
+.dato-valor {
+    font: normal normal normal 14px/20px Roboto;
+    color: #545454;
+}
+
+.dato-label {
+    font: normal normal normal 12px/20px Roboto;
+    color: #545454;
+    opacity: 0.5;
+}
+
+.dato-label-detalle {
+    font: normal normal normal 12px/20px Roboto;
+    color: #545454;
+    opacity: 0.5;
+}
+
+.dato-valor-detalle {
+    font: normal normal normal 14px/20px Roboto;
+    color: #545454;
+}
+
+.titulo-seccion {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font: normal normal bold 14px/20px Roboto;
+    color: #545454;
+}
+
+.titulo-seccion-nombre {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font: normal normal bold 18px Roboto;
+    color: #545454;
+}
+
+.modal-body .col-12 h5 {
+    font-weight: bold;
+}
+
+.content-wrapper {
+    width: 100%;
+}
+
+.list-unstyled {
+    padding-left: 0;
+    margin: 0;
+}
+
+.list-item {
+    display: flex;
+    align-items: flex-start; /* Alinea verticalmente al inicio */
+}
+
+.viñeta {
+    display: inline-block;
+    width: 20px; /* Ajusta según el espacio que quieras */
+    text-align: center; /* Centra la viñeta */
+}
+
+.texto {
+    display: inline-block;
+    max-width: calc(100% - 30px); 
+    padding-left: 10px; 
+    text-align: justify; 
+}
+
+
+.titulo-seccion-periodo {
+    padding-left: 10px;
+    font: normal normal bold 16px Roboto;
+    color: #545454;
+}
+
+.modal-content {
+    padding: 20px;
+}
+
+.custom-width {
+    width: 230px; 
+    text-align: center; 
+    height: 36px;
+}

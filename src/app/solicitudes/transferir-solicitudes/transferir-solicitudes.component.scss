@@ -1,0 +1,52 @@
+
+.dato-valor-negrita {
+    font-weight: bold;
+}
+
+.valor-anterior {
+    margin-top: 21px;
+}
+
+.nuevo-valor {
+    margin-top: 2px;
+}
+
+.modal-body-size {
+    top: 3px;
+    left: 25px;
+}
+
+.dato-label {
+    margin-left: 0.25rem;
+    color: #767676;
+    opacity: 100%;
+    font: normal normal 14px Roboto;
+}
+
+.comentario {
+    margin-top: -14px;
+}
+
+textarea {
+    border: 1px solid #70707088;
+    border-radius: 4px;
+
+    &:focus {
+        border: 1px solid #707070;
+        box-shadow: 0 0 0 0.2rem #70707055;
+    }
+}
+
+.textarea-top{
+    margin-top: 12px;
+}
+
+.boton{
+    padding-top: 6px;
+}
+
+
+
+
+
+

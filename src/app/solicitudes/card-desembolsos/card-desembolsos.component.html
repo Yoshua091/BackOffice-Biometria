@@ -1,0 +1,145 @@
+<div class="container-fluid px-0">
+    <div class="row mt-1 ">
+        <div class="col-1 d-flex align-items-center justify-content-center">
+            <div class="row">
+                <div class="propuesta-tipo__icon border-dark col-12"
+                    [class.icon-cliente-lider]="esIndividual(propuesta)"
+                    [class.icon-cliente-experto]="esClienteExperto(propuesta)"
+                    [class.icon-cliente-grupo]="esGrupal(propuesta)">
+                </div>
+                <div class="col-12 d-flex align-items-center justify-content-center">
+                    <span *ngIf="!!propuesta.renovacion" class="propuesta-tipo__renovacion">Renovaci&oacute;n</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-5 d-flex align-items-center">
+            <div class="container-fluid" style="border-right: 1px solid #dee2e6">
+                <table class="table" style="border: hidden">
+                    <thead>
+                        <tr>
+                            <th class="col-4 font-subtitle font-gray" style="padding: 0.12rem; border: hidden;">Miembros
+                            </th>
+                            <th class="col-2 font-subtitle font-gray"
+                                style="padding: 0.12rem; border: hidden; text-align: center">Identificaci&oacute;n
+                            </th>
+                            <th class="col-2 font-subtitle font-gray"
+                                style="padding: 0.12rem; border: hidden; text-align: center;">Monto Solicitado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let miembro of miembros">
+                            <td class="font-small font-dark-gray code" style="border: hidden; padding: 0.12rem;"
+                                (click)="copyToClipboard(element)" #element>
+                                {{getNameMiembro(miembro)}}
+                                <div class="row font-small font-dark-gray font-weight-bold"
+                                    style="border: hidden; color: #545454; margin-left: 0px;">
+                                    {{miembro.tipoMiembro.tipo}}
+                                </div>
+                            </td>
+                            <td class="font-small font-dark-gray code"
+                                style="border: hidden; padding: 0.12rem; text-align: right"
+                                (click)="copyToClipboard(element2)" #element2>
+                                {{miembro.datosIdentificacionCliente.tipoIdentificacion.tipo}}:
+                                {{miembro.datosIdentificacionCliente.numeroIdentificacion}}
+                            </td>
+                            <td class="font-small font-dark-gray"
+                                *ngIf="!(miembro.tipoMiembro.tipo).includes('Codeudor')"
+                                style="border: hidden; padding: 0.12rem; text-align: right">
+                                {{miembro.solicitudEconomica.valoresDetalles.monto |
+                                currency: '$' : 'symbol' : '1.0-0'}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-6 d-flex align-items-center">
+            <div class="container-fluid px-0" style="position: absolute; top:0; right:0">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="font-subtitle font-gray">
+                            # de propuesta:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2 code" (click)="copyToClipboard(element3)" #element3>
+                            {{propuesta.idSolicitud}}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="font-subtitle font-gray">
+                            F. de recepci&oacute;n:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2" style="cursor: pointer;"
+                            (click)="solicitudLog(propuesta)">
+                            {{ (propuesta.logEstados | estadoFecha: [propuesta.estado])?.fecha || propuesta.createdAt |
+                            date: 'dd/MM/yy, h:mm a' }}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="font-subtitle font-gray">
+                            Valor del cr&eacute;dito:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2">
+                            {{ sumCuotas(propuesta) | currency: '$' : 'symbol' : '1.0-0'}}
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="font-subtitle font-gray">
+                            Sucursal:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2">
+                            {{propuesta.sucursal.nombre}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 mt-4">
+                        <div class="font-subtitle font-gray">
+                            Estado:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2">
+                            {{estadosSolicitud[propuesta.estado]}}
+                        </div>
+                    </div>
+                    <div class="col-3 mt-4">
+                        <div class="font-subtitle font-gray">
+                            Agente:
+                        </div>
+                        <div class="font-small font-dark-gray mt-2">
+                            {{ propuesta.usuarioRegistra?.nombre | titlecase}} {{ propuesta.usuarioRegistra?.apellido |
+                            titlecase}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Botones -->
+    <div class="row" style="margin-top: 2.5rem !important">
+        <div class="col-7" style="margin-block-start: auto">
+            <div class="font-subtitle font-gray">
+                Motivo del error:
+            </div>
+            <div class="font-small font-dark-gray">
+                {{ formatearError(propuesta) }}
+            </div>
+        </div>
+        <div class="col align-self-end w-100 mt-3">
+            <div class="container-fluid">
+                <button class="btn btn-primary float-right" *ngIf="propuesta.estado !== 66 && propuesta.estado !== 71"
+                    (click)="reenviarEmit(propuesta, estados.DesembolsoConfirmado)">Aprobar</button>
+            </div>
+        </div>
+        <div class="col align-self-end w-100 mt-3" style="max-width: 9%">
+            <div class="container-fluid">
+                <button *ngIf="propuesta.estado === 66" class="btn btn-primary float-right"
+                (click)="reenviarEmit(propuesta, estados.ValidacionAsistente)">Asistente</button>
+            </div>
+        </div>
+        <div class="col align-self-end mt-3 " style="max-width: 12.666667%">
+            <div class="container-fluid">
+                <button class="btn btn-primary float-right"
+                    (click)="reenviarEmit(propuesta, estados.LegalizandoCredito)">Desembolsar</button>
+            </div>
+        </div>
+    </div>
+</div>

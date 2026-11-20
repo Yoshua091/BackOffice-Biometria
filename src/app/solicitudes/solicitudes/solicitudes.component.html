@@ -1,0 +1,29 @@
+<div class="p-4">
+
+  <div class="d-flex pt-3">
+    <span class="h4">Solicitudes</span>
+  </div>
+
+  <form [formGroup]="form" class="row">
+
+    <div class="col-6">
+      <div class="group-form-material">
+        <input type="text" class="w-100" formControlName="id_solicitud"
+          [class.is-invalid]="form.controls.id_solicitud | invalidControl">
+        <span class="highlight"></span>
+        <span class="bar"></span>
+        <label [class.input-filled]="form.controls.id_solicitud.value !== ''">ID Solicitud o ID del Registro</label>
+        <div class="invalid-feedback">
+          <span *ngIf="form.controls.id_solicitud.errors?.required">Por favor ingresa un ID.</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-3 d-flex align-items-center">
+      <button class="btn btn-primary" [disabled]="form.invalid" (click)="submit()">Consultar</button>
+    </div>
+    <div class="col-3 d-flex align-items-center justify-content-end" *ngIf="sendInfo">
+      <button class="btn btn-primary" style="width: 50%;" (click)="enviarJSON()">Guardar</button>
+    </div>
+  </form>
+  <div id="jsoneditor" style="height: 75vh;"></div>
+</div>
